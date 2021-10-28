@@ -1,1 +1,6 @@
-export {default} from './Button'
+const Button = () => {
+    return (
+        <div></div>
+    )
+}
+export default Button

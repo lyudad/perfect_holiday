@@ -1,1 +1,6 @@
-export {default} from './Navigation'
+const Navigation = () => {
+    return (
+        <div></div>
+    )
+}
+export default Navigation

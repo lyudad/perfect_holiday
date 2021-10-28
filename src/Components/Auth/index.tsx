@@ -1,1 +1,6 @@
-export {default}from './Auth'
+const Auth = () => {
+    return (
+        <div></div>
+    )
+}
+export default Auth

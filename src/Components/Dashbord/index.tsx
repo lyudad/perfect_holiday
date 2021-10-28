@@ -1,1 +1,6 @@
-export {default} from './Dashbord'
+const Dashbord = () => {
+    return (
+        <div></div>
+    )
+}
+export default Dashbord

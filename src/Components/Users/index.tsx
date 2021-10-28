@@ -1,1 +1,6 @@
-export {default} from './Users'
+const Users = () => {
+    return (
+        <div></div>
+    )
+}
+export default Users
