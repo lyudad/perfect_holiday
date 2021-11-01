@@ -1,13 +1,9 @@
 import React from "react";
 import { Form, Input, Button, Row as AntRow } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { ILoginVars } from "./types";
 import { Row } from "./styles";
 import "antd/dist/antd.css";
 
-const LOGIN_VARS: ILoginVars = {
-    BG: "rgb(8 8 8 / 7%)"
-};
 
 const LoginView = (): JSX.Element => {
     return (
