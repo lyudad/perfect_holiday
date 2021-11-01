@@ -1,9 +1,9 @@
 import React from "react";
+import { lang } from "~/language/en";
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Row } from "./styles";
 import "antd/dist/antd.css";
-import { lang } from "../../language/en";
 
 
 const LoginView = (): JSX.Element => {
