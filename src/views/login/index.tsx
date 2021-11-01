@@ -1,8 +1,9 @@
 import React from "react";
-import { Form, Input, Button, Row as AntRow } from "antd";
+import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Row } from "./styles";
 import "antd/dist/antd.css";
+import { lang } from "../../language/en";
 
 
 const LoginView = (): JSX.Element => {
@@ -18,7 +19,7 @@ const LoginView = (): JSX.Element => {
                     rules={[{
                         type: "email",
                         required: true,
-                        message: "Please enter your email address as your login!"
+                        message: `${lang.login["email-validation"]}`
                     }]}
                 >
                     <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Login" />
@@ -28,7 +29,7 @@ const LoginView = (): JSX.Element => {
                     name="password"
                     rules={[{
                         required: true,
-                        message: "Please enter your password!"
+                        message: `${lang.login["password-validation"]}`
                     }]}
                 >
                     <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Password" />
