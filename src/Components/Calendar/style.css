@@ -1,0 +1,32 @@
+.ant-picker-panel-container {
+    /* background: red; */
+    min-width: 555px;
+    width: 926px;
+    /* margin-left: -293px; */
+    /* width: 1000px; */
+}
+
+.ant-picker-dropdown-placement-bottomLeft .ant-picker-range-arrow {
+    display: none;
+}
+
+.ant-picker-panels {
+    width: 100%;
+}
+
+.ant-picker-panel {
+    width: calc(100% / 2);
+}
+
+.ant-picker-date-panel {
+    width: 100%;
+}
+
+
+.ant-picker-date-panel .ant-picker-content {
+    width: 100%;
+}
+
+.ant-picker-range-arrow::after {
+    display: none;
+}
