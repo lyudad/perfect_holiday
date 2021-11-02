@@ -1,6 +1,6 @@
 import React from "react";
 import "antd/dist/antd.css";
-import {lang} from "../../language/en";
+import {lang} from "../../language/english";
 import {Row, Input, Form} from 'antd';
 import {Table} from 'antd';
 import {
