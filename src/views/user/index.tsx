@@ -5,17 +5,14 @@ import {Row, Input, Form} from 'antd';
 import {Table} from 'antd';
 import {
     StyledLayout,
-    StyledList,
-    StyledItem,
-    StyledSider,
     StyledContent,
     StyledButton,
     StyledFormItem,
     StyledDivContent,
     StyledDivVacationInfo,
-    StyledLogout
 } from "./styles";
 import { columns } from "./const";
+import Layout from "./layout";
 
 const data = [
     {
@@ -50,18 +47,10 @@ const data = [
 
 ];
 const UserView = (): JSX.Element => {
-    return (
-        <StyledLayout>
-            <StyledSider>
-                <StyledList>
-                    <StyledItem key="1">{lang.profile["profile"]}</StyledItem>
-                </StyledList>
-                <StyledLogout key="4">{lang.profile["logout"]}</StyledLogout>
-            </StyledSider>
+    return (<Layout>
             <StyledLayout>
                 <StyledContent>
                     <StyledDivContent className="site-layout-background">
-
                         <Row>
                             <Form
                                 name="VacationForm"
@@ -111,8 +100,8 @@ const UserView = (): JSX.Element => {
                     <Table columns={columns} dataSource={data} size="large"/>
                 </StyledContent>
             </StyledLayout>
+    </Layout>
 
-        </StyledLayout>
 
     )
 }
