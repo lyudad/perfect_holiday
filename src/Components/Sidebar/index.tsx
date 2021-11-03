@@ -1,5 +1,5 @@
 import {StyledItem, StyledList, StyledLogout, StyledSider} from "./styled";
-import {lang} from "../../language/english";
+import {lang} from "~/language/english";
 import React from "react";
 
 const Sidebar = (): JSX.Element => {

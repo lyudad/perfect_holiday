@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from '../../Components/Sidebar';
+import Sidebar from '~/Components/Sidebar';
 
 // @ts-ignore
 const Layout = ({children}):JSX.Element => {
