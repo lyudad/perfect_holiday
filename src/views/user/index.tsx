@@ -70,10 +70,10 @@ const UserView = (): JSX.Element => {
         <StyledLayout>
             <StyledSider>
                 <StyledList>
-                    <StyledItem key="1">Profile</StyledItem>
+                    <StyledItem key="1">{lang.profile["profile"]}</StyledItem>
                     <StyledItem key="2">&nbsp;</StyledItem>
                     <StyledItem key="3">&nbsp;</StyledItem>
-                    <StyledItem key="4">Logout</StyledItem>
+                    <StyledItem key="4">{lang.profile["logout"]}</StyledItem>
                 </StyledList>
             </StyledSider>
             <StyledLayout>
