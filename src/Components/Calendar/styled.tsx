@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-
 import { DatePicker, Button, Select } from 'antd';
+
 
 const CalendarBlock = styled.div`
     width: calc(100% - 50%);
@@ -9,11 +9,11 @@ const CalendarBlock = styled.div`
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     margin: auto;
     position: relative;
     padding: 20px;
-    border: 1px solid red;
+    border: 1px solid #f0f0f0;
     border-radius: 2px;
 `;
 
@@ -39,7 +39,6 @@ const BottomBlock = styled.div`
     justify-content: space-between;
 
 `;
-
 
 export {
     DatePickerBlock,

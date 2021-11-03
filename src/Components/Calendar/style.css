@@ -1,13 +1,22 @@
 .ant-picker-panel-container {
-    /* background: red; */
     min-width: 555px;
-    width: 926px;
-    /* margin-left: -293px; */
-    /* width: 1000px; */
 }
 
 .ant-picker-dropdown-placement-bottomLeft .ant-picker-range-arrow {
     display: none;
+}
+
+.ant-picker-dropdown {
+    width: 50%;
+    width: calc((100% / 2) - 40px);
+    left: calc((100% / 4) + 20px);
+    position: fixed;
+    margin: auto;
+}
+
+.ant-picker-dropdown .ant-picker-dropdown-range .ant-picker-dropdown-placement-bottomLeft {
+    position: fixed;
+    left: 0px;
 }
 
 .ant-picker-panels {
@@ -20,6 +29,10 @@
 
 .ant-picker-date-panel {
     width: 100%;
+}
+
+.ant-picker-panel-container .ant-picker-panel-focused:first-child {
+    border-right: 1px solid #f0f0f0;;
 }
 
 
