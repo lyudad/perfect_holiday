@@ -7,7 +7,6 @@ import 'moment/locale/en-gb';
 import locale from 'antd/es/locale/en_GB';
 
 
-
 moment.locale('en-gb', {
   week: {
     dow: 1
