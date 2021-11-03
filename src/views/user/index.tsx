@@ -12,7 +12,8 @@ import {
     StyledButton,
     StyledFormItem,
     StyledDivContent,
-    StyledDivVacationInfo
+    StyledDivVacationInfo,
+    StyledLogout
 } from "./styles";
 
 const columns = [
@@ -71,10 +72,8 @@ const UserView = (): JSX.Element => {
             <StyledSider>
                 <StyledList>
                     <StyledItem key="1">{lang.profile["profile"]}</StyledItem>
-                    <StyledItem key="2">&nbsp;</StyledItem>
-                    <StyledItem key="3">&nbsp;</StyledItem>
-                    <StyledItem key="4">{lang.profile["logout"]}</StyledItem>
                 </StyledList>
+                <StyledLogout key="4">{lang.profile["logout"]}</StyledLogout>
             </StyledSider>
             <StyledLayout>
                 <StyledContent>
@@ -112,7 +111,7 @@ const UserView = (): JSX.Element => {
                             </Form>
                         </Row>
                         <Row>
-                            <StyledDivVacationInfo >
+                            <StyledDivVacationInfo>
                                 <strong>
                                     2 sick leave
                                 </strong>
