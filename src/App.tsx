@@ -10,5 +10,8 @@ function App(): JSX.Element {
       <Switch>
         <Route exact path="/admin-page" component={AdminView} />
       </Switch>
+    </Container>
+  );
+}
 
 export default App;

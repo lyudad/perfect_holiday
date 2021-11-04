@@ -1,17 +1,16 @@
-import {StyledItem, StyledList, StyledLogout, StyledSider} from "./styled";
-import {lang} from "~/language/english";
-import React from "react";
+import { SidebarBlock, SidebarUl, SidebarLi } from "./styled";
+import { lang } from "language/en";
 
-const Sidebar = (): JSX.Element => {
+const Sidebar = () => {
     return (
-        <StyledSider>
-            <StyledList>
-                <StyledItem key="1">{lang.profile["profile"]}</StyledItem>
-                {/*<StyledItem key="2">{lang.profile["profile"]}</StyledItem>*/}
-                {/*<StyledItem key="3">{lang.profile["profile"]}</StyledItem>*/}
-            </StyledList>
-            <StyledLogout key="4">{lang.profile["logout"]}</StyledLogout>
-        </StyledSider>
+        <SidebarBlock>
+            <SidebarUl>
+                <SidebarLi value="Dashboard">{`${lang.sidebar["dashboard"]}`}</SidebarLi>
+                <SidebarLi value="Users">{`${lang.sidebar["users"]}`}</SidebarLi>
+                <SidebarLi value="Profile">{`${lang.sidebar["profile"]}`}</SidebarLi>
+                <SidebarLi value="Logout">{`${lang.sidebar["logout"]}`}</SidebarLi>
+            </SidebarUl>
+        </SidebarBlock>
     )
 }
 export default Sidebar
