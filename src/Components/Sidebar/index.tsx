@@ -1,5 +1,5 @@
-import { SidebarBlock, SidebarUl, SidebarLi } from "./styled"
-import { lang } from "../../language/en";
+import { SidebarBlock, SidebarUl, SidebarLi } from "./styled";
+import { lang } from "language/en";
 
 const Sidebar = () => {
     return (
