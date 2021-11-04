@@ -1,22 +1,22 @@
 import styled from 'styled-components';
 
-const Border = {
-    color: "#bfbfbf",
-}
+// const Border = {
+//     color: "#bfbfbf",
+// }
 
-const border = { #bfbfbf };
+// const border = { #bfbfbf;
 
-const Background = {
-    backgroundColor: "#f5f5f5",
-}
+// const Background = {
+//     backgroundColor: "#f5f5f5",
+// }
 
-const BackgroundHover = {
-    bacgroundColor: "#d9d9d9",
-}
+// const BackgroundHover = {
+//     bacgroundColor: "#d9d9d9",
+// }
 
 
 const SidebarBlock = styled.div`
-    border: 1px solid {<Border>||<color>};
+    border: 1px solid #bfbfbf;
     
     border-radius: 2px;
     width: 200px;
