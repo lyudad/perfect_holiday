@@ -10,6 +10,12 @@ export const lang = {
     profile:{
         "profile":"Profile",
         "logout":"Logout"
+    },
+    sidebar: {
+        "dashboard": "Dashboard",
+        "users": "Users",
+        "profile": "Profile",
+        "logout": "Logout",
     }
 
 }
