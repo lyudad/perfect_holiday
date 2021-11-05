@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import axios from "axios";
+import axios from "axios"
 
 export type User = {
   id: number;
@@ -11,7 +11,9 @@ export default function useUsers() {
     "users",
     async (): Promise<Array<User>> => {
       const { data } = await axios.get(
-        "http://jsonplaceholder.typicode.com/users"
+        "http://jsonplaceholder.typicode.com/users" 
+        //  process.env.REACT_APP_USERS_LIST 
+        // Не работаетб разбираюсь
       );
       return data;
     }
