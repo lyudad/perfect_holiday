@@ -2,6 +2,11 @@
   "compilerOptions": {
     "target": "es5",
     "baseUrl": "./src",
+    "paths": {
+      "~/*": [
+        "*"
+      ] // resolve any `~/foo/bar` to `<baseUrl>/foo/bar`
+    },
     "lib": [
       "dom",
       "dom.iterable",
