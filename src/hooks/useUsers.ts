@@ -1,11 +1,9 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-type User = {
+export type User = {
   id: number;
-  title: string
-  body: string
-  error: typeof Error
+  name: string;
 }
 
 export default function useUsers() {
@@ -13,7 +11,7 @@ export default function useUsers() {
     "users",
     async (): Promise<Array<User>> => {
       const { data } = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
+        "http://jsonplaceholder.typicode.com/users"
       );
       return data;
     }
