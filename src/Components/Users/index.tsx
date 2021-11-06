@@ -12,7 +12,6 @@ const Users = () => {
     if (isLoading) return <Loading />
     if (error instanceof Error) return <h1>Error: {error.message}</h1>
 
-
     return (
         <StyledLayout>
             <StyledContent>
