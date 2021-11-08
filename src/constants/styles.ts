@@ -11,5 +11,5 @@ export const SIDEBAR = {
     FontSize: "18px"
 }
 export const URL ={
-    Url: "http://localhost:8080/login"
+    Url: "http://localhost:3001/auth/login"
 }
