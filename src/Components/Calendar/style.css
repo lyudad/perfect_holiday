@@ -9,7 +9,6 @@
 .ant-picker-dropdown {
     width: 50%;
     width: calc((100% / 2) - 40px);
-    left: calc((100% / 4) + 20px);
     margin: auto;
 }
 
