@@ -10,3 +10,6 @@ export const SIDEBAR = {
     BacgroundColorHover: "#d9d9d9",
     FontSize: "18px"
 }
+export const URL ={
+    Url: "http://localhost:8080/login"
+}
