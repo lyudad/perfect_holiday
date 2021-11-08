@@ -11,9 +11,7 @@ export default function useUsers() {
     "users",
     async (): Promise<Array<User>> => {
       const { data } = await axios.get(
-        "http://jsonplaceholder.typicode.com/users" 
-        //  process.env.REACT_APP_USERS_LIST 
-        // Не работаетб разбираюсь
+        "http://jsonplaceholder.typicode.com/users"
       );
       return data;
     }
