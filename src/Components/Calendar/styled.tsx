@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { DatePicker, Button, Select } from 'antd';
+import { Button, Select } from 'antd';
 
 
 const CalendarBlock = styled.div`
@@ -9,19 +9,11 @@ const CalendarBlock = styled.div`
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    /* align-items: center; */
     margin: auto;
     position: relative;
     padding: 20px;
     border: 1px solid #f0f0f0;
     border-radius: 2px;
-`;
-
-const DatePickerBlock = styled(DatePicker)`
-    /* .ant-picker-panel-container {
-        background: red;
-    } */
-
 `;
 
 const SubmitButton = styled(Button)`
@@ -41,7 +33,6 @@ const BottomBlock = styled.div`
 `;
 
 export {
-    DatePickerBlock,
     SubmitButton,
     CalendarBlock,
     SelectBlock,
