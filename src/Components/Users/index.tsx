@@ -1,6 +1,7 @@
 import { Table, Space } from 'antd';
 import 'antd/dist/antd.css';
-import {StyledButton, StyledContent, StyledLayout } from './styles';
+import {ButtonUsers} from 'Components/Button';
+import { StyledContent, StyledLayout } from './styles';
 const { Column } = Table;
 
 const data = [
@@ -23,7 +24,8 @@ const Users = ()=>{
     return(
         <StyledLayout>
             <StyledContent>
-                <StyledButton type="primary" shape="round" htmlType="submit" size="large">+</StyledButton>
+                {/*<StyledButton type="primary" shape="round" htmlType="submit" size="large">+</StyledButton>*/}
+                <ButtonUsers>+</ButtonUsers>
                 <Table dataSource={data}>
                     <Column title="First Name" dataIndex="firstName" key="firstName" />
                     <Column

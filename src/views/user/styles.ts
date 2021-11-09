@@ -20,11 +20,6 @@ export const StyledFormItem = styled(Form.Item)`
   width: calc(50% - 8px);
   margin-right: 8px;
 `;
-export const StyledButton = styled(Button)`
-  float: right;
-  margin-right: 10px;
-  margin-bottom: 20px;
-`;
 export const StyledContent = styled(Content)`
   margin: 24px 16px 0;
   overflow: initial;

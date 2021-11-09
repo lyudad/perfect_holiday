@@ -1,6 +1,20 @@
-const Button = () => {
+import React from "react";
+import {Button} from "antd"
+import { StyledButton } from "./styles";
+// @ts-ignore
+export const ButtonUsers = ({children}) => {
     return (
-        <div></div>
+        <StyledButton type="primary" shape="round" htmlType="submit">
+            {children}
+        </StyledButton>
     )
 }
-export default Button
+ // @ts-ignore
+const LoginButton = ({children}) => {
+    return (
+        <Button type="primary" shape="round" htmlType="submit">
+            {children}
+        </Button>
+    )
+}
+export default LoginButton
