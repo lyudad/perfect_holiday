@@ -2,35 +2,18 @@ export const columns = [
     {
       title: "User",
       dataIndex: "name",
-      sorter: {
-        compare: (a: { name: any }, b: { name: any }) => a.name - b.name,
-        multiple: 3,
-      },
     },
     {
       title: "Dates",
       dataIndex: "date",
-      sorter: {
-        compare: (a: { date: any }, b: { date: any }) => a.date - b.date,
-        multiple: 3,
-      },
     },
     {
       title: "Type",
       dataIndex: "type",
-      sorter: {
-        compare: (a: { type: any }, b: { type: any }) => a.type - b.type,
-        multiple: 3,
-      },
     },
     {
       title: "Actions",
       dataIndex: "actions",
-      sorter: {
-        compare: (a: { actions: any }, b: { actions: any }) =>
-          a.actions - b.actions,
-        multiple: 3,
-      },
     },
 ];
   
