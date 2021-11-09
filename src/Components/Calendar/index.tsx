@@ -1,7 +1,7 @@
-import { DatePickerBlock, SubmitButton, CalendarBlock, SelectBlock, BottomBlock } from './styled';
+import { SubmitButton, CalendarBlock, SelectBlock, BottomBlock } from './styled';
 import 'antd/dist/antd.css';
 import './style.css';
-import { Select, ConfigProvider } from 'antd';
+import { Select, ConfigProvider, DatePicker } from 'antd';
 import moment from 'moment'
 import 'moment/locale/en-gb';
 import locale from 'antd/es/locale/en_GB';
@@ -14,7 +14,7 @@ moment.locale('en-gb', {
   weekdaysMin : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 });
 
-const { RangePicker } = DatePickerBlock;
+const { RangePicker } = DatePicker;
 const { Option } = Select;
 
 

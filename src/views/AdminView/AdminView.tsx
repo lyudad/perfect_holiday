@@ -4,8 +4,6 @@ import { StyledLayout, StyledContent } from "./styles";
 import { columns, data } from "./constants";
 
 const AdminView = (): JSX.Element => {
-
-
   return (
     <StyledLayout>
       <StyledContent>
