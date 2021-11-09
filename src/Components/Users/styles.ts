@@ -5,13 +5,17 @@ import {Layout, Button} from "antd";
 const {Content} = Layout;
 export const StyledLayout = styled(Layout)`
   display: flex;
-  max-height: 480px;
-  margin-left: 400px;
+  flex-direction: row;
+  height: 100vh;
+  
 `;
 export const StyledButton = styled(Button)`
   float: right;
-  margin-right: 10px;  margin-bottom: 50px;
-  width: 6%;
+  width: 150px;
+  color: black;
+  background-color: #DCDCDC;
+  border: 1px solid transparent;
+  margin-bottom: 20px;
 `;
 export const StyledContent = styled(Content)`
   margin: 24px 16px 0;
