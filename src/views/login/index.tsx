@@ -24,7 +24,7 @@ const LoginView = (): JSX.Element => {
             placeholder="Login"
           />
         </Form.Item>
-
+        <br />
         <Form.Item
           name="password"
           rules={[
@@ -39,7 +39,7 @@ const LoginView = (): JSX.Element => {
             placeholder="Password"
           />
         </Form.Item>
-
+        <br />
         <Form.Item wrapperCol={{ offset: 7, span: 17 }}>
           <Button type="primary" shape="round" htmlType="submit">
             SIGN IN
