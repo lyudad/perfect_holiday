@@ -53,35 +53,40 @@
             "files": [
                 "**/*.stories.*"
             ],
-            "rules": {
-                "import/no-anonymous-default-export": "off"
-            }
-        }]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "@storybook/addon-actions": "^6.3.12",
-        "@storybook/addon-essentials": "^6.3.12",
-        "@storybook/addon-links": "^6.3.12",
-        "@storybook/node-logger": "^6.3.12",
-        "@storybook/preset-create-react-app": "^3.2.0",
-        "@storybook/react": "^6.3.12",
-        "@types/redux-persist": "^4.3.1",
-        "@types/styled-components": "^5.1.15",
-        "lint-staged": "^11.2.6",
-        "prettier": "^2.4.1",
-        "redux-devtools": "^3.7.0",
-        "redux-devtools-extension": "^2.13.9"
+            "overrides": [{
+                "files": [
+                    "**/*.stories.*"
+                ],
+                "rules": {
+                    "import/no-anonymous-default-export": "off"
+                }
+            }]
+        }],
+        "browserslist": {
+            "production": [
+                ">0.2%",
+                "not dead",
+                "not op_mini all"
+            ],
+            "development": [
+                "last 1 chrome version",
+                "last 1 firefox version",
+                "last 1 safari version"
+            ]
+        },
+        "devDependencies": {
+            "@storybook/addon-actions": "^6.3.12",
+            "@storybook/addon-essentials": "^6.3.12",
+            "@storybook/addon-links": "^6.3.12",
+            "@storybook/node-logger": "^6.3.12",
+            "@storybook/preset-create-react-app": "^3.2.0",
+            "@storybook/react": "^6.3.12",
+            "@types/redux-persist": "^4.3.1",
+            "@types/styled-components": "^5.1.15",
+            "lint-staged": "^11.2.6",
+            "prettier": "^2.4.1",
+            "redux-devtools": "^3.7.0",
+            "redux-devtools-extension": "^2.13.9"
+        }
     }
 }
