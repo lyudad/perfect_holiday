@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Space } from "antd";
 import "antd/dist/antd.css";
 import { StyledButton, StyledContent, StyledLayout } from "./styles";
-import useUsers from "../../hooks/useUsers";
+import useUsers from "hooks/useUsers";
 import Loading from "Components/Loading";
 const { Column } = Table;
 
@@ -17,7 +17,7 @@ const Users = () => {
             <StyledContent>
                 <StyledButton type="primary" shape="round" htmlType="submit" size="large">+</StyledButton>
                 <Table dataSource={data}>
-                    <Column title="First Name" dataIndex="name" key="name" />
+                    <Column title="First Name" dataIndex="first_name" key="first_name" />
                     <Column
                         title="Action"
                         key="action"
