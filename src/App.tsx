@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Switch, Route } from "react-router-dom";
 import Container from "./Components/Container";
 import LoginView from "./views/login";
@@ -5,9 +6,11 @@ import Dashbord from "./Components/Dashbord";
 import UserView from "./views/user";
 import AdminView from "./views/AdminView";
 import Users from "./Components/Users";
+const queryClient = new QueryClient();
 
 function App(): JSX.Element {
   return (
+<QueryClientProvider client={queryClient}>
     <Container>
       <Switch>
         <Route path="/login">
@@ -27,6 +30,7 @@ function App(): JSX.Element {
         </Route>
       </Switch>
     </Container>
+    </QueryClientProvider>
   );
 }
 
