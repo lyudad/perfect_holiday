@@ -4,8 +4,8 @@ import { Layout, Button, List } from "antd";
 
 export const StyledLayout = styled(Layout)`
   display: flex;
-  flex-direction: row;
-  height: 100vh;
+  max-height: 480px;
+  aling-items: center;
 `;
 export const StyledButton = styled(Button)`
   width: 150px;
@@ -16,7 +16,9 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledContent = styled(Layout)`
-  padding: 25px;
+  max-height: 400px;
+  // padding: 25px;
+  width: auto;
   overflow-x: scroll;
 `;
 
@@ -24,13 +26,14 @@ export const StyledList = styled(List)``;
 
 export const StyledItem = styled(List)`
   cursor: pointer;
-  padding-top: 38px;
-  padding-left: 5px;
+   padding-top: 38px;
+  padding-left 5px;
   height: 100px;
   color: #fff;
+  align-item: center;
   border: 1px solid #fff;
   :hover {
-    color: #2196f3;
-    padding-left: 15px;
+      color: #2196f3;
+      padding-left:15px;
   }
 `;
