@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import axios from "axios"
-
+const {REACT_APP_USERS_LIST} = process.env
 export type UserRoleType = 'employee' | 'admin' | 'super';
 
 export type User = {
@@ -19,7 +19,7 @@ export default function useUsers() {
     "users",
     async (): Promise<Array<User>> => {
       const { data } = await axios.get(
-        "http://localhost:3000/users"
+        `${REACT_APP_USERS_LIST}`
       );
       return data;
     }
