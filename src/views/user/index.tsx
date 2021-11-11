@@ -3,7 +3,6 @@ import "antd/dist/antd.css";
 import { lang } from "language/en";
 import {Row, Input, Form} from 'antd';
 import {Table} from 'antd';
-import { ButtonUsers } from "Components/Button";
 import {
     StyledLayout,
     StyledContent,
@@ -15,8 +14,7 @@ import {
 import { columns } from "./const";
 import Layout from "./layout";
 import Sidebar from "../../Components/Sidebar";
-
-
+import { ButtonUsers } from "Components/Button";
 const data = [
     {
         key: '1',
@@ -71,36 +69,33 @@ const UserView = (): JSX.Element => {
                                 >
                                     <Input placeholder="FirstName"/>
                                 </StyledFormItem>
-
                                 <StyledFormItem
                                     name="LastName"
-                                    rules={[{
-                                        type: "string",
-                                        required: true,
-                                        message: `${lang.username["lastName-validation"]}`
-                                    }]}
-
+                                    rules={[
+                                        {
+                                            type: "string",
+                                            required: true,
+                                            message: `${lang.username["lastName-validation"]}`,
+                                        },
+                                    ]}
                                 >
-                                    <Input placeholder="LastName"/>
+                                    <Input placeholder="LastName" />
                                 </StyledFormItem>
                             </Form>
                         </Row>
                         <Row>
                             <StyledDivVacationInfo>
-                                <strong>
-                                    2 sick leave
-                                </strong>
+                                <strong>2 sick leave</strong>
                             </StyledDivVacationInfo>
                             <StyledDivVacationInfo>
-                                <strong>
-                                    14 vacation days
-                                </strong>
+                                <strong>14 vacation days</strong>
                             </StyledDivVacationInfo>
                         </Row>
-
                     </StyledDivContent>
-                    <ButtonUsers>Add</ButtonUsers>
-                    <Table columns={columns} dataSource={data} size="large"/>
+                    <ButtonUsers>
+                        Add
+                    </ButtonUsers>
+                    <Table columns={columns} dataSource={data} size="large" />
                 </StyledContent>
             </StyledLayout>
     </Layout>
