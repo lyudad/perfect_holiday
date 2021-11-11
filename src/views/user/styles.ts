@@ -20,6 +20,14 @@ export const StyledFormItem = styled(Form.Item)`
   width: calc(50% - 8px);
   margin-right: 8px;
 `;
+export const StyledButton = styled(Button)`
+  float: right;
+  width: 150px;
+  color: black;
+  background-color: #DCDCDC;
+  border: 1px solid transparent;
+  margin-bottom: 20px;
+`;
 export const StyledContent = styled(Content)`
   margin: 24px 16px 0;
   overflow: initial;
