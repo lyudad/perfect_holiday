@@ -5,8 +5,9 @@ import {Layout, Button} from "antd";
 const {Content} = Layout;
 export const StyledLayout = styled(Layout)`
   display: flex;
-  max-height: 480px;
-  margin-left: 400px;
+  flex-direction: row;
+  height: 100vh;
+  
 `;
 export const StyledButton = styled(Button)`
   float: right;

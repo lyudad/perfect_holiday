@@ -2,14 +2,19 @@ import styled from "styled-components";
 
 import {Layout, Button, Form} from "antd";
 
-const {Content} = Layout;
+const { Content } = Layout;
+
 export const StyledLayout = styled(Layout)`
   display: flex;
-  max-height: 480px;
-  margin-left: 200px;
+  flex-direction:row;
+  height: 100vh;
+  
 `;
 export const StyledDivVacationInfo = styled("div")`
-  margin-right: 10.5%;
+  :not(:last-child) {
+    margin-right: 30px;
+  }
+  font-size: 20px;
 `;
 export const StyledDivContent = styled("div")`
   padding: 24px;
@@ -29,6 +34,6 @@ export const StyledButton = styled(Button)`
   margin-bottom: 20px;
 `;
 export const StyledContent = styled(Content)`
-  margin: 24px 16px 0;
+  padding: 25px;
   overflow: initial;
 `;

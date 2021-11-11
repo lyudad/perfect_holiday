@@ -1,51 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import "antd/dist/antd.css";
 import { lang } from "language/en";
-import {Row, Input, Form} from 'antd';
-import {Table} from 'antd';
+import { Row, Input, Form } from "antd";
+import { Table } from "antd";
 import {
-    StyledLayout,
-    StyledContent,
-    StyledButton,
-    StyledFormItem,
-    StyledDivContent,
-    StyledDivVacationInfo,
+  StyledLayout,
+  StyledContent,
+  StyledButton,
+  StyledFormItem,
+  StyledDivContent,
+  StyledDivVacationInfo,
 } from "./styles";
 import { columns } from "./const";
 import Layout from "./layout";
 import Sidebar from "../../Components/Sidebar";
 import { ButtonUsers } from "Components/Button";
+
 const data = [
-    {
-        key: '1',
-        month: 'June 2020',
-        dates: '10-20',
-        status: 'approved',
-        type: 'vacation'
-    },
-    {
-        key: '2',
-        month: 'April 2020',
-        dates: '01-09',
-        status: 'approved',
-        type: 'vacation'
-    },
-    {
-        key: '3',
-        month: 'January 2020',
-        dates: '08-10',
-        status: 'pending',
-        type: 'vacation'
-    },
-    {
-        key: '4',
-        month: 'February 2019',
-        dates: '08',
-        status: 'pending',
-        type: 'sick leave'
-    },
-
-
+  {
+    key: "1",
+    month: "June 2020",
+    dates: "10-20",
+    status: "approved",
+    type: "vacation",
+  },
+  {
+    key: "2",
+    month: "April 2020",
+    dates: "01-09",
+    status: "approved",
+    type: "vacation",
+  },
+  {
+    key: "3",
+    month: "January 2020",
+    dates: "08-10",
+    status: "pending",
+    type: "vacation",
+  },
+  {
+    key: "4",
+    month: "February 2019",
+    dates: "08",
+    status: "pending",
+    type: "sick leave",
+  },
 ];
 const UserView = (): JSX.Element => {
     return (<Layout>
@@ -99,8 +98,6 @@ const UserView = (): JSX.Element => {
                 </StyledContent>
             </StyledLayout>
     </Layout>
-
-
-    )
-}
+  );
+};
 export default UserView;

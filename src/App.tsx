@@ -1,16 +1,36 @@
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Switch, Route } from "react-router-dom";
-
 import Container from "./Components/Container";
-
-import AdminView from "./views/AdminView/AdminView";
+import LoginView from "./views/login";
+import Dashbord from "./Components/Dashbord";
+import UserView from "./views/user";
+import AdminView from "./views/AdminView";
+import Users from "./Components/Users";
+const queryClient = new QueryClient();
 
 function App(): JSX.Element {
   return (
+<QueryClientProvider client={queryClient}>
     <Container>
       <Switch>
-        <Route exact path="/admin-page" component={AdminView} />
+        <Route path="/login">
+          <LoginView />
+        </Route>
+        <Route path="/admin">
+          <AdminView />
+        </Route>
+        <Route path="/dashbord">
+          <Dashbord />
+        </Route>
+        <Route path="/user">
+          <UserView />
+        </Route>
+        <Route path="/users">
+          <Users />
+        </Route>
       </Switch>
     </Container>
+    </QueryClientProvider>
   );
 }
 
