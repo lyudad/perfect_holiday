@@ -1,53 +1,76 @@
-import { Table, Space } from 'antd';
-import 'antd/dist/antd.css';
-import {StyledButton, StyledContent, StyledLayout } from './styles';
+import { useState } from "react";
+import { Table, Space } from "antd";
+import "antd/dist/antd.css";
+import { StyledButton, StyledContent, StyledLayout } from "./styles";
+import Sidebar from "../Sidebar";
+import useUsers from "hooks/useUsers";
+import Loading from "Components/Loading";
 const { Column } = Table;
 
 const data = [
-    {
-        key: '1',
-        firstName: 'John',
-
-    },
-    {
-        key: '2',
-        firstName: 'Jim',
-    },
-    {
-        key: '3',
-        firstName: 'Joe',
-    },
+  {
+    key: 1,
+    first_name: "John",
+    is_block: false,
+  }, 
+  {
+    key: 2,
+    first_name: "Jim",
+    is_block: false,
+  },
+  {
+    key: 3,
+    first_name: "Joe",
+    is_block: false,
+  },
 ];
 
-const Users = ()=>{
-    return(
-        <StyledLayout>
-            <StyledContent>
-                <StyledButton type="primary" shape="round" htmlType="submit" size="large">+</StyledButton>
-                <Table dataSource={data}>
-                    <Column title="First Name" dataIndex="firstName" key="firstName" />
-                    <Column
-                        title="Action"
-                        key="action"
-                        render={() => (
-                            <Space size="middle">
-                                <a>Edit</a>
+const Users = () => {
+  const [toggle, setToggle] = useState(false);
+  // Здесь приходит обьект data который будем ставить вместо моковых данных
+  // Запускал данные с БД поддягиваються
+  // const { error, isLoading, data } = useUsers();
+  // if (isLoading) return <Loading />
+  // if (error instanceof Error) return <h1>Error: {error.message}</h1>
 
-                            </Space>
-                        )}
-                    />
-                    <Column
-                        key="block"
-                        render={() => (
-                            <Space size="middle">
-                                <a key="block">Block</a>
-                                <a key="unlock">Unblock</a>
-                            </Space>
-                        )}
-                    />
-                </Table>
-            </StyledContent>
-        </StyledLayout>
-    )
-}
-export default Users
+  return (
+    <StyledLayout>
+      <Sidebar />
+      <StyledContent>
+        <StyledButton
+          type="primary"
+          shape="round"
+          htmlType="submit"
+          size="large"
+        >
+          +
+        </StyledButton>
+        <Table dataSource={data}>
+          <Column title="First Name" dataIndex="first_name" key="first_name" />
+          <Column
+            title="Action"
+            key="action"
+            render={() => (
+              <Space size="middle">
+                <a>Edit</a>
+              </Space>
+            )}
+          />
+          <Column
+            title="User status"
+            dataIndex="status"
+            key="first_name"
+            render={() => (
+              <Space size="middle">
+                <a onClick={() => setToggle((toggle) => !toggle)}>
+                  {toggle ? "block" : "unblock"}
+                </a>
+              </Space>
+            )}
+          />
+        </Table>
+      </StyledContent>
+    </StyledLayout>
+  );
+};
+export default Users;
