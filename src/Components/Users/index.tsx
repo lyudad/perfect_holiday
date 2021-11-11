@@ -1,9 +1,12 @@
-import { Table, Space } from 'antd';
-import 'antd/dist/antd.css';
 import {ButtonUsers} from 'Components/Button';
-import { StyledContent, StyledLayout } from './styles';
 const { Column } = Table;
-
+import { useState } from "react";
+import { Table, Space } from "antd";
+import "antd/dist/antd.css";
+import { StyledButton, StyledContent, StyledLayout } from "./styles";
+import Sidebar from "../Sidebar";
+import useUsers from "hooks/useUsers";
+import Loading from "Components/Loading";
 const data = [
     {
         key: '1',
