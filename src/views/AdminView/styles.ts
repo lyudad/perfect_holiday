@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import {Layout, Button, Form} from "antd";
+import {Layout, Button, Form, Input} from "antd";
 
 const { Content } = Layout;
 
@@ -23,7 +23,6 @@ export const StyledDivContent = styled("div")`
 export const StyledFormItem = styled(Form.Item)`
   display: inline-block;
   width: calc(33% - 8px);
-  margin-right: 8px;
 `;
 export const StyledButton = styled(Button)`
   float: right;
@@ -36,11 +35,15 @@ export const StyledButton = styled(Button)`
 
   }
 `;
+export const StyledInput = styled(Input)`
+width: 75%`;
 export const StyledContent = styled(Content)`
   padding: 25px;
   overflow: initial;
 `;
 
+export const StyledForm = styled(Form)`
+width: 100%;`;
 export const ButtonWrapper = styled(Content)`
 display: flex;
 flex-direction: column;

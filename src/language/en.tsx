@@ -5,7 +5,9 @@ export const lang = {
     },
     username: {
         "firstName-validation": "Please enter your first name!",
-        "lastName-validation": "Please enter your last name!"
+        "lastName-validation": "Please enter your last name!",
+        "email-validation": "Please enter your email!",
+
     },
     profile:{
         "profile":"Profile",
