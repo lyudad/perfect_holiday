@@ -3,6 +3,7 @@ import "antd/dist/antd.css";
 import { lang } from "language/en";
 import {Row, Input, Form} from 'antd';
 import {Table} from 'antd';
+import { ButtonUsers } from "Components/Button";
 import {
     StyledLayout,
     StyledContent,
@@ -14,7 +15,7 @@ import {
 import { columns } from "./const";
 import Layout from "./layout";
 import Sidebar from "../../Components/Sidebar";
-import { ButtonUsers } from "Components/Button";
+
 
 const data = [
     {
