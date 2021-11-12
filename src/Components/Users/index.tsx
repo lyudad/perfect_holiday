@@ -1,12 +1,12 @@
-import {ButtonUsers} from 'Components/Button';
-const { Column } = Table;
+import ButtonUsers from 'Components/Button';
 import { useState } from "react";
 import { Table, Space } from "antd";
 import "antd/dist/antd.css";
-import { StyledButton, StyledContent, StyledLayout } from "./styles";
+import { StyledContent, StyledLayout } from "./styles";
 import Sidebar from "../Sidebar";
-import useUsers from "hooks/useUsers";
-import Loading from "Components/Loading";
+// import useUsers from "hooks/useUsers";
+// import Loading from "Components/Loading";
+const { Column } = Table;
 const data = [
   {
     key: 1,

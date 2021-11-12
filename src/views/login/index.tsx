@@ -1,10 +1,10 @@
 import React from "react";
 import { lang } from "language/en";
-import { Input, Button, Form, Space } from "antd";
+import { Input, Form, Space } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Row } from "./styles";
 import "antd/dist/antd.css";
-import LoginButton from "Components/Button";
+import LoginButton from "Components/Button/loginButton";
 
 const LoginView = (): JSX.Element => {
   return (
@@ -41,9 +41,6 @@ const LoginView = (): JSX.Element => {
           />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 7, span: 17 }}>
-          {/*<Button type="primary" shape="round" htmlType="submit">*/}
-          {/*  SIGN IN*/}
-          {/*</Button>*/}
           <LoginButton>Sign in</LoginButton>
 
         </Form.Item>

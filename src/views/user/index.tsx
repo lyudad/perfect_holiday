@@ -14,7 +14,7 @@ import {
 import { columns } from "./const";
 import Layout from "./layout";
 import Sidebar from "../../Components/Sidebar";
-import { ButtonUsers } from "Components/Button";
+import  ButtonUsers  from "Components/Button";
 
 const data = [
   {
