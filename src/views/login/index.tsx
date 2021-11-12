@@ -1,11 +1,10 @@
 import React, {useState} from "react";
-import {lang} from "../../language/en";
+import {lang} from "language/en"
 import {Form, Input, Button} from "antd";
 import {UserOutlined, LockOutlined} from "@ant-design/icons";
 import {Row} from "./styles";
 import "antd/dist/antd.css";
 import axios from "axios";
-import {URL} from "../../constants/styles";
 const {REACT_APP_LOGIN} = process.env
 const PostRequest = (values:any) => {
         axios
