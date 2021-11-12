@@ -6,42 +6,29 @@ import {Row} from "./styles";
 import "antd/dist/antd.css";
 import axios from "axios";
 import {URL} from "../../constants/styles";
-
+const {REACT_APP_LOGIN} = process.env
+const PostRequest = (values:any) => {
+        axios
+            .post(`${REACT_APP_LOGIN}`,
+                {
+                    login: values["login"],
+                    password: values["password"]
+                }
+            ).then(res => {
+            console.log(res)
+        })
+            .catch(err => {
+                console.log(err)
+                if (err.response) {
+                    console.log(err.response.status);
+                }
+            })
+}
 const LoginView = (): JSX.Element => {
-    const [data, setData] = useState({
-        login: "",
-        password: ""
-    })
-    const handle = (e: { target: { id: string | number; value: string; }; }) => {
-        const newData = {...data}
-        console.log(newData)
-        // @ts-ignore
-        e.target.id === "loginForm_login" ? newData["login"] = e.target.value : newData["password"] = e.target.value
-        setData(newData)
-    }
     return (
         <Row justify="center" align="middle">
             <Form
-                onFinish={() => {
-                    console.log(data)
-                    axios
-                        .post(URL.Url,
-                            {
-                                login: data.login,
-                                password: data.password
-                            }
-                        ).then(res => {
-
-                        console.log(res)
-                    })
-                        .catch(err => {
-                            console.log(err)
-                            if (err.response) {
-                                console.log(err.response.status);
-
-                            }
-                        })
-                }}
+                onFinish={PostRequest}
                 name="loginForm"
                 layout="vertical"
                 size="large"
@@ -54,9 +41,7 @@ const LoginView = (): JSX.Element => {
                         message: `${lang.login["email-validation"]}`
                     }]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon"/>}
-                           onChange={event => handle(event)}
-                           placeholder="Login"/>
+                    <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Login"/>
                 </Form.Item>
                 <Form.Item
                     name="password"
@@ -65,9 +50,7 @@ const LoginView = (): JSX.Element => {
                         message: `${lang.login["password-validation"]}`
                     }]}
                 >
-                    <Input.Password prefix={<LockOutlined className="site-form-item-icon"/>}
-                                    onChange={event => handle(event)}
-                                    placeholder="Password"/>
+                    <Input.Password prefix={<LockOutlined className="site-form-item-icon"/>} placeholder="Password"/>
                 </Form.Item>
                 <Form.Item wrapperCol={{offset: 7, span: 17}}>
                     <Button type="primary" shape="round" htmlType="submit">
