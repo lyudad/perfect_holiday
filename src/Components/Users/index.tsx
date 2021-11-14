@@ -4,8 +4,6 @@ import { Table, Space } from "antd";
 import "antd/dist/antd.css";
 import { StyledContent, StyledLayout } from "./styles";
 import Sidebar from "../Sidebar";
-// import useUsers from "hooks/useUsers";
-// import Loading from "Components/Loading";
 const { Column } = Table;
 const data = [
   {
@@ -26,12 +24,6 @@ const data = [
 ];
 
 const Users = ()=>{
-      const [toggle, setToggle] = useState(false);
-  // Здесь приходит обьект data который будем ставить вместо моковых данных
-  // Запускал данные с БД поддягиваються
-  // const { error, isLoading, data } = useUsers();
-  // if (isLoading) return <Loading />
-  // if (error instanceof Error) return <h1>Error: {error.message}</h1>
   return (
     <StyledLayout>
       <Sidebar />
@@ -54,8 +46,7 @@ const Users = ()=>{
             key="first_name"
             render={() => (
               <Space size="middle">
-                <a onClick={() => setToggle((toggle) => !toggle)}>
-                  {toggle ? "block" : "unblock"}
+                <a>block
                 </a>
               </Space>
             )}
