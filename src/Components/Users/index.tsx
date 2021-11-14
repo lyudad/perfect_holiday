@@ -11,24 +11,6 @@ import { lang } from 'language/en'
 import { url } from 'constants/constants'
 const { Column } = Table
 
-// const data = [
-//   {
-//     key: 1,
-//     first_name: "John",
-//     is_block: false,
-//   },
-//   {
-//     key: 2,
-//     first_name: "Jim",
-//     is_block: false,
-//   },
-//   {
-//     key: 3,
-//     first_name: "Joe",
-//     is_block: false,
-//   },
-// ];
-
 const Users = (): JSX.Element => {
   // Достает всех users
   const { error, isLoading, data } = useUsers()
