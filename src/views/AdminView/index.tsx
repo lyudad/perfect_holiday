@@ -16,6 +16,7 @@ import {
   StyledDivVacationInfo,
   ButtonWrapper,
 } from './styles'
+import { url } from 'constants/constants'
 
 const data = [
   {
@@ -56,7 +57,7 @@ const AdminView = (): JSX.Element => {
 
   const onFinish = async (values: TUpdateUser) => {
     axios
-      .put(`${REACT_APP_USERS_LIST}${userId}`, values)
+      .put(`${REACT_APP_USERS_LIST}${url.admin}${userId}`, values)
       .then(() => message.success(lang.updateStatus.success))
       .catch(() => message.error(lang.updateStatus.fail))
     form.resetFields()

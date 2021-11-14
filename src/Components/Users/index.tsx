@@ -8,6 +8,7 @@ import Loading from 'Components/Loading'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { lang } from 'language/en'
+import { url } from 'constants/constants'
 const { Column } = Table
 
 // const data = [
@@ -38,7 +39,9 @@ const Users = (): JSX.Element => {
   const { REACT_APP_USERS_LIST } = process.env
   const goBlock = async (dataIndex: boolean, key: any) =>
     axios
-      .put(`${REACT_APP_USERS_LIST}${key.id}`, { is_block: !dataIndex })
+      .put(`${REACT_APP_USERS_LIST}${url.users}${key.id}`, {
+        is_block: !dataIndex,
+      })
       .then(() => message.success(lang.updateStatus.success))
       .catch(() => message.error(lang.updateStatus.fail))
 
