@@ -53,11 +53,11 @@ const AdminView = (): JSX.Element => {
   const [form] = Form.useForm()
   const match = useRouteMatch<IMatchParams>()
   const userId = match.params.id
-  const { REACT_APP_USERS_LIST } = process.env
+  const { REACT_APP_BASE } = process.env
 
   const onFinish = async (values: TUpdateUser) => {
     axios
-      .put(`${REACT_APP_USERS_LIST}${url.admin}${userId}`, values)
+      .put(`${REACT_APP_BASE}${url.admin}${userId}`, values)
       .then(() => message.success(lang.updateStatus.success))
       .catch(() => message.error(lang.updateStatus.fail))
     form.resetFields()

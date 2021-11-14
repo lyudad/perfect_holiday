@@ -2,7 +2,7 @@ import { useQuery } from 'react-query'
 import axios from 'axios'
 import { url } from 'constants/constants'
 export type UserRoleType = 'employee' | 'admin' | 'super'
-const { REACT_APP_USERS_LIST } = process.env
+const { REACT_APP_BASE } = process.env
 
 export type User = {
   role: UserRoleType
@@ -17,7 +17,7 @@ export type User = {
 
 export default function useUsers() {
   return useQuery('users', async (): Promise<Array<User>> => {
-    const { data } = await axios.get(`${REACT_APP_USERS_LIST}${url.users}`)
+    const { data } = await axios.get(`${REACT_APP_BASE}${url.users}`)
     return data
   })
 }

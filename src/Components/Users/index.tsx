@@ -36,10 +36,10 @@ const Users = (): JSX.Element => {
   if (error instanceof Error) return <h1>Error: {error.message}</h1>
 
   // Меняет is_block true / false
-  const { REACT_APP_USERS_LIST } = process.env
+  const { REACT_APP_BASE } = process.env
   const goBlock = async (dataIndex: boolean, key: any) =>
     axios
-      .put(`${REACT_APP_USERS_LIST}${url.users}${key.id}`, {
+      .put(`${REACT_APP_BASE}${url.users}${key.id}`, {
         is_block: !dataIndex,
       })
       .then(() => message.success(lang.updateStatus.success))
