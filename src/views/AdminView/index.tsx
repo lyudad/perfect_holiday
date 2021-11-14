@@ -79,17 +79,17 @@ const AdminView = (): JSX.Element => {
               <Row justify="space-between">
                 <Col span={6}>
                   <Form.Item name="first_name" rules={[{ type: 'string' }]}>
-                    <Input placeholder="First Name" />
+                    <Input placeholder={lang.userInfo.firstName} />
                   </Form.Item>
                 </Col>
                 <Col span={6}>
                   <Form.Item name="last_name" rules={[{ type: 'string' }]}>
-                    <Input placeholder="Last Name" />
+                    <Input placeholder={lang.userInfo.lastName} />
                   </Form.Item>
                 </Col>
                 <Col span={6}>
                   <Form.Item name="email" rules={[{ type: 'email' }]}>
-                    <Input placeholder="Email" />
+                    <Input placeholder={lang.userInfo.email} />
                   </Form.Item>
                 </Col>
                 <Col span={4}>

@@ -58,7 +58,11 @@ const Users = (): JSX.Element => {
           +
         </StyledButton>
         <Table dataSource={data}>
-          <Column title="Last Name" dataIndex="last_name" key="id" />
+          <Column
+            title={lang.userInfo.lastName}
+            dataIndex="last_name"
+            key="id"
+          />
           <Column
             title="Action"
             key="action"
@@ -70,7 +74,7 @@ const Users = (): JSX.Element => {
             )}
           />
           <Column
-            title="User status"
+            title={lang.userInfo.userStatus}
             dataIndex="is_block"
             key="id"
             render={(dataIndex, key) => (

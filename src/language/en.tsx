@@ -23,4 +23,10 @@ export const lang = {
     block: 'Block',
     unblock: 'Unblock',
   },
+  userInfo: {
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    email: 'Email',
+    userStatus: 'User status',
+  },
 }
