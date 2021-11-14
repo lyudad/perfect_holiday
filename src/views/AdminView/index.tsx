@@ -1,13 +1,13 @@
-import React from 'react'
-import axios from 'axios'
-import { useRouteMatch } from 'react-router'
-import Sidebar from 'Components/Sidebar'
-import { lang } from 'language/en'
-import { IMatchParams, TUpdateUser } from './types'
-import { columns } from './const'
-import Layout from './layout'
-import 'antd/dist/antd.css'
-import { Row, Input, Form, Col, Button, Table, message } from 'antd'
+import React from 'react';
+import axios from 'axios';
+import { useRouteMatch } from 'react-router';
+import Sidebar from 'Components/Sidebar';
+import { lang } from 'language/en';
+import { IMatchParams, TUpdateUser } from './types';
+import { columns } from './const';
+import Layout from './layout';
+import 'antd/dist/antd.css';
+import { Row, Input, Form, Col, Button, Table, message } from 'antd';
 import {
   StyledLayout,
   StyledContent,
@@ -15,8 +15,8 @@ import {
   StyledDivContent,
   StyledDivVacationInfo,
   ButtonWrapper,
-} from './styles'
-import { url } from 'constants/constants'
+} from './styles';
+import { url } from 'constants/constants';
 
 const data = [
   {
@@ -47,21 +47,21 @@ const data = [
     status: 'pending',
     type: 'sick leave',
   },
-]
+];
 
 const AdminView = (): JSX.Element => {
-  const [form] = Form.useForm()
-  const match = useRouteMatch<IMatchParams>()
-  const userId = match.params.id
-  const { REACT_APP_BASE } = process.env
+  const [form] = Form.useForm();
+  const match = useRouteMatch<IMatchParams>();
+  const userId = match.params.id;
+  const { REACT_APP_BASE } = process.env;
 
   const onFinish = async (values: TUpdateUser) => {
     axios
       .put(`${REACT_APP_BASE}${url.admin}${userId}`, values)
       .then(() => message.success(lang.updateStatus.success))
-      .catch(() => message.error(lang.updateStatus.fail))
-    form.resetFields()
-  }
+      .catch(() => message.error(lang.updateStatus.fail));
+    form.resetFields();
+  };
 
   return (
     <Layout>
@@ -138,6 +138,6 @@ const AdminView = (): JSX.Element => {
         </StyledContent>
       </StyledLayout>
     </Layout>
-  )
-}
-export default AdminView
+  );
+};
+export default AdminView;

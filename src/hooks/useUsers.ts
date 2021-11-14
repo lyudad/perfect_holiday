@@ -15,7 +15,7 @@ export type User = {
   available_sick_days: number
 }
 
-export default function useUsers() {
+export default function useGetListOfUsers() {
   return useQuery('users', async (): Promise<Array<User>> => {
     const { data } = await axios.get(`${REACT_APP_BASE}${url.users}`)
     return data
