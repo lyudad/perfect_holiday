@@ -5,8 +5,10 @@ import {UserOutlined, LockOutlined} from "@ant-design/icons";
 import {Row} from "./styles";
 import "antd/dist/antd.css";
 import axios from "axios";
+import {ILoginVars} from "./types"
 const {REACT_APP_LOGIN} = process.env
-const PostRequest = (values:any) => {
+const PostRequest = (values:ILoginVars) => {
+    console.log(values)
         axios
             .post(`${REACT_APP_LOGIN}`,
                 {
@@ -53,7 +55,7 @@ const LoginView = (): JSX.Element => {
                 </Form.Item>
                 <Form.Item wrapperCol={{offset: 7, span: 17}}>
                     <Button type="primary" shape="round" htmlType="submit">
-                        SIGN IN
+                        {lang.button["loginButton"]}
                     </Button>
                 </Form.Item>
             </Form>

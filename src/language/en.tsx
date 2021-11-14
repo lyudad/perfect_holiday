@@ -16,6 +16,9 @@ export const lang = {
         "users": "Users",
         "profile": "Profile",
         "logout": "Logout",
+    },
+    button:{
+        "loginButton": "SIGN IN",
     }
 
 }
