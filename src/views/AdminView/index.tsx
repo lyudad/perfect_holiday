@@ -1,11 +1,9 @@
 import React from 'react';
-import axios from 'axios';
-import { useRouteMatch } from 'react-router';
 import Sidebar from 'Components/Sidebar';
 import { lang } from 'language/en';
-import { IMatchParams, TUpdateUser } from './types';
 import { columns } from './const';
 import Layout from './layout';
+import { toUpdateUserInfo } from 'hooks/useUsers';
 import 'antd/dist/antd.css';
 import { Row, Input, Form, Col, Button, Table, message } from 'antd';
 import {
@@ -16,7 +14,8 @@ import {
   StyledDivVacationInfo,
   ButtonWrapper,
 } from './styles';
-import { url } from 'constants/constants';
+import { useRouteMatch } from 'react-router-dom';
+import { IMatchParams } from './types';
 
 const data = [
   {
@@ -51,17 +50,12 @@ const data = [
 
 const AdminView = (): JSX.Element => {
   const [form] = Form.useForm();
-  const match = useRouteMatch<IMatchParams>();
-  const userId = match.params.id;
-  const { REACT_APP_BASE } = process.env;
-
-  const onFinish = async (values: TUpdateUser) => {
-    axios
-      .put(`${REACT_APP_BASE}${url.admin}${userId}`, values)
+  const userId = useRouteMatch<IMatchParams>().params.id;
+  const upUS = () =>
+    toUpdateUserInfo(form.getFieldsValue(), userId)
       .then(() => message.success(lang.updateStatus.success))
-      .catch(() => message.error(lang.updateStatus.fail));
-    form.resetFields();
-  };
+      .catch(() => message.success(lang.updateStatus.success));
+  form.resetFields();
 
   return (
     <Layout>
@@ -73,7 +67,7 @@ const AdminView = (): JSX.Element => {
               form={form}
               name="VacationForm"
               layout="horizontal"
-              onFinish={onFinish}
+              onFinish={upUS}
               size="large"
             >
               <Row justify="space-between">

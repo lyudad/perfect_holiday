@@ -1,35 +1,27 @@
 import React from 'react';
-import { Table, Space, message, Button } from 'antd';
+import { Table, Space, Button, message } from 'antd';
 import 'antd/dist/antd.css';
 import { StyledButton, StyledContent, StyledLayout } from './styles';
 import Sidebar from '../Sidebar';
 import useGetListOfUsers from 'hooks/useUsers';
 import Loading from 'Components/Loading';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { lang } from 'language/en';
-import { url } from 'constants/constants';
+import { toBlockUnblockUser } from 'hooks/useUsers';
+import { IUserId } from 'hooks/types';
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
-  // Достает всех users
   const { error, isLoading, data } = useGetListOfUsers();
+  // const [loading, setLoading] = useState(false);
+
   if (isLoading) return <Loading />;
   if (error instanceof Error) return <h1>Error: {error.message}</h1>;
-
-  // Меняет is_block true / false
-  interface IUserId {
-    id: string;
-  }
-  const { REACT_APP_BASE } = process.env;
-  const goBlock = async (dataIndex: boolean, key: IUserId) =>
-    axios
-      .put(`${REACT_APP_BASE}${url.users}${key.id}`, {
-        is_block: !dataIndex,
-      })
+  const blockUser = (dataIndex: boolean, key: IUserId) =>
+    toBlockUnblockUser(dataIndex, key)
       .then(() => message.success(lang.updateStatus.success))
-      .catch(() => message.error(lang.updateStatus.fail));
-
+      .catch(() => message.success(lang.updateStatus.success));
+  // setLoading(loading);
   return (
     <StyledLayout>
       <Sidebar />
@@ -56,7 +48,9 @@ const Users = (): JSX.Element => {
             render={(dataIndex, key: IUserId) => (
               <Space size="middle">
                 <Button
-                  onClick={() => goBlock(dataIndex, key)}
+                  onClick={() => {
+                    blockUser(dataIndex, key);
+                  }}
                   htmlType="submit"
                   type="link"
                 >
