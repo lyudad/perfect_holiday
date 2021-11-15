@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import "antd/dist/antd.css";
-import { lang } from "language/en";
-import { Row, Input, Form } from "antd";
-import { Table } from "antd";
+import React from 'react';
+import 'antd/dist/antd.css';
+import { lang } from 'language/en';
+import { Row, Input, Form } from 'antd';
+import { Table } from 'antd';
 import {
   StyledLayout,
   StyledContent,
@@ -10,39 +10,39 @@ import {
   StyledFormItem,
   StyledDivContent,
   StyledDivVacationInfo,
-} from "./styles";
-import { columns } from "./const";
-import Layout from "./layout";
-import Sidebar from "../../Components/Sidebar";
+} from './styles';
+import { columns } from './const';
+import Layout from './layout';
+import Sidebar from '../../Components/Sidebar';
 
 const data = [
   {
-    key: "1",
-    month: "June 2020",
-    dates: "10-20",
-    status: "approved",
-    type: "vacation",
+    key: '1',
+    month: 'June 2020',
+    dates: '10-20',
+    status: 'approved',
+    type: 'vacation',
   },
   {
-    key: "2",
-    month: "April 2020",
-    dates: "01-09",
-    status: "approved",
-    type: "vacation",
+    key: '2',
+    month: 'April 2020',
+    dates: '01-09',
+    status: 'approved',
+    type: 'vacation',
   },
   {
-    key: "3",
-    month: "January 2020",
-    dates: "08-10",
-    status: "pending",
-    type: "vacation",
+    key: '3',
+    month: 'January 2020',
+    dates: '08-10',
+    status: 'pending',
+    type: 'vacation',
   },
   {
-    key: "4",
-    month: "February 2019",
-    dates: "08",
-    status: "pending",
-    type: "sick leave",
+    key: '4',
+    month: 'February 2019',
+    dates: '08',
+    status: 'pending',
+    type: 'sick leave',
   },
 ];
 
@@ -59,9 +59,9 @@ const UserView = (): JSX.Element => {
                   name="FirstName"
                   rules={[
                     {
-                      type: "string",
+                      type: 'string',
                       required: true,
-                      message: `${lang.username["firstName-validation"]}`,
+                      message: `${lang.username['firstName-validation']}`,
                     },
                   ]}
                 >
@@ -72,9 +72,9 @@ const UserView = (): JSX.Element => {
                   name="LastName"
                   rules={[
                     {
-                      type: "string",
+                      type: 'string',
                       required: true,
-                      message: `${lang.username["lastName-validation"]}`,
+                      message: `${lang.username['lastName-validation']}`,
                     },
                   ]}
                 >
@@ -91,12 +91,7 @@ const UserView = (): JSX.Element => {
               </StyledDivVacationInfo>
             </Row>
           </StyledDivContent>
-          <StyledButton
-            type="primary"
-            shape="round"
-            htmlType="submit"
-            size="large"
-          >
+          <StyledButton type="primary" shape="round" htmlType="submit" size="large">
             Add
           </StyledButton>
           <Table columns={columns} dataSource={data} size="large" />
