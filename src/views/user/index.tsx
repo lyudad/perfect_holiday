@@ -10,10 +10,11 @@ import {
   StyledFormItem,
   StyledDivContent,
   StyledDivVacationInfo,
-} from './styles';
-import { columns } from './const';
-import Layout from './layout';
-import Sidebar from '../../Components/Sidebar';
+} from "./styles";
+import { columns } from "./const";
+import Layout from "./layout";
+import Sidebar from "../../Components/Sidebar";
+import  ButtonUsers  from "Components/Button";
 
 const data = [
   {
@@ -45,7 +46,6 @@ const data = [
     type: 'sick leave',
   },
 ];
-
 const UserView = (): JSX.Element => {
   return (
     <Layout>
@@ -91,9 +91,9 @@ const UserView = (): JSX.Element => {
               </StyledDivVacationInfo>
             </Row>
           </StyledDivContent>
-          <StyledButton type="primary" shape="round" htmlType="submit" size="large">
-            Add
-          </StyledButton>
+          <ButtonUsers>
+             Add
+          </ButtonUsers>
           <Table columns={columns} dataSource={data} size="large" />
         </StyledContent>
       </StyledLayout>

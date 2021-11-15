@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState } from 'react';
 import { Table, Space, Button, message } from 'antd';
 import 'antd/dist/antd.css';
 import { StyledButton, StyledContent, StyledLayout } from './styles';
@@ -8,6 +8,7 @@ import Loading from 'Components/Loading';
 import { Link } from 'react-router-dom';
 import { lang } from 'language/en';
 import { toBlockUnblockUser } from 'hooks/useUsers';
+import ButtonUsers from 'Components/Button';
 import { IUserId } from 'hooks/types';
 const { Column } = Table;
 
@@ -26,9 +27,7 @@ const Users = (): JSX.Element => {
     <StyledLayout>
       <Sidebar />
       <StyledContent>
-        <StyledButton type="primary" shape="round" htmlType="submit" size="large">
-          +
-        </StyledButton>
+        <ButtonUsers>+</ButtonUsers>
         <Table dataSource={data}>
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
           <Column

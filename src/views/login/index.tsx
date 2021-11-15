@@ -6,6 +6,7 @@ import {Row} from "./styles";
 import "antd/dist/antd.css";
 import axios from "axios";
 import {ILoginVars} from "./types"
+import LoginButton from "Components/Button/loginButton";
 import { url } from "constants/constants";
 const {REACT_APP_BASE} = process.env
 const PostRequest = (values:ILoginVars) => {
@@ -55,14 +56,13 @@ const LoginView = (): JSX.Element => {
                     <Input.Password prefix={<LockOutlined className="site-form-item-icon"/>} placeholder="Password"/>
                 </Form.Item>
                 <Form.Item wrapperCol={{offset: 7, span: 17}}>
-                    <Button type="primary" shape="round" htmlType="submit">
-                        {lang.button["loginButton"]}
-                    </Button>
+                    <LoginButton>  {lang.button["loginButton"]}</LoginButton>
                 </Form.Item>
             </Form>
 
         </Row>
     )
 }
+
 export default LoginView;
 
