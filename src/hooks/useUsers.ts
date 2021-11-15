@@ -1,27 +1,21 @@
-import { useQuery } from "react-query";
-import axios from "axios"
-const {REACT_APP_USERS_LIST} = process.env
-export type UserRoleType = 'employee' | 'admin' | 'super';
+import { useQuery } from 'react-query';
+import axios from 'axios';
+import { url } from 'constants/constants';
+import { IUserId, User } from './types';
+import { TUpdateUser } from 'views/AdminView/types';
+const { REACT_APP_BASE } = process.env;
 
-export type User = {
-  role: UserRoleType;
-  email: string;
-  password: string;
-  first_name: string;
-  last_name: string;
-  is_block: boolean;
-  available_vacation: number;
-  available_sick_days: number;
+export default function useGetListOfUsers() {
+  return useQuery('users', async (): Promise<Array<User>> => {
+    const { data } = await axios.get(`${REACT_APP_BASE}${url.users}`);
+    return data;
+  });
 }
 
-export default function useUsers() {
-  return useQuery(
-    "users",
-    async (): Promise<Array<User>> => {
-      const { data } = await axios.get(
-        `${REACT_APP_USERS_LIST}`
-      );
-      return data;
-    }
-  );
-}
+export const toBlockUnblockUser = async (dataIndex: boolean, key: IUserId) =>
+  axios.put(`${REACT_APP_BASE}${url.users}${key.id}`, {
+    is_block: !dataIndex,
+  });
+
+export const toUpdateUserInfo = async (values: TUpdateUser, userId: string) =>
+  axios.put(`${REACT_APP_BASE}${url.users}${userId}`, values);
