@@ -1,53 +1,60 @@
+import React, {useState } from 'react';
+import { Table, Space, Button, message } from 'antd';
+import 'antd/dist/antd.css';
+import { StyledButton, StyledContent, StyledLayout } from './styles';
+import Sidebar from '../Sidebar';
+import useGetListOfUsers from 'hooks/useUsers';
+import Loading from 'Components/Loading';
+import { Link } from 'react-router-dom';
+import { lang } from 'language/en';
+import { toBlockUnblockUser } from 'hooks/useUsers';
 import ButtonUsers from 'Components/Button';
-import { useState } from "react";
-import { Table, Space } from "antd";
-import "antd/dist/antd.css";
-import { StyledContent, StyledLayout } from "./styles";
-import Sidebar from "../Sidebar";
+import { IUserId } from 'hooks/types';
 const { Column } = Table;
-const data = [
-  {
-    key: 1,
-    first_name: "John",
-    is_block: false,
-  }, 
-  {
-    key: 2,
-    first_name: "Jim",
-    is_block: false,
-  },
-  {
-    key: 3,
-    first_name: "Joe",
-    is_block: false,
-  },
-];
 
-const Users = ()=>{
+const Users = (): JSX.Element => {
+  const { error, isLoading, data } = useGetListOfUsers();
+  // const [loading, setLoading] = useState(false);
+
+  if (isLoading) return <Loading />;
+  if (error instanceof Error) return <h1>Error: {error.message}</h1>;
+  const blockUser = (dataIndex: boolean, key: IUserId) =>
+    toBlockUnblockUser(dataIndex, key)
+      .then(() => message.success(lang.updateStatus.success))
+      .catch(() => message.success(lang.updateStatus.success));
+  // setLoading(loading);
   return (
     <StyledLayout>
       <Sidebar />
       <StyledContent>
         <ButtonUsers>+</ButtonUsers>
         <Table dataSource={data}>
-          <Column title="First Name" dataIndex="first_name" key="first_name" />
+          <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
           <Column
             title="Action"
             key="action"
-            render={() => (
+            dataIndex="id"
+            render={dataIndex => (
               <Space size="middle">
-                <a>Edit</a>
+                <Link to={`/admin/${dataIndex}`}>Edit</Link>
               </Space>
             )}
           />
           <Column
-            title="User status"
-            dataIndex="status"
-            key="first_name"
-            render={() => (
+            title={lang.userInfo.userStatus}
+            dataIndex="is_block"
+            key="id"
+            render={(dataIndex, key: IUserId) => (
               <Space size="middle">
-                <a>block
-                </a>
+                <Button
+                  onClick={() => {
+                    blockUser(dataIndex, key);
+                  }}
+                  htmlType="submit"
+                  type="link"
+                >
+                  {dataIndex ? lang.updateStatus.block : lang.updateStatus.unblock}
+                </Button>
               </Space>
             )}
           />
