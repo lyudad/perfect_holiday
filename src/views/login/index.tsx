@@ -6,11 +6,12 @@ import {Row} from "./styles";
 import "antd/dist/antd.css";
 import axios from "axios";
 import {ILoginVars} from "./types"
-const {REACT_APP_LOGIN} = process.env
+import { url } from "constants/constants";
+const {REACT_APP_BASE} = process.env
 const PostRequest = (values:ILoginVars) => {
     console.log(values)
         axios
-            .post(`${REACT_APP_LOGIN}`,
+            .post(`${REACT_APP_BASE}${url.auth}${url.login}`,
                 {
                     login: values["login"],
                     password: values["password"]
