@@ -64,7 +64,6 @@ const data = [
 interface Props {
   selectedDate: [] | null;
 }
-
 const UserView = (): JSX.Element => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -153,9 +152,9 @@ const UserView = (): JSX.Element => {
                   name="FirstName"
                   rules={[
                     {
-                      type: "string",
+                      type: 'string',
                       required: true,
-                      message: `${lang.username["firstName-validation"]}`,
+                      message: `${lang.username['firstName-validation']}`,
                     },
                   ]}
                 >
@@ -166,9 +165,9 @@ const UserView = (): JSX.Element => {
                   name="LastName"
                   rules={[
                     {
-                      type: "string",
+                      type: 'string',
                       required: true,
-                      message: `${lang.username["lastName-validation"]}`,
+                      message: `${lang.username['lastName-validation']}`,
                     },
                   ]}
                 >
