@@ -1,4 +1,6 @@
 export const url = {
-  users: 'users/',
-  admin: 'admin/',
-};
+    users: 'users/',
+    admin: 'admin/',
+    login: 'login/',
+    auth: 'auth/'
+}

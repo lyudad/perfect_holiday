@@ -29,4 +29,7 @@ export const lang = {
     email: 'Email',
     userStatus: 'User status',
   },
+    button:{
+        "loginButton": "SIGN IN",
+    }
 }
