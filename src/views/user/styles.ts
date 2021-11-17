@@ -34,6 +34,12 @@ export const StyledModalContent = styled("div")`
   text-align: left;
 `;
 
+export const StyledInputContent = styled("div")`
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+`;
+
 export const StyledFormItem = styled(Form.Item)`
   display: inline-block;
   width: calc(50% - 8px);
