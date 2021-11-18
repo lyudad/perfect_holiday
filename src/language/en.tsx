@@ -9,15 +9,20 @@ export const lang = {
         "email-validation": "Please enter your email!",
 
     },
-    profile:{
-        "profile":"Profile",
-        "logout":"Logout"
+    profile: {
+        "profile": "Profile",
+        "logout": "Logout"
     },
     sidebar: {
         "dashboard": "Dashboard",
         "users": "Users",
         "profile": "Profile",
         "logout": "Logout",
+    },
+    button: {
+        "loginButton": "SIGN IN",
+        "sendPasswordButton": "Send pass",
+        "addButton": "Add"
     }
 
 }

@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import "antd/dist/antd.css";
 import {lang} from "language/en";
-import {Row, Input, Form} from "antd";
+import {Row, Form} from "antd";
 import {Table} from "antd";
 import {
     StyledLayout,
@@ -11,13 +11,34 @@ import {
     StyledDivContent,
     StyledDivVacationInfo,
     ButtonWrapper,
-    StyledForm, StyledInput,
+    StyledInput,
 } from "./styles";
 import {columns} from "./const";
 import Layout from "./layout";
 import Sidebar from "../../Components/Sidebar";
 import axios from "axios";
-
+import { url } from "constants/constants";
+import {IMailVars} from './types'
+const {REACT_APP_BASE} = process.env
+const PostRequest = (values:IMailVars) => {
+    console.log(values)
+    axios
+        .post(`${REACT_APP_BASE}${url.mail}`,
+            {
+                firstName: values["firstName"],
+                lastName: values["lastName"],
+                email: values["email"]
+            }
+        ).then(res => {
+        console.log(res)
+    })
+        .catch(err => {
+            console.log(err)
+            if (err.response) {
+                console.log(err.response.status);
+            }
+        })
+}
 const data = [
     {
         key: "1",
@@ -50,22 +71,9 @@ const data = [
 ];
 
 const AdminView = (): JSX.Element => {
-  const [dataUser, setDataUser] = useState({
-    email: "",
-    firstName: "",
-    lastName: ""
 
-  })
-  const handle = (e: { target: { id: string | number; value: string; }; }) => {
-    const newData = {...dataUser}
-    console.log(newData)
-      if (e.target.id === "VacationForm_E   mail")newData["email"]= e.target.value
-    else
-      // @ts-ignore
-    e.target.id === "VacationForm_FirstName" ? newData["firstName"] = e.target.value : newData["lastName"] = e.target.value
-    setDataUser(newData)
-  }
-    // @ts-ignore
+
+
   return (
         <Layout>
             <StyledLayout>
@@ -73,30 +81,7 @@ const AdminView = (): JSX.Element => {
                 <StyledContent>
                     <StyledDivContent className="site-layout-background">
                         <Row>
-                            <StyledForm name="VacationForm" layout="horizontal" size="large"
-                                  onFinish={() => {
-                                      console.log(dataUser)
-                                      axios
-                                          .post('http://localhost:3001/send_password',
-                                              {
-                                                  email: dataUser.email,
-                                                  firstName: dataUser.firstName,
-                                                  lastName: dataUser.lastName
-                                              }
-                                          ).then(res => {
-                                          console.log(res)
-                                      })
-                                          .catch(err => {
-                                              console.log(err)
-                                              if (err.response) {
-                                                  console.log(err.response.status);
-
-                                              }
-                                          })
-                                  }
-
-
-                                  }>
+                            <Form name="VacationForm" layout="horizontal" size="large" style={{width:"100%"}} onFinish={PostRequest}>
                                 <StyledFormItem
                                     name="FirstName"
                                     rules={[
@@ -107,7 +92,7 @@ const AdminView = (): JSX.Element => {
                                         },
                                     ]}
                                 >
-                                    <StyledInput placeholder="FirstName" onChange={event => handle(event)}/>
+                                    <StyledInput placeholder="FirstName"/>
                                 </StyledFormItem>
 
                                 <StyledFormItem
@@ -120,7 +105,7 @@ const AdminView = (): JSX.Element => {
                                         },
                                     ]}
                                 >
-                                    <StyledInput placeholder="LastName" onChange={event => handle(event)}/>
+                                    <StyledInput placeholder="LastName" />
                                 </StyledFormItem>
                                 <StyledFormItem
                                     name="Email"
@@ -132,7 +117,7 @@ const AdminView = (): JSX.Element => {
                                         },
                                     ]}
                                 >
-                                    <StyledInput placeholder="email" onChange={event => handle(event)}/>
+                                    <StyledInput placeholder="email" />
                                 </StyledFormItem>
                                 <ButtonWrapper>
                                     <StyledButton
@@ -141,16 +126,16 @@ const AdminView = (): JSX.Element => {
                                         htmlType="submit"
                                         size="large"
                                     >
-                                        Send pass
+                                        {lang.button["sendPasswordButton"]}
                                     </StyledButton>
                                     <StyledButton
                                         shape="round"
                                         size="large"
                                     >
-                                        Add
+                                        {lang.button["addButton"]}
                                     </StyledButton>
                                 </ButtonWrapper>
-                            </StyledForm>
+                            </Form>
                         </Row>
                         <Row>
                             <StyledDivVacationInfo>
