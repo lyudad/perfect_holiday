@@ -1,10 +1,8 @@
 interface ContainerProps {
-    children: object
+  children: JSX.Element | JSX.Element[];
 }
 
-const Container = ({ children }: ContainerProps)=> {
-    return (
-        <div>{children}</div>
-   )
-}
+const Container = ({ children }: ContainerProps) => {
+  return <div>{children}</div>;
+};
 export default Container;
