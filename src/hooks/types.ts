@@ -12,3 +12,9 @@ export type User = {
   available_vacation: number;
   available_sick_days: number;
 };
+
+export type TBookkHoliday = {
+  start_date: string;
+  end_date: string;
+  type: string;
+};

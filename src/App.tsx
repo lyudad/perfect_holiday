@@ -1,12 +1,13 @@
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { Switch, Route } from 'react-router-dom'
-import Container from './Components/Container'
-import LoginView from './views/login'
-import Dashbord from './Components/Dashbord'
-import UserView from './views/user'
-import AdminView from './views/AdminView'
-import Users from './Components/Users'
-const queryClient = new QueryClient()
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Switch, Route } from 'react-router-dom';
+import Container from './Components/Container';
+import LoginView from './views/login';
+import Dashbord from './Components/Dashbord';
+import UserView from './views/user';
+import AdminView from './views/AdminView';
+import Users from './Components/Users';
+import Calendar from 'Components/Calendar';
+const queryClient = new QueryClient();
 
 function App(): JSX.Element {
   return (
@@ -17,6 +18,7 @@ function App(): JSX.Element {
             <LoginView />
           </Route>
           <Route exact path="/admin/:id" component={AdminView} />
+          <Route exact path="/booking/:id" component={Calendar} />
           <Route path="/dashbord">
             <Dashbord />
           </Route>
@@ -29,7 +31,7 @@ function App(): JSX.Element {
         </Switch>
       </Container>
     </QueryClientProvider>
-  )
+  );
 }
 
-export default App
+export default App;

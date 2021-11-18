@@ -51,11 +51,12 @@ const data = [
 const AdminView = (): JSX.Element => {
   const [form] = Form.useForm();
   const userId = useRouteMatch<IMatchParams>().params.id;
-  const upUS = () =>
+  const updateUserInfo = () => {
     toUpdateUserInfo(form.getFieldsValue(), userId)
       .then(() => message.success(lang.updateStatus.success))
       .catch(() => message.success(lang.updateStatus.success));
-  form.resetFields();
+    form.resetFields();
+  };
 
   return (
     <Layout>
@@ -67,7 +68,7 @@ const AdminView = (): JSX.Element => {
               form={form}
               name="VacationForm"
               layout="horizontal"
-              onFinish={upUS}
+              onFinish={updateUserInfo}
               size="large"
             >
               <Row justify="space-between">

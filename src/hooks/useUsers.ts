@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { url } from 'constants/constants';
-import { IUserId, User } from './types';
+import { IUserId, TBookkHoliday, User } from './types';
 import { TUpdateUser } from 'views/AdminView/types';
 const { REACT_APP_BASE } = process.env;
 
@@ -19,3 +19,6 @@ export const toBlockUnblockUser = async (dataIndex: boolean, key: IUserId) =>
 
 export const toUpdateUserInfo = async (values: TUpdateUser, userId: string) =>
   axios.put(`${REACT_APP_BASE}${url.users}${userId}`, values);
+
+export const bookigRestDays = async (values: TBookkHoliday, userId: string) =>
+  axios.post(`${REACT_APP_BASE}${url.casual}${userId}`, values);

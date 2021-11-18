@@ -14,7 +14,6 @@ const { Column } = Table;
 
 const Users = (): JSX.Element => {
   const { error, isLoading, data } = useGetListOfUsers();
-  // const [loading, setLoading] = useState(false);
 
   if (isLoading) return <Loading />;
   if (error instanceof Error) return <h1>Error: {error.message}</h1>;
@@ -22,7 +21,6 @@ const Users = (): JSX.Element => {
     toBlockUnblockUser(dataIndex, key)
       .then(() => message.success(lang.updateStatus.success))
       .catch(() => message.success(lang.updateStatus.success));
-  // setLoading(loading);
   return (
     <StyledLayout>
       <Sidebar />
