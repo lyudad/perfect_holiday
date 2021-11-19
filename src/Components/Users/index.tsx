@@ -1,7 +1,6 @@
-import React, {useState } from 'react';
 import { Table, Space, Button, message } from 'antd';
 import 'antd/dist/antd.css';
-import { StyledButton, StyledContent, StyledLayout } from './styles';
+import { StyledContent, StyledLayout } from './styles';
 import Sidebar from '../Sidebar';
 import useGetListOfUsers from 'hooks/useUsers';
 import Loading from 'Components/Loading';
