@@ -9,7 +9,6 @@ import LoginButton from 'Components/Button/loginButton';
 import { url } from 'constants/constants';
 const { REACT_APP_BASE } = process.env;
 const PostRequest = (values: ILoginVars) => {
-  console.log(values);
   axios
     .post(`${REACT_APP_BASE}${url.auth}${url.login}`, {
       login: values['login'],

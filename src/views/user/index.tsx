@@ -59,7 +59,7 @@ const UserView = (): JSX.Element => {
   type Data = typeof data;
 
   type Type = string;
-
+  type Modal = boolean;
   type Vacation = {
     startDate: Date;
     endDate: Date;
@@ -67,7 +67,7 @@ const UserView = (): JSX.Element => {
 
   // eslint-disable-next-line no-unused-vars
   const [request, setRequest] = useState<Data>(data);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState<Modal>(false);
   const [selectedType, setSelectedType] = useState<Type>('vacation');
 
   const { control, handleSubmit, watch } = useForm<Vacation>();
@@ -92,7 +92,6 @@ const UserView = (): JSX.Element => {
       status: 'pending',
       type: selectedType,
     };
-    console.log(item);
 
     setRequest(prevState => [item, ...prevState]);
     toggleModal();
@@ -105,76 +104,73 @@ const UserView = (): JSX.Element => {
   return (
     <Layout>
       <StyledLayout>
-        {Modal && (
-          <Modal
-            onCancel={toggleModal}
-            visible={isModalVisible}
-            wrapClassName="reservation_modal"
-            width={600}
-            footer={null}
-          >
-            <div className="reserv_message">Please choose dates of reservation.</div>
-            <Form onSubmitCapture={handleSubmit(onSubmit)}>
-              <StyledInputContent>
-                <Controller
-                  name="startDate"
-                  control={control}
-                  render={({ field }) => {
-                    return (
-                      <DatePicker
-                        selectsStart
-                        dateFormat="dd.MM.yyyy"
-                        startDate={watchAll.startDate}
-                        endDate={watchAll.endDate}
-                        maxDate={watchAll.endDate}
-                        minDate={today}
-                        selected={field.value}
-                        onChange={field.onChange}
-                        placeholderText="Start date"
-                      />
-                    );
-                  }}
-                />
-                <Controller
-                  name="endDate"
-                  control={control}
-                  render={({ field }) => {
-                    return (
-                      <DatePicker
-                        selectsEnd
-                        dateFormat="dd.MM.yyyy"
-                        startDate={watchAll.startDate}
-                        endDate={watchAll.endDate}
-                        minDate={watchAll.startDate}
-                        selected={field.value}
-                        onChange={field.onChange}
-                        placeholderText="Start date"
-                      />
-                    );
-                  }}
-                />
-                <SelectBlock
-                  size="middle"
-                  defaultValue="vacation"
-                  onChange={() => setSelectedType(type)}
-                  value={selectedType}
-                >
-                  <Option value="vacation">Vacation</Option>
-                  <Option value="sickleave">Sick leave</Option>
-                </SelectBlock>
-              </StyledInputContent>
-
-              <StyledModalContent>
-                <Button onClick={toggleModal}>Cancel</Button>
-                <Form.Item>
-                  <Button type="primary" htmlType="submit">
-                    Confirm Reservation
-                  </Button>
-                </Form.Item>
-              </StyledModalContent>
-            </Form>
-          </Modal>
-        )}
+        <Modal
+          onCancel={toggleModal}
+          visible={isModalVisible}
+          wrapClassName="reservation_modal"
+          width={600}
+          footer={null}
+        >
+          <div className="reserv_message">Please choose dates of reservation.</div>
+          <Form onSubmitCapture={handleSubmit(onSubmit)}>
+            <StyledInputContent>
+              <Controller
+                name="startDate"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <DatePicker
+                      selectsStart
+                      dateFormat="dd.MM.yyyy"
+                      startDate={watchAll.startDate}
+                      endDate={watchAll.endDate}
+                      maxDate={watchAll.endDate}
+                      minDate={today}
+                      selected={field.value}
+                      onChange={field.onChange}
+                      placeholderText="Start date"
+                    />
+                  );
+                }}
+              />
+              <Controller
+                name="endDate"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <DatePicker
+                      selectsEnd
+                      dateFormat="dd.MM.yyyy"
+                      startDate={watchAll.startDate}
+                      endDate={watchAll.endDate}
+                      minDate={watchAll.startDate}
+                      selected={field.value}
+                      onChange={field.onChange}
+                      placeholderText="Start date"
+                    />
+                  );
+                }}
+              />
+              <SelectBlock
+                size="middle"
+                defaultValue="vacation"
+                onChange={() => setSelectedType(type)}
+                value={selectedType}
+              >
+                <Option value="vacation">Vacation</Option>
+                <Option value="sickleave">Sick leave</Option>
+              </SelectBlock>
+            </StyledInputContent>
+            <StyledModalContent>
+              <Button onClick={toggleModal}>Cancel</Button>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Confirm Reservation
+                </Button>
+              </Form.Item>
+            </StyledModalContent>
+          </Form>
+        </Modal>
         <Sidebar />
         <StyledContent>
           <StyledDivContent className="site-layout-background">
