@@ -2,5 +2,6 @@ export const url = {
     users: 'users/',
     admin: 'admin/',
     login: 'login/',
-    auth: 'auth/'
+    auth: 'auth/',
+    mail: 'mail/',
 }

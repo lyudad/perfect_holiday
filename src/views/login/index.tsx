@@ -14,7 +14,7 @@ const PostRequest = (values:ILoginVars) => {
         axios
             .post(`${REACT_APP_BASE}${url.auth}${url.login}`,
                 {
-                    login: values["login"],
+                    email: values["login"],
                     password: values["password"]
                 }
             ).then(res => {
