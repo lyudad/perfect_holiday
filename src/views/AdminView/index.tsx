@@ -20,25 +20,47 @@ import axios from "axios";
 import { url } from "constants/constants";
 import {IMailVars} from './types'
 const {REACT_APP_BASE} = process.env
-const PostRequest = (values:IMailVars) => {
-    console.log(values)
-    axios
-        .post(`${REACT_APP_BASE}${url.mail}`,
-            {
-                firstName: values["firstName"],
-                lastName: values["lastName"],
-                email: values["email"]
-            }
-        ).then(res => {
-        console.log(res)
-    })
-        .catch(err => {
-            console.log(err)
-            if (err.response) {
-                console.log(err.response.status);
-            }
+const requests = () => {
+    const PostRequest = (values:IMailVars) => {
+        console.log(values)
+        axios
+            .post(`${REACT_APP_BASE}${url.mail}`,
+                {
+                    firstName: values["firstName"],
+                    lastName: values["lastName"],
+                    email: values["email"]
+                }
+            ).then(res => {
+            console.log(res)
         })
+            .catch(err => {
+                console.log(err)
+                if (err.response) {
+                    console.log(err.response.status);
+                }
+            })
+    }
+    const PostRequest1 = (values:IMailVars) => {
+        console.log(values)
+        axios
+            .post(`${REACT_APP_BASE}${url.mail}`,
+                {
+                    firstName: values["firstName"],
+                    lastName: values["lastName"],
+                    email: values["email"]
+                }
+            ).then(res => {
+            console.log(res)
+        })
+            .catch(err => {
+                console.log(err)
+                if (err.response) {
+                    console.log(err.response.status);
+                }
+            })
+    }
 }
+
 const data = [
     {
         key: "1",
@@ -81,7 +103,7 @@ const AdminView = (): JSX.Element => {
                 <StyledContent>
                     <StyledDivContent className="site-layout-background">
                         <Row>
-                            <Form name="VacationForm" layout="horizontal" size="large" style={{width:"100%"}} onFinish={PostRequest}>
+                            <Form name="VacationForm" layout="horizontal" size="large" style={{width:"100%"}} onFinish={requests}>
                                 <StyledFormItem
                                     name="FirstName"
                                     rules={[
@@ -131,6 +153,7 @@ const AdminView = (): JSX.Element => {
                                     <StyledButton
                                         shape="round"
                                         size="large"
+
                                     >
                                         {lang.button["addButton"]}
                                     </StyledButton>
