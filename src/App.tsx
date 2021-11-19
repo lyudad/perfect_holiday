@@ -17,7 +17,7 @@ function App(): JSX.Element {
           <Route path="/login">
             <LoginView />
           </Route>
-          <Route exact path="/admin/:id" component={AdminView} />
+          <Route exact path="/admin/:userId" component={AdminView} />
           <Route exact path="/booking/:id" component={Calendar} />
           <Route path="/dashbord">
             <Dashbord />
