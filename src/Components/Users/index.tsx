@@ -1,7 +1,7 @@
-import React, {useState } from 'react';
+import React from 'react';
 import { Table, Space, Button, message } from 'antd';
 import 'antd/dist/antd.css';
-import { StyledButton, StyledContent, StyledLayout } from './styles';
+import {  StyledContent, StyledLayout } from './styles';
 import Sidebar from '../Sidebar';
 import useGetListOfUsers from 'hooks/useUsers';
 import Loading from 'Components/Loading';
@@ -14,7 +14,6 @@ const { Column } = Table;
 
 const Users = (): JSX.Element => {
   const { error, isLoading, data } = useGetListOfUsers();
-  // const [loading, setLoading] = useState(false);
 
   if (isLoading) return <Loading />;
   if (error instanceof Error) return <h1>Error: {error.message}</h1>;

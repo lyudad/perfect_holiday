@@ -6,7 +6,6 @@ import { Table } from 'antd';
 import {
   StyledLayout,
   StyledContent,
-  StyledButton,
   StyledFormItem,
   StyledDivContent,
   StyledDivVacationInfo,

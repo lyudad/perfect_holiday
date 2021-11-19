@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import {lang} from "language/en"
-import {Form, Input, Button} from "antd";
+import {Form, Input, } from "antd";
 import {UserOutlined, LockOutlined} from "@ant-design/icons";
 import {Row} from "./styles";
 import "antd/dist/antd.css";

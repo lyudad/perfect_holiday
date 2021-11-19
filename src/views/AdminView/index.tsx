@@ -23,7 +23,6 @@ import {IMatchParams} from './types';
 const {REACT_APP_BASE} = process.env
 
 const PostRequest = (values: IMailVars) => {
-    console.log(values)
     axios
         .post(`${REACT_APP_BASE}${url.mail}`,
             {
@@ -31,21 +30,14 @@ const PostRequest = (values: IMailVars) => {
                 lastName: values["lastName"],
                 email: values["email"]
             }
-        ).then(res => {
-        console.log(res)
-    })
+        )
         .catch(err => {
             console.log(err)
             if (err.response) {
                 console.log(err.response.status);
             }
         })
-        .catch(err => {
-            console.log(err)
-            if (err.response) {
-                console.log(err.response.status);
-            }
-        })
+
 }
 
 
@@ -154,7 +146,7 @@ const AdminView = (): JSX.Element => {
                             shape="round"
                             htmlType="submit"
                             size="large"
-                            onClick={upUS()}
+                            onClick={upUS}
                         >
                             {lang.button["addButton"]}
                         </StyledButton>

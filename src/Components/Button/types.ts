@@ -1,3 +1,3 @@
 export interface ButtonProps {
-    children: string;
+    children: string | object;
 }
