@@ -1,7 +1,9 @@
 import { ILoginVars } from "../views/login/types";
 
 export const LOGIN_VARS: ILoginVars = {
-    BG: "rgb(8 8 8 / 7%)"
+    BG: "rgb(8 8 8 / 7%)",
+    login:"",
+    password:""
 };
 
 export const SIDEBAR = {

@@ -1,3 +1,5 @@
 export interface ILoginVars {
-    BG: string
+    BG: string,
+    login: string
+    password: string
 }; 
