@@ -1,35 +1,52 @@
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { Switch, Route } from 'react-router-dom'
-import Container from './Components/Container'
-import LoginView from './views/login'
-import Dashbord from './Components/Dashbord'
-import UserView from './views/user'
-import AdminView from './views/AdminView'
-import Users from './Components/Users'
-const queryClient = new QueryClient()
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { RouteComponentProps, Switch } from 'react-router-dom';
+import Container from './Components/Container';
+import PublicRoutes from 'Routes/publicRoutes';
+import PrivatRoutes from 'Routes/privateRoutes';
+import { mainRoutes } from 'Routes/mainRoutes';
+import { ComponentType } from 'react';
+const queryClient = new QueryClient();
+
+interface Props {
+  isPrivate: boolean;
+  restricted: boolean;
+  path: string;
+  exact: boolean;
+  component: ComponentType<RouteComponentProps<never>>;
+}
 
 function App(): JSX.Element {
+  const isAuth = true;
+
   return (
     <QueryClientProvider client={queryClient}>
       <Container>
         <Switch>
-          <Route path="/login">
-            <LoginView />
-          </Route>
-          <Route exact path="/admin/:id" component={AdminView} />
-          <Route path="/dashbord">
-            <Dashbord />
-          </Route>
-          <Route path="/user">
-            <UserView />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
+          {mainRoutes.map(
+            ({ path, exact, component, isPrivate, restricted }: Props) =>
+              isPrivate ? (
+                <PrivatRoutes
+                  isAuth={isAuth}
+                  path={path}
+                  exact={exact}
+                  component={component}
+                  key={path}
+                />
+              ) : (
+                <PublicRoutes
+                  isAuth={isAuth}
+                  path={path}
+                  exact={exact}
+                  component={component}
+                  restricted={restricted}
+                  key={path}
+                />
+              ),
+          )}
         </Switch>
       </Container>
     </QueryClientProvider>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,4 +1,3 @@
-import React from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
 import { Row, Input, Form } from 'antd';
@@ -6,15 +5,14 @@ import { Table } from 'antd';
 import {
   StyledLayout,
   StyledContent,
-  StyledButton,
   StyledFormItem,
   StyledDivContent,
   StyledDivVacationInfo,
-} from "./styles";
-import { columns } from "./const";
-import Layout from "./layout";
-import Sidebar from "../../Components/Sidebar";
-import  ButtonUsers  from "Components/Button";
+} from './styles';
+import { columns } from './const';
+import Layout from './layout';
+import Sidebar from '../../Components/Sidebar';
+import ButtonUsers from 'Components/Button';
 
 const data = [
   {
@@ -91,9 +89,7 @@ const UserView = (): JSX.Element => {
               </StyledDivVacationInfo>
             </Row>
           </StyledDivContent>
-          <ButtonUsers>
-             Add
-          </ButtonUsers>
+          <ButtonUsers>Add</ButtonUsers>
           <Table columns={columns} dataSource={data} size="large" />
         </StyledContent>
       </StyledLayout>
