@@ -2,6 +2,7 @@ import { useState } from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
 import { Row, Input, Form, Modal, Button, Table, Select } from 'antd';
+import './index.css'
 import {
   StyledLayout,
   StyledContent,
@@ -50,7 +51,7 @@ const data = [
     key: 'A6xDpRGOm',
     startDate: '16th Nov 2021',
     endDate: '26th Dec 2021',
-    status: 'pending',
+    status: 'declined',
     type: 'sick leave',
   },
 ];
@@ -225,7 +226,7 @@ const UserView = (): JSX.Element => {
           >
             +
           </StyledButton>
-          <Table columns={columns} dataSource={data} size="large" />
+          <Table columns={columns} dataSource={data} size="large" rowClassName={(record, index) => (record.status === "declined" ? "red" : record.status === "approved"? "green":"yellow")} />
         </StyledContent>
       </StyledLayout>
     </Layout>
