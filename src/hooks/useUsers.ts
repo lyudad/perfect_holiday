@@ -12,6 +12,13 @@ export default function useGetListOfUsers() {
   });
 }
 
+export function useAllNotApprovedRestDays() {
+  return useQuery('casual', async (): Promise<Array<User>> => {
+    const { data } = await axios.get(`${REACT_APP_BASE}${url.pending}`);
+    return data;
+  });
+}
+
 export const toBlockUnblockUser = async (dataIndex: boolean, key: IUserId) =>
   axios.put(`${REACT_APP_BASE}${url.users}${key.id}`, {
     is_block: !dataIndex,

@@ -29,7 +29,17 @@ export const lang = {
     email: 'Email',
     userStatus: 'User status',
   },
-    button:{
-        "loginButton": "SIGN IN",
-    }
-}
+  button: {
+    loginButton: 'SIGN IN',
+  },
+  dashboard: {
+    userTitle: 'User',
+    startDateTitle: 'Start Date',
+    endDateTitle: 'End Date',
+    typeTitle: 'Typr',
+    actionTitle: 'Action',
+    approveButton: 'Approve',
+    declineButton: 'Decline',
+    editButton: 'Edit',
+  },
+};

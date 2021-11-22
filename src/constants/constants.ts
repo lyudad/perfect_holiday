@@ -4,4 +4,5 @@ export const url = {
   login: 'login/',
   auth: 'auth/',
   casual: 'casual/',
+  pending: 'casual/pending',
 };
