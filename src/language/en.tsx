@@ -31,5 +31,7 @@ export const lang = {
   },
     button:{
         "loginButton": "SIGN IN",
+      "sendPasswordButton": "Send pass",
+      "addButton": "Add"
     }
 }
