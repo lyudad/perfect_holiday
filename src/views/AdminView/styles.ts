@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import {Layout, Button, Form} from "antd";
+import {Layout, Button, Form, Input} from "antd";
 
 const { Content } = Layout;
 
@@ -46,3 +46,6 @@ display: flex;
 flex-direction: column;
 float: right;
 `;
+
+export const StyledInput = styled(Input)`
+width: 100%`;
