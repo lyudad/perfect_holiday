@@ -14,9 +14,12 @@ import {
   StyledDivVacationInfo,
   ButtonWrapper,
 } from './styles';
+import {url} from "constants/constants";
+import {IMailVars} from './types'
 import { useRouteMatch } from 'react-router-dom';
 import { IMatchParams } from './types';
-
+import axios from 'axios';
+const {REACT_APP_BASE} = process.env
 const data = [
   {
     key: '1',
@@ -57,7 +60,26 @@ const AdminView = (): JSX.Element => {
       .catch(() => message.success(lang.updateStatus.success));
     form.resetFields();
   };
-
+  const PostRequest = (values: IMailVars) => {
+    console.log(values);
+    axios
+        .post(`${REACT_APP_BASE}${url.mail}`,
+            {
+              firstName: values["firstName"],
+              lastName: values["lastName"],
+              email: values["email"]
+            }
+        )
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err)
+          if (err.response) {
+            console.log(err.response.status);
+          }
+        })
+  }
   return (
     <Layout>
       <StyledLayout>
@@ -68,7 +90,7 @@ const AdminView = (): JSX.Element => {
               form={form}
               name="VacationForm"
               layout="horizontal"
-              onFinish={updateUserInfo}
+              onFinish={PostRequest}
               size="large"
             >
               <Row justify="space-between">
@@ -113,20 +135,19 @@ const AdminView = (): JSX.Element => {
           </StyledDivContent>
           <ButtonWrapper>
             <StyledButton
-              type="primary"
               shape="round"
               htmlType="submit"
               size="large"
             >
-              Send pass
+              {lang.button["sendPasswordButton"]}
             </StyledButton>
             <StyledButton
-              type="primary"
               shape="round"
               htmlType="submit"
               size="large"
+              onClick={updateUserInfo}
             >
-              Add
+              {lang.button["addButton"]}
             </StyledButton>
           </ButtonWrapper>
           <Table columns={columns} dataSource={data} size="large" />
