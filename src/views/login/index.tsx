@@ -2,35 +2,36 @@ import { useState } from 'react';
 import { lang } from 'language/en';
 import { Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Row } from './styles';
+import { Row, Status } from './styles';
 import 'antd/dist/antd.css';
 import axios from 'axios';
 import { ILoginVars } from './types';
 import LoginButton from 'Components/Button/loginButton';
 import { url } from 'constants/constants';
 const { REACT_APP_BASE } = process.env;
-
-const PostRequest = (values: ILoginVars) => {
-  axios
-    .post(`${REACT_APP_BASE}${url.auth}${url.login}`, {
-      email: values['login'],
-      password: values['password'],
-    })
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => {
-      console.log(err);
-      if (err.response) {
-        console.log(err.response.status);
-        if (err.response.status === 401)
-
-          console.log("Wrong password or email")
-      }
-    });
-};
 const LoginView = (): JSX.Element => {
-   const [error, setError] = useState("Wrong password or email");
+  const [status,setStatus]=useState(" ")
+  const PostRequest = (values: ILoginVars) => {
+    axios
+      .post(`${REACT_APP_BASE}${url.auth}${url.login}`, {
+        email: values['login'],
+        password: values['password'],
+      })
+      .then(res => {
+        setStatus("login is successful")
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+        if (err.response) {
+          console.log(err.response.status);
+          if (err.response.status === 401)
+            setStatus('wrong email or password');
+
+        }
+      });
+  };
+
   return (
     <Row justify="center" align="middle">
       <Form onFinish={PostRequest} name="loginForm" layout="vertical" size="large">
@@ -61,14 +62,13 @@ const LoginView = (): JSX.Element => {
           <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
             placeholder="Password"
-          />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 4, span: 17 }}>{error}</Form.Item>
+          /></Form.Item>
 
         <Form.Item wrapperCol={{ offset: 7, span: 17 }}>
           <LoginButton > {lang.button['loginButton']}</LoginButton>
 
         </Form.Item>
+        <Form.Item wrapperCol={{ offset: 2, span: 20 }}><Status>{status}</Status></Form.Item>
       </Form>
     </Row>
   );
