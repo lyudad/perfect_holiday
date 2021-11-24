@@ -10,7 +10,7 @@ import LoginButton from 'Components/Button/loginButton';
 import { url } from 'constants/constants';
 const { REACT_APP_BASE } = process.env;
 const LoginView = (): JSX.Element => {
-  const [status,setStatus]=useState(" ")
+  const [status,setStatus]=useState<string>('')
   const PostRequest = (values: ILoginVars) => {
     axios
       .post(`${REACT_APP_BASE}${url.auth}${url.login}`, {
@@ -18,15 +18,12 @@ const LoginView = (): JSX.Element => {
         password: values['password'],
       })
       .then(res => {
-        setStatus("login is successful")
-        console.log(res);
+        setStatus("Login is successful")
       })
       .catch(err => {
-        console.log(err);
         if (err.response) {
-          console.log(err.response.status);
           if (err.response.status === 401)
-            setStatus('wrong email or password');
+            setStatus('Wrong email or password');
 
         }
       });
@@ -35,6 +32,7 @@ const LoginView = (): JSX.Element => {
   return (
     <Row justify="center" align="middle">
       <Form onFinish={PostRequest} name="loginForm" layout="vertical" size="large">
+          <Form.Item wrapperCol={{ offset: 2, span: 21 }}><Status>{status}</Status></Form.Item>
         <Form.Item
           name="login"
           rules={[
@@ -68,7 +66,7 @@ const LoginView = (): JSX.Element => {
           <LoginButton > {lang.button['loginButton']}</LoginButton>
 
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 2, span: 20 }}><Status>{status}</Status></Form.Item>
+
       </Form>
     </Row>
   );

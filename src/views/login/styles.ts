@@ -9,4 +9,5 @@ export const Row: typeof AntRow = styled(AntRow)`
 export const Status = styled.p`
   font-size: 18px;
   text-align: center;
+  color: red;
 `
