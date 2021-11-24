@@ -14,7 +14,7 @@ import {
   StyledModalContent,
   StyledInputContent,
 } from './styles';
-import { columns } from './const';
+import { columns, sellectItemColor } from './const';
 import Layout from './layout';
 import Sidebar from '../../Components/Sidebar';
 import shortid from 'shortid';
@@ -102,6 +102,9 @@ const UserView = (): JSX.Element => {
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
+ const SelectColor = (record:any) =>
+ {return sellectItemColor(record.status) || ''
+ }
 
   return (
     <Layout>
@@ -226,7 +229,8 @@ const UserView = (): JSX.Element => {
           >
             +
           </StyledButton>
-          <Table columns={columns} dataSource={data} size="large" rowClassName={(record, index) => (record.status === "declined" ? "red" : record.status === "approved"? "green":"yellow")} />
+          <Table columns={columns} dataSource={data} size="large"
+                 rowClassName={SelectColor}/>
         </StyledContent>
       </StyledLayout>
     </Layout>
