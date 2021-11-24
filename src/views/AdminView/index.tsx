@@ -16,7 +16,7 @@ import {
 } from './styles';
 import {url} from "constants/constants";
 import {IMailVars} from './types'
-import { useRouteMatch } from 'react-router-dom';
+import {useParams, useRouteMatch } from 'react-router-dom';
 import { IMatchParams } from './types';
 import axios from 'axios';
 const {REACT_APP_BASE} = process.env
@@ -60,14 +60,12 @@ const AdminView = (): JSX.Element => {
       .catch(() => message.success(lang.updateStatus.success));
     form.resetFields();
   };
-  const PostRequest = (values: IMailVars) => {
-    console.log(values);
+  const SendPasswordId = () => {
+
     axios
-        .post(`${REACT_APP_BASE}${url.mail}`,
+        .post(`${REACT_APP_BASE}${url.pushPassword}${userId}`,
             {
-              firstName: values["firstName"],
-              lastName: values["lastName"],
-              email: values["email"]
+              id: userId,
             }
         )
         .then(res => {
@@ -90,7 +88,7 @@ const AdminView = (): JSX.Element => {
               form={form}
               name="VacationForm"
               layout="horizontal"
-              onFinish={PostRequest}
+              onFinish={updateUserInfo}
               size="large"
             >
               <Row justify="space-between">
@@ -138,6 +136,7 @@ const AdminView = (): JSX.Element => {
               shape="round"
               htmlType="submit"
               size="large"
+              onClick={SendPasswordId}
             >
               {lang.button["sendPasswordButton"]}
             </StyledButton>
@@ -145,7 +144,6 @@ const AdminView = (): JSX.Element => {
               shape="round"
               htmlType="submit"
               size="large"
-              onClick={updateUserInfo}
             >
               {lang.button["addButton"]}
             </StyledButton>

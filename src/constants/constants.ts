@@ -5,4 +5,5 @@ export const url = {
   auth: 'auth/',
   casual: 'casual/',
   mail: 'mail/',
+  pushPassword:'push-password/',
 };
