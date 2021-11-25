@@ -4,6 +4,8 @@ export const url = {
   login: 'login/',
   auth: 'auth/',
   casual: 'casual/',
+  mail: 'mail/',
+  pushPassword:'push-password/',
 };
 export const sellectItemColor = (status:string) => {
   if(status === 'declined'){

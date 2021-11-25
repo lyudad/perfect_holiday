@@ -7,3 +7,9 @@ export type TUpdateUser = {
 export interface IMatchParams {
   id: string
 }
+
+export interface IMailVars {
+  firstName: string
+  lastName: string
+  email: string
+}

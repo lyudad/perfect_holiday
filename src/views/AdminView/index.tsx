@@ -14,11 +14,13 @@ import {
   StyledDivVacationInfo,
   ButtonWrapper,
 } from './styles';
-import { useRouteMatch } from 'react-router-dom';
+import {url} from "constants/constants";
+import {IMailVars} from './types'
+import {useParams, useRouteMatch } from 'react-router-dom';
 import { IMatchParams } from './types';
 import {sellectItemColor} from './../../constants/constants'
-
-
+import axios from 'axios';
+const {REACT_APP_BASE} = process.env
 const data = [
   {
     key: '1',
@@ -61,6 +63,20 @@ const AdminView = (): JSX.Element => {
   };
   const SelectColor = (record:{status:string}) => {
     return sellectItemColor(record.status) || ''}
+  const SendPasswordId = () => {
+    axios
+        .post(`${REACT_APP_BASE}${url.pushPassword}${userId}`,
+            {
+              id: userId,
+            }
+        )
+        .then(res => {
+          message.success(lang.passwordMessage.success)
+        })
+        .catch(err => {
+          message.success(lang.passwordMessage.fail)
+        })
+  }
   return (
     <Layout>
       <StyledLayout>
@@ -116,20 +132,19 @@ const AdminView = (): JSX.Element => {
           </StyledDivContent>
           <ButtonWrapper>
             <StyledButton
-              type="primary"
               shape="round"
               htmlType="submit"
               size="large"
+              onClick={SendPasswordId }
             >
-              Send pass
+              {lang.button["sendPasswordButton"]}
             </StyledButton>
             <StyledButton
-              type="primary"
               shape="round"
               htmlType="submit"
               size="large"
             >
-              Add
+              {lang.button["addButton"]}
             </StyledButton>
           </ButtonWrapper>
           <Table columns={columns} dataSource={data} size="large" rowClassName={SelectColor}/>
