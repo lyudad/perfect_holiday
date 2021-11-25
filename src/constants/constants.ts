@@ -6,3 +6,6 @@ export const url = {
   casual: 'casual/',
   pending: 'casual/pending',
 };
+
+export const token = `Bearer ${localStorage.getItem('token')}`;
+export const role = localStorage.getItem('role');

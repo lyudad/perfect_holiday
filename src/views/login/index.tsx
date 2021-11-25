@@ -7,6 +7,7 @@ import axios from 'axios';
 import { ILoginVars } from './types';
 import LoginButton from 'Components/Button/loginButton';
 import { url } from 'constants/constants';
+
 const { REACT_APP_BASE } = process.env;
 const PostRequest = (values: ILoginVars) => {
   console.log(values);
@@ -17,6 +18,8 @@ const PostRequest = (values: ILoginVars) => {
     })
     .then(res => {
       console.log(res);
+      localStorage.setItem('token', res.data.access_token);
+      localStorage.setItem('role', res.data.role);
     })
     .catch(err => {
       console.log(err);

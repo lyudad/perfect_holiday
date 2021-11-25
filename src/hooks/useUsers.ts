@@ -1,20 +1,24 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { url } from 'constants/constants';
+import { token, url } from 'constants/constants';
 import { IUserId, TBookkHoliday, User } from './types';
 import { TUpdateUser } from 'views/AdminView/types';
 const { REACT_APP_BASE } = process.env;
 
 export default function useGetListOfUsers() {
   return useQuery('users', async (): Promise<Array<User>> => {
-    const { data } = await axios.get(`${REACT_APP_BASE}${url.users}`);
+    const { data } = await axios.get(`${REACT_APP_BASE}${url.users}`, {
+      headers: { Authorization: token },
+    });
     return data;
   });
 }
 
 export function useAllNotApprovedRestDays() {
   return useQuery('casual', async (): Promise<Array<User>> => {
-    const { data } = await axios.get(`${REACT_APP_BASE}${url.pending}`);
+    const { data } = await axios.get(`${REACT_APP_BASE}${url.pending}`, {
+      headers: { Authorization: token },
+    });
     return data;
   });
 }
