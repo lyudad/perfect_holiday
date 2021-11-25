@@ -16,6 +16,8 @@ import {
 } from './styles';
 import { useRouteMatch } from 'react-router-dom';
 import { IMatchParams } from './types';
+import {sellectItemColor} from './../../constants/constants'
+
 
 const data = [
   {
@@ -57,7 +59,8 @@ const AdminView = (): JSX.Element => {
       .catch(() => message.success(lang.updateStatus.success));
     form.resetFields();
   };
-
+  const SelectColor = (record:{status:string}) => {
+    return sellectItemColor(record.status) || ''}
   return (
     <Layout>
       <StyledLayout>
@@ -129,7 +132,7 @@ const AdminView = (): JSX.Element => {
               Add
             </StyledButton>
           </ButtonWrapper>
-          <Table columns={columns} dataSource={data} size="large" />
+          <Table columns={columns} dataSource={data} size="large" rowClassName={SelectColor}/>
         </StyledContent>
       </StyledLayout>
     </Layout>

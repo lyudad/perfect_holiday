@@ -5,3 +5,11 @@ export const url = {
   auth: 'auth/',
   casual: 'casual/',
 };
+export const sellectItemColor = (status:string) => {
+  if(status === 'declined'){
+    return 'red'
+  } else if(status === "approved"){
+    return 'green'
+  }
+  return 'yellow'
+}

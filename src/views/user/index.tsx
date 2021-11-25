@@ -14,7 +14,8 @@ import {
   StyledModalContent,
   StyledInputContent,
 } from './styles';
-import { columns, sellectItemColor } from './const';
+import { columns,} from './const';
+import {sellectItemColor} from './../../constants/constants'
 import Layout from './layout';
 import Sidebar from '../../Components/Sidebar';
 import shortid from 'shortid';
@@ -102,7 +103,7 @@ const UserView = (): JSX.Element => {
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
- const SelectColor = (record:any) =>
+ const SelectColor = (record:{status:string}) =>
  {return sellectItemColor(record.status) || ''
  }
 

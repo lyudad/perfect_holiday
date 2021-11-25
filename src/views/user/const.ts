@@ -17,14 +17,3 @@ export const columns = [
     },
 ];
 
-export const sellectItemColor = (status:any) => {
-    if(status === 'declined'){
-        return 'red'
-    }
-    if(status === "approved"){
-        return 'green'
-    }
-    if(status === "pending"){
-        return "yellow"
-    }
-}
