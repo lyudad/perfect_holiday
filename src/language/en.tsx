@@ -31,5 +31,11 @@ export const lang = {
   },
     button:{
         "loginButton": "SIGN IN",
+      "sendPasswordButton": "Send pass",
+      "addButton": "Add"
+    },
+    passwordMessage:{
+      success: "Password was successfully sent!",
+      fail: 'Something goes wrong!',
     }
 }
