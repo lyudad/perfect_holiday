@@ -4,6 +4,7 @@ export interface IUser {
   _id: string;
   name: string;
   role: TRole;
+  token: string;
 }
 
 export interface IPermission {

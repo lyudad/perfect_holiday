@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
-import { Row, Input, Form, Modal, Button, Table, Select } from 'antd';
+import { Row, Form, Modal, Button, Table, Select } from 'antd';
 import {
   StyledLayout,
   StyledContent,
   StyledButton,
-  StyledFormItem,
+  StyledDivNameInfo,
   StyledDivContent,
   StyledDivVacationInfo,
   SelectBlock,
@@ -22,6 +22,8 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { type } from 'os';
+import { useSelector } from 'react-redux';
+import userSelectors from 'Redux/users/userSelectors';
 const { Option } = Select;
 
 const data = [
@@ -56,10 +58,9 @@ const data = [
 ];
 
 const UserView = (): JSX.Element => {
+  const name = useSelector(userSelectors.getUserName);
   type Data = typeof data;
-
   type Type = string;
-
   type Vacation = {
     startDate: Date;
     endDate: Date;
@@ -179,33 +180,9 @@ const UserView = (): JSX.Element => {
         <StyledContent>
           <StyledDivContent className="site-layout-background">
             <Row>
-              <Form name="VacationForm" layout="horizontal" size="large">
-                <StyledFormItem
-                  name="FirstName"
-                  rules={[
-                    {
-                      type: 'string',
-                      required: true,
-                      message: `${lang.username['firstName-validation']}`,
-                    },
-                  ]}
-                >
-                  <Input placeholder="FirstName" />
-                </StyledFormItem>
-
-                <StyledFormItem
-                  name="LastName"
-                  rules={[
-                    {
-                      type: 'string',
-                      required: true,
-                      message: `${lang.username['lastName-validation']}`,
-                    },
-                  ]}
-                >
-                  <Input placeholder="LastName" />
-                </StyledFormItem>
-              </Form>
+              <StyledDivNameInfo>
+                <strong>Welcome,{name}</strong>
+              </StyledDivNameInfo>
             </Row>
             <Row>
               <StyledDivVacationInfo>
