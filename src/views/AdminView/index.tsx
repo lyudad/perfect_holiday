@@ -61,7 +61,6 @@ const AdminView = (): JSX.Element => {
     form.resetFields();
   };
   const SendPasswordId = () => {
-
     axios
         .post(`${REACT_APP_BASE}${url.pushPassword}${userId}`,
             {
@@ -69,13 +68,11 @@ const AdminView = (): JSX.Element => {
             }
         )
         .then(res => {
+          message.success(lang.passwordMessage.success)
           console.log(res);
         })
         .catch(err => {
-          console.log(err)
-          if (err.response) {
-            console.log(err.response.status);
-          }
+          message.success(lang.passwordMessage.fail)
         })
   }
   return (
@@ -136,7 +133,7 @@ const AdminView = (): JSX.Element => {
               shape="round"
               htmlType="submit"
               size="large"
-              onClick={SendPasswordId}
+              onClick={SendPasswordId }
             >
               {lang.button["sendPasswordButton"]}
             </StyledButton>
