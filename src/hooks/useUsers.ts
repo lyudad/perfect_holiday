@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { token, url } from 'constants/constants';
-import { IUserId, TBookkHoliday, User } from './types';
+import { IUserId, TBookkHoliday, User, TApprovedDay } from './types';
 import { TUpdateUser } from 'views/AdminView/types';
 const { REACT_APP_BASE } = process.env;
 
@@ -43,3 +43,9 @@ export const bookigRestDays = async (values: TBookkHoliday, userId: string) =>
   axios.post(`${REACT_APP_BASE}${url.casual}${userId}`, values, {
     headers: { Authorization: token },
   });
+
+export const toApprovedOrDisapproveRestDay = async (values: TApprovedDay) => {
+  axios.put(`${REACT_APP_BASE}${url.casual}`, values, {
+    headers: { Authorization: token },
+  });
+};
