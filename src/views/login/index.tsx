@@ -8,6 +8,7 @@ import axios from 'axios';
 import { ILoginVars } from './types';
 import LoginButton from 'Components/Button/loginButton';
 import { url } from 'constants/constants';
+import { TRole } from 'Components/Access/types';
 
 const { REACT_APP_BASE } = process.env;
 const LoginView = (): JSX.Element => {
@@ -20,6 +21,8 @@ const LoginView = (): JSX.Element => {
       })
       .then(res => {
         setStatus('Login is successful');
+        localStorage.setItem('token', res.data.access_token);
+        localStorage.setItem('role', res.data.role);
       })
       .catch(err => {
         if (err.response) {
