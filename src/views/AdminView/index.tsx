@@ -69,7 +69,6 @@ const AdminView = (): JSX.Element => {
         )
         .then(res => {
           message.success(lang.passwordMessage.success)
-          console.log(res);
         })
         .catch(err => {
           message.success(lang.passwordMessage.fail)
