@@ -6,3 +6,8 @@ export const Row: typeof AntRow = styled(AntRow)`
     height: 100vh;
     background: ${LOGIN_VARS.BG};
 `;
+export const Status = styled.p`
+  font-size: 18px;
+  text-align: center;
+  color: red;
+`

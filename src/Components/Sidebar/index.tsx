@@ -7,13 +7,17 @@ const Sidebar = () => {
     <SidebarBlock>
       <SidebarUl>
         <SidebarLi value="Dashboard">
-          {`${lang.sidebar['dashboard']}`}
+          <Link to="/dashbord">{`${lang.sidebar['dashboard']}`}</Link>
         </SidebarLi>
         <SidebarLi value="Users">
           <Link to="/users">{`${lang.sidebar['users']}`}</Link>
         </SidebarLi>
-        <SidebarLi value="Profile">{`${lang.sidebar['profile']}`}</SidebarLi>
-        <SidebarLi value="Logout">{`${lang.sidebar['logout']}`}</SidebarLi>
+        <SidebarLi value="Profile">
+          <Link to="/user">{`${lang.sidebar['profile']}`}</Link>
+        </SidebarLi>
+        <SidebarLi value="Logout">
+          <Link to="/login">{`${lang.sidebar['logout']}`}</Link>
+        </SidebarLi>
       </SidebarUl>
     </SidebarBlock>
   )
