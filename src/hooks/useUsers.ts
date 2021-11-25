@@ -24,12 +24,22 @@ export function useAllNotApprovedRestDays() {
 }
 
 export const toBlockUnblockUser = async (dataIndex: boolean, key: IUserId) =>
-  axios.put(`${REACT_APP_BASE}${url.users}${key.id}`, {
-    is_block: !dataIndex,
-  });
+  axios.put(
+    `${REACT_APP_BASE}${url.users}${key.id}`,
+    {
+      is_block: !dataIndex,
+    },
+    {
+      headers: { Authorization: token },
+    },
+  );
 
 export const toUpdateUserInfo = async (values: TUpdateUser, userId: string) =>
-  axios.put(`${REACT_APP_BASE}${url.users}${userId}`, values);
+  axios.put(`${REACT_APP_BASE}${url.users}${userId}`, values, {
+    headers: { Authorization: token },
+  });
 
 export const bookigRestDays = async (values: TBookkHoliday, userId: string) =>
-  axios.post(`${REACT_APP_BASE}${url.casual}${userId}`, values);
+  axios.post(`${REACT_APP_BASE}${url.casual}${userId}`, values, {
+    headers: { Authorization: token },
+  });
