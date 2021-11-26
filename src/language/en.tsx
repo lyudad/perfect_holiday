@@ -29,13 +29,23 @@ export const lang = {
     email: 'Email',
     userStatus: 'User status',
   },
-    button:{
-        "loginButton": "SIGN IN",
-      "sendPasswordButton": "Send pass",
-      "addButton": "Add"
-    },
-    passwordMessage:{
-      success: "Password was successfully sent!",
-      fail: 'Something goes wrong!',
-    }
-}
+  button: {
+    loginButton: 'SIGN IN',
+    sendPasswordButton: 'Send pass',
+    addButton: 'Add',
+  },
+  passwordMessage: {
+    success: 'Password was successfully sent!',
+    fail: 'Something goes wrong!',
+  },
+  dashboard: {
+    userTitle: 'User',
+    startDateTitle: 'Start Date',
+    endDateTitle: 'End Date',
+    typeTitle: 'Typr',
+    actionTitle: 'Action',
+    approveButton: 'Approve',
+    declineButton: 'Decline',
+    editButton: 'Edit',
+  },
+};

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
-import { Row, Form, Modal, Button, Table, Select } from 'antd';
+import { Row, Input, Form, Modal, Button, Table, Select } from 'antd';
+import './index.css'
 import {
   StyledLayout,
   StyledContent,
@@ -13,7 +14,8 @@ import {
   StyledModalContent,
   StyledInputContent,
 } from './styles';
-import { columns } from './const';
+import { columns,} from './const';
+import {sellectItemColor} from './../../constants/constants'
 import Layout from './layout';
 import Sidebar from '../../Components/Sidebar';
 import shortid from 'shortid';
@@ -52,7 +54,7 @@ const data = [
     key: 'A6xDpRGOm',
     startDate: '16th Nov 2021',
     endDate: '26th Dec 2021',
-    status: 'pending',
+    status: 'declined',
     type: 'sick leave',
   },
 ];
@@ -102,6 +104,9 @@ const UserView = (): JSX.Element => {
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
+ const SelectColor = (record:{status:string}) =>
+ {return sellectItemColor(record.status) || ''
+ }
 
   return (
     <Layout>
@@ -202,7 +207,8 @@ const UserView = (): JSX.Element => {
           >
             +
           </StyledButton>
-          <Table columns={columns} dataSource={data} size="large" />
+          <Table columns={columns} dataSource={data} size="large"
+                 rowClassName={SelectColor}/>
         </StyledContent>
       </StyledLayout>
     </Layout>

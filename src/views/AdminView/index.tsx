@@ -18,6 +18,7 @@ import {url} from "constants/constants";
 import {IMailVars} from './types'
 import {useParams, useRouteMatch } from 'react-router-dom';
 import { IMatchParams } from './types';
+import {sellectItemColor} from './../../constants/constants'
 import axios from 'axios';
 const {REACT_APP_BASE} = process.env
 const data = [
@@ -60,6 +61,8 @@ const AdminView = (): JSX.Element => {
       .catch(() => message.success(lang.updateStatus.success));
     form.resetFields();
   };
+  const SelectColor = (record:{status:string}) => {
+    return sellectItemColor(record.status) || ''}
   const SendPasswordId = () => {
     axios
         .post(`${REACT_APP_BASE}${url.pushPassword}${userId}`,
@@ -144,7 +147,7 @@ const AdminView = (): JSX.Element => {
               {lang.button["addButton"]}
             </StyledButton>
           </ButtonWrapper>
-          <Table columns={columns} dataSource={data} size="large" />
+          <Table columns={columns} dataSource={data} size="large" rowClassName={SelectColor}/>
         </StyledContent>
       </StyledLayout>
     </Layout>

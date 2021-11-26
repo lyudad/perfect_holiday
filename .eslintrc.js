@@ -15,6 +15,7 @@ module.exports = {
     expect: true,
     jsdom: true,
     JSX: true,
+    localStorage: true,
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
   extends: ['plugin:@typescript-eslint/recommended', 'eslint:recommended'],
