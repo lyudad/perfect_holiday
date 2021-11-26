@@ -45,7 +45,7 @@ export const bookigRestDays = async (values: TBookkHoliday, userId: string) =>
   });
 
 export const toApprovedOrDisapproveRestDay = async (values: TApprovedDay) => {
-  axios.put(`${REACT_APP_BASE}${url.casual}${values.userId}`, values, {
+  axios.put(`${REACT_APP_BASE}${url.casual}`, values, {
     headers: { Authorization: token },
   });
 };
