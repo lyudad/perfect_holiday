@@ -11,3 +11,4 @@ export const url = {
 
 export const token = `Bearer ${localStorage.getItem('token')}`;
 export const role = localStorage.getItem('role');
+export const userId = localStorage.getItem('userId');

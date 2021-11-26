@@ -7,6 +7,7 @@ import UserView from './views/user';
 import AdminView from './views/AdminView';
 import Users from './Components/Users';
 import Calendar from 'Components/Calendar';
+import { NotFound } from 'Components/404';
 const queryClient = new QueryClient();
 
 function App(): JSX.Element {
@@ -28,6 +29,7 @@ function App(): JSX.Element {
           <Route path="/users">
             <Users />
           </Route>
+          <Route component={NotFound} />
         </Switch>
       </Container>
     </QueryClientProvider>

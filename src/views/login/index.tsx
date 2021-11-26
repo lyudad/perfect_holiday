@@ -10,6 +10,7 @@ import LoginButton from 'Components/Button/loginButton';
 import { url } from 'constants/constants';
 import { Redirect } from 'react-router';
 import { TRole } from 'Components/Access/types';
+import { signIn } from 'Redux/users/userSlice';
 
 const { REACT_APP_BASE } = process.env;
 
@@ -26,8 +27,9 @@ const LoginView = (): JSX.Element => {
         setStatus('Login is successful');
         localStorage.setItem('token', res.data.access_token);
         localStorage.setItem('role', res.data.role);
-        localStorage.setItem('user', JSON.stringify(res.data));
+        localStorage.setItem('userId', res.data.id);
         setRole(res.data.role);
+        signIn(res.data.user);
       })
       .catch(err => {
         if (err.response) {
@@ -38,7 +40,9 @@ const LoginView = (): JSX.Element => {
 
   return (
     <>
-      {role ? (
+      {role === 'employee' ? (
+        <Redirect to="user" />
+      ) : role === 'admin' ? (
         <Redirect to="users" />
       ) : (
         <Row justify="center" align="middle">
