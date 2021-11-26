@@ -20,13 +20,13 @@ const Dashbord = (): JSX.Element => {
     });
   };
 
-const putStatusDeclined = (dataIndex: any, key: any) => {
+  const putStatusDeclined = (dataIndex: any, key: any) => {
     toApprovedOrDisapproveRestDay({
-        status: 'declined',
-        id: key.id,
-        userId: dataIndex,
+      status: 'declined',
+      id: key.id,
+      userId: dataIndex,
     });
-}
+  }
 
   return (
     <StyledLayout>
@@ -51,23 +51,23 @@ const putStatusDeclined = (dataIndex: any, key: any) => {
           <Column title={lang.dashboard.userTitle} dataIndex="type" key="id" />
           <Column
             title={lang.dashboard.actionTitle}
-            // dataIndex="is_block"
             dataIndex={['user', 'id']}
             key="id"
             defaultFilteredValue={['user', 'userId']}
             render={(dataIndex, key: any) => (
               <Space size="middle">
                 <Button
-                    htmlType="submit"
-                    type="link"
-                    onClick={(dataIndex: any, key: any) => putStatusApproved(dataIndex, key)}
+                  htmlType="submit"
+                  type="link"
+                  onClick={() => putStatusApproved(dataIndex, key)}
+                  // console.log(onClick);
                 >
                   {lang.dashboard.approveButton}
                 </Button>
                 <Button
                     htmlType="submit"
                     type="link"
-                    onClick={(dataIndex: any, key: any) => putStatusDeclined(dataIndex, key)}
+                    onClick={() => putStatusDeclined(dataIndex, key)}
                 >
                   {lang.dashboard.declineButton}
                 </Button>
