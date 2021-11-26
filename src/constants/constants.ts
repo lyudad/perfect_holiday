@@ -9,5 +9,19 @@ export const url = {
   pending: 'casual/pending',
 };
 
+export const statusItem = {
+  declined: 'declined',
+  approved: 'approved'
+}
+
+export const sellectItemColor = ( status:string ) => {
+  if(status === statusItem.declined){
+    return 'red'
+  } else if(status === statusItem.approved){
+    return 'green'
+  }
+  return 'yellow'
+}
+
 export const token = `Bearer ${localStorage.getItem('token')}`;
 export const role = localStorage.getItem('role');
