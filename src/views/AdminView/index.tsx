@@ -65,10 +65,7 @@ const AdminView = (): JSX.Element => {
     return sellectItemColor(record.status) || ''}
   const SendPasswordId = () => {
     axios
-        .post(`${REACT_APP_BASE}${url.pushPassword}${userId}`,
-            {
-              id: userId,
-            }
+        .get(`${REACT_APP_BASE}${url.users}${url.pushPassword}${userId}`,
         )
         .then(res => {
           message.success(lang.passwordMessage.success)
