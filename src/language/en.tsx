@@ -40,9 +40,11 @@ export const lang = {
   },
   dashboard: {
     userTitle: 'User',
+    userFirstName: 'First Name',
+    userLastName: 'Last Name',
     startDateTitle: 'Start Date',
     endDateTitle: 'End Date',
-    typeTitle: 'Typr',
+    typeTitle: 'Type',
     actionTitle: 'Action',
     approveButton: 'Approve',
     declineButton: 'Decline',

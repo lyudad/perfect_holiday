@@ -3,8 +3,9 @@ import { StyledLayout, StyledContent } from './styles';
 import Sidebar from 'Components/Sidebar';
 import { useAllNotApprovedRestDays , toApprovedOrDisapproveRestDay } from 'hooks/useUsers';
 import Loading from 'Components/Loading';
-import Column from 'antd/lib/table/Column';
 import { lang } from 'language/en';
+
+const { Column, ColumnGroup } = Table;
 
 const Dashbord = (): JSX.Element => {
   const { error, isLoading, data } = useAllNotApprovedRestDays();
@@ -12,7 +13,9 @@ const Dashbord = (): JSX.Element => {
   if (isLoading) return <Loading />;
   if (error instanceof Error) return <h1>Error: {error.message}</h1>;
 
-  const putStatusApproved = (dataIndex: any, key: any) => {
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const putStatusApproved = (dataIndex: string, key: any) => {
     toApprovedOrDisapproveRestDay({
       status: 'approved',
       id: key.id,
@@ -20,7 +23,8 @@ const Dashbord = (): JSX.Element => {
     });
   };
 
-  const putStatusDeclined = (dataIndex: any, key: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const putStatusDeclined = (dataIndex: string, key: any) => {
     toApprovedOrDisapproveRestDay({
       status: 'declined',
       id: key.id,
@@ -32,12 +36,19 @@ const Dashbord = (): JSX.Element => {
     <StyledLayout>
       <Sidebar />
       <StyledContent>
-        <Table dataSource={data}>
-          <Column
-            title={lang.dashboard.userTitle}
-            dataIndex={['user', 'last_name']}
-            key="id"
-          />
+        <Table dataSource={data} pagination={{ pageSize: 10 }}  >
+          <ColumnGroup title={lang.dashboard.userTitle}>
+            <Column
+              title={lang.dashboard.userFirstName}
+              dataIndex={['user', 'first_name']}
+              key="id"
+            />
+            <Column
+              title={lang.dashboard.userLastName}
+              dataIndex={['user', 'last_name']}
+              key="id"
+            />
+          </ColumnGroup>
           <Column
             title={lang.dashboard.startDateTitle}
             dataIndex="start_date"
@@ -48,19 +59,23 @@ const Dashbord = (): JSX.Element => {
             dataIndex="end_date"
             key="id"
           />
-          <Column title={lang.dashboard.userTitle} dataIndex="type" key="id" />
+          <Column
+            title={lang.dashboard.typeTitle}
+            dataIndex="type"
+            key="id" 
+          />
           <Column
             title={lang.dashboard.actionTitle}
             dataIndex={['user', 'id']}
             key="id"
             defaultFilteredValue={['user', 'userId']}
-            render={(dataIndex, key: any) => (
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            render={(dataIndex: string, key: any) => (
               <Space size="middle">
                 <Button
                   htmlType="submit"
                   type="link"
                   onClick={() => putStatusApproved(dataIndex, key)}
-                  // console.log(onClick);
                 >
                   {lang.dashboard.approveButton}
                 </Button>
@@ -71,7 +86,10 @@ const Dashbord = (): JSX.Element => {
                 >
                   {lang.dashboard.declineButton}
                 </Button>
-                <Button htmlType="submit" type="link">
+                <Button
+                  htmlType="submit"
+                  type="link"
+                >
                   {lang.dashboard.editButton}
                 </Button>
               </Space>
