@@ -5,7 +5,7 @@ import { useAllNotApprovedRestDays , toApprovedOrDisapproveRestDay } from 'hooks
 import Loading from 'Components/Loading';
 import { lang } from 'language/en';
 import { APPROVED, DECLINED, CHANGED } from 'constants/statuses';
-import { IUserId } from '../../hooks/types';
+import { IUserId } from 'hooks/types';
 
 const { Column, ColumnGroup } = Table;
 
