@@ -1,5 +1,5 @@
 export type UserRoleType = 'employee' | 'admin' | 'super';
-export type TStatus = 'approved' | 'pending' | 'declined';
+export type TStatus = 'approved' | 'pending' | 'declined' | 'changed';
 
 export interface IUserId {
   id: string;

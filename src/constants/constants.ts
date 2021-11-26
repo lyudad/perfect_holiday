@@ -1,3 +1,5 @@
+import { APPROVED, DECLINED, CHANGED } from "./statuses";
+
 export const url = {
   users: 'users/',
   admin: 'admin/',
@@ -9,15 +11,10 @@ export const url = {
   pending: 'casual/pending',
 };
 
-export const statusItem = {
-  declined: 'declined',
-  approved: 'approved'
-}
-
-export const sellectItemColor = ( status:string ) => {
-  if(status === statusItem.declined){
+export const sellectItemColor = ( status: string ) => {
+  if(status === DECLINED){
     return 'red'
-  } else if(status === statusItem.approved){
+  } else if(status === APPROVED){
     return 'green'
   }
   return 'yellow'

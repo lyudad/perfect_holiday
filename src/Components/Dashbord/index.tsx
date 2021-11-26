@@ -4,6 +4,8 @@ import Sidebar from 'Components/Sidebar';
 import { useAllNotApprovedRestDays , toApprovedOrDisapproveRestDay } from 'hooks/useUsers';
 import Loading from 'Components/Loading';
 import { lang } from 'language/en';
+import { APPROVED, DECLINED, CHANGED } from 'constants/statuses';
+import { IUserId } from '../../hooks/types';
 
 const { Column, ColumnGroup } = Table;
 
@@ -14,19 +16,17 @@ const Dashbord = (): JSX.Element => {
   if (error instanceof Error) return <h1>Error: {error.message}</h1>;
 
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const putStatusApproved = (dataIndex: string, key: any) => {
+  const putStatusApproved = (dataIndex: string, key: IUserId) => {
     toApprovedOrDisapproveRestDay({
-      status: 'approved',
+      status: APPROVED,
       id: key.id,
       userId: dataIndex,
     });
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const putStatusDeclined = (dataIndex: string, key: any) => {
+  const putStatusDeclined = (dataIndex: string, key: IUserId) => {
     toApprovedOrDisapproveRestDay({
-      status: 'declined',
+      status: DECLINED,
       id: key.id,
       userId: dataIndex,
     });
@@ -69,8 +69,7 @@ const Dashbord = (): JSX.Element => {
             dataIndex={['user', 'id']}
             key="id"
             defaultFilteredValue={['user', 'userId']}
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            render={(dataIndex: string, key: any) => (
+            render={(dataIndex: string, key: IUserId) => (
               <Space size="middle">
                 <Button
                   htmlType="submit"
