@@ -7,10 +7,14 @@ export const url = {
   mail: 'mail/',
   pushPassword:'push-password/',
 };
-export const sellectItemColor = (status:string) => {
-  if(status === 'declined'){
+export const statusItem = {
+  declined: 'declined',
+  approved: 'approved'
+}
+export const sellectItemColor = ( status:string ) => {
+  if(status === statusItem.declined){
     return 'red'
-  } else if(status === "approved"){
+  } else if(status === statusItem.approved){
     return 'green'
   }
   return 'yellow'
