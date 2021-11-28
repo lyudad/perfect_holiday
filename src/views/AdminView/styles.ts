@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import {Layout, Button, Form, Input} from "antd";
+import {Layout, Button, Form, Input, Select} from "antd";
 
 const { Content } = Layout;
 
@@ -9,6 +9,21 @@ export const StyledLayout = styled(Layout)`
   flex-direction: row;
   height: 100vh;
   
+`;
+export const StyledInputContent = styled("div")`
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+`;
+export const SelectBlock = styled(Select)`
+    width: 120px;
+`;
+export const StyledModalContent = styled("div")`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 20px;
+  text-align: left;
 `;
 export const StyledDivVacationInfo = styled("div")`
   :not(:last-child) {

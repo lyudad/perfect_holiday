@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import Sidebar from 'Components/Sidebar';
 import { lang } from 'language/en';
 import { columns } from './const';
 import Layout from './layout';
 import { toUpdateUserInfo } from 'hooks/useUsers';
 import 'antd/dist/antd.css';
-import { Row, Input, Form, Col, Button, Table, message } from 'antd';
+import { Row, Input, Form, Col, Button, Table, message, Select, Modal } from 'antd';
 import {
   StyledLayout,
   StyledContent,
@@ -13,14 +13,23 @@ import {
   StyledDivContent,
   StyledDivVacationInfo,
   ButtonWrapper,
+  StyledInputContent,
+  SelectBlock,
+  StyledModalContent,
 } from './styles';
+import shortid from 'shortid';
 import {url} from "constants/constants";
 import {IMailVars} from './types'
 import {useParams, useRouteMatch } from 'react-router-dom';
 import { IMatchParams } from './types';
 import {sellectItemColor} from './../../constants/constants'
 import axios from 'axios';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { type } from 'os';
 const {REACT_APP_BASE} = process.env
+const { Option } = Select;
 const data = [
   {
     key: '1',
@@ -53,6 +62,44 @@ const data = [
 ];
 
 const AdminView = (): JSX.Element => {
+  type Data = typeof data;
+
+  type Type = string;
+
+  type Vacation = {
+    startDate: Date;
+    endDate: Date;
+  };
+
+  const [request, setRequest] = useState<Data>(data);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedType, setSelectedType] = useState<Type>('vacation');
+  const { control, handleSubmit, watch } = useForm<Vacation>();
+  const watchAll = watch();
+  const today = new Date();
+  const onChangeType = (type: string) => {
+    setSelectedType(type);
+  };
+  const onSubmit: SubmitHandler<Vacation> = (data: Vacation) => {
+    const newStartDate = new Date(data.startDate);
+    const firstDate = newStartDate.toLocaleDateString().slice(0, 10);
+    const newEndDate = new Date(data.endDate);
+    const endDate = newEndDate.toLocaleDateString().slice(0, 10);
+    onChangeType(selectedType);
+    const item = {
+      key: shortid.generate(),
+      startDate: firstDate,
+      endDate: endDate,
+      status: 'pending',
+      type: selectedType,
+    };
+    console.log(item);
+    toggleModal();
+  };
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
   const [form] = Form.useForm();
   const userId = useRouteMatch<IMatchParams>().params.id;
   const updateUserInfo = () => {
@@ -77,6 +124,76 @@ const AdminView = (): JSX.Element => {
   return (
     <Layout>
       <StyledLayout>
+        {Modal && (
+            <Modal
+                onCancel={toggleModal}
+                visible={isModalVisible}
+                wrapClassName="reservation_modal"
+                width={600}
+                footer={null}
+            >
+              <div className="reserv_message">Please choose dates of reservation.</div>
+              <Form onSubmitCapture={handleSubmit(onSubmit)}>
+                <StyledInputContent>
+                  <Controller
+                      name="startDate"
+                      control={control}
+                      render={({ field }) => {
+                        return (
+                            <DatePicker
+                                selectsStart
+                                dateFormat="dd.MM.yyyy"
+                                startDate={watchAll.startDate}
+                                endDate={watchAll.endDate}
+                                maxDate={watchAll.endDate}
+                                minDate={today}
+                                selected={field.value}
+                                onChange={field.onChange}
+                                placeholderText="Start date"
+                            />
+                        );
+                      }}
+                  />
+                  <Controller
+                      name="endDate"
+                      control={control}
+                      render={({ field }) => {
+                        return (
+                            <DatePicker
+                                selectsEnd
+                                dateFormat="dd.MM.yyyy"
+                                startDate={watchAll.startDate}
+                                endDate={watchAll.endDate}
+                                minDate={watchAll.startDate}
+                                selected={field.value}
+                                onChange={field.onChange}
+                                placeholderText="Start date"
+                            />
+                        );
+                      }}
+                  />
+                  <SelectBlock
+                      size="middle"
+                      defaultValue="vacation"
+                      onChange={() => setSelectedType(type)}
+                      value={selectedType}
+                  >
+                    <Option value="vacation">Vacation</Option>
+                    <Option value="sickleave">Sick leave</Option>
+                  </SelectBlock>
+                </StyledInputContent>
+
+                <StyledModalContent>
+                  <Button onClick={toggleModal}>Cancel</Button>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                      Confirm Reservation
+                    </Button>
+                  </Form.Item>
+                </StyledModalContent>
+              </Form>
+            </Modal>
+        )}
         <Sidebar />
         <StyledContent>
           <StyledDivContent className="site-layout-background">
@@ -140,6 +257,7 @@ const AdminView = (): JSX.Element => {
               shape="round"
               htmlType="submit"
               size="large"
+              onClick={() => setIsModalVisible(true)}
             >
               {lang.button["addButton"]}
             </StyledButton>
