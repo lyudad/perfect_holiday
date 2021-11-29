@@ -5,7 +5,7 @@ import store from 'Redux/store';
 
 const Sidebar = () => {
   const state = store.getState();
-  const role = state.user.user.role;
+  const role = state.person.user.role;
   return (
     <SidebarBlock>
       <SidebarUl>

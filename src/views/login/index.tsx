@@ -28,8 +28,8 @@ const LoginView = (): JSX.Element => {
       .then(res => {
         setStatus('Login is successful');
         setRole(res.data.role);
-        const user: IUser = res.data;
-        dispatch(signIn({ user }));
+        const person: IUser = res.data;
+        dispatch(signIn({ person }));
       })
       .catch(err => {
         if (err.response) {

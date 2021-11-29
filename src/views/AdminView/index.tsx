@@ -66,7 +66,7 @@ const AdminView = (): JSX.Element => {
   };
   const SendPasswordId = () => {
     const state = store.getState();
-    const token = `Bearer ${state.user.user.access_token}`;
+    const token = `Bearer ${state.person.user.access_token}`;
     return axios
       .get(`${REACT_APP_BASE}${url.users}${url.pushPassword}${userId}`, {
         headers: { Authorization: token },

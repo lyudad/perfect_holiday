@@ -1,4 +1,3 @@
-import store from 'Redux/store';
 import { APPROVED, DECLINED, CHANGED } from './statuses';
 
 export enum Role {

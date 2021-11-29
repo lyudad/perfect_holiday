@@ -8,7 +8,7 @@ const { REACT_APP_BASE } = process.env;
 
 export default function useGetListOfUsers() {
   const state = store.getState();
-  const token = `Bearer ${state.user.user.access_token}`;
+  const token = `Bearer ${state.person.user.access_token}`;
   return useQuery('users', async (): Promise<Array<User>> => {
     const { data } = await axios.get(`${REACT_APP_BASE}${url.users}`, {
       headers: { Authorization: token },
@@ -19,7 +19,7 @@ export default function useGetListOfUsers() {
 
 export function useAllNotApprovedRestDays() {
   const state = store.getState();
-  const token = `Bearer ${state.user.user.access_token}`;
+  const token = `Bearer ${state.person.user.access_token}`;
   return useQuery('casual', async (): Promise<Array<User>> => {
     const { data } = await axios.get(`${REACT_APP_BASE}${url.pending}`, {
       headers: { Authorization: token },
@@ -30,7 +30,7 @@ export function useAllNotApprovedRestDays() {
 
 export const toBlockUnblockUser = async (dataIndex: boolean, key: IUserId) => {
   const state = store.getState();
-  const token = `Bearer ${state.user.user.access_token}`;
+  const token = `Bearer ${state.person.user.access_token}`;
   axios.put(
     `${REACT_APP_BASE}${url.users}${key.id}`,
     {
@@ -44,21 +44,21 @@ export const toBlockUnblockUser = async (dataIndex: boolean, key: IUserId) => {
 
 export const toUpdateUserInfo = async (values: TUpdateUser, userId: string) => {
   const state = store.getState();
-  const token = `Bearer ${state.user.user.access_token}`;
+  const token = `Bearer ${state.person.user.access_token}`;
   return axios.put(`${REACT_APP_BASE}${url.users}${userId}`, values, {
     headers: { Authorization: token },
   });
 };
 export const bookigRestDays = async (values: TBookkHoliday, userId: string) => {
   const state = store.getState();
-  const token = `Bearer ${state.user.user.access_token}`;
+  const token = `Bearer ${state.person.user.access_token}`;
   return axios.post(`${REACT_APP_BASE}${url.casual}${userId}`, values, {
     headers: { Authorization: token },
   });
 };
 export const toApprovedOrDisapproveRestDay = async (values: TApprovedDay) => {
   const state = store.getState();
-  const token = `Bearer ${state.user.user.access_token}`;
+  const token = `Bearer ${state.person.user.access_token}`;
   return axios.put(`${REACT_APP_BASE}${url.casual}`, values, {
     headers: { Authorization: token },
   });

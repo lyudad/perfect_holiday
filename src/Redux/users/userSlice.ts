@@ -16,12 +16,12 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    signIn: (state, action: PayloadAction<{ user: IUser }>) => {
+    signIn: (state, action: PayloadAction<{ person: IUser }>) => {
       state.loggedIn = true;
       state.user = {
-        id: action.payload.user.id,
-        role: action.payload.user.role,
-        access_token: action.payload.user.access_token,
+        id: action.payload.person.id,
+        role: action.payload.person.role,
+        access_token: action.payload.person.access_token,
       };
     },
     signOut: state => {

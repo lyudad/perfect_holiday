@@ -1,9 +1,9 @@
-import React, { FC } from "react";
-import { Redirect, Route, RouteProps } from "react-router-dom";
-import useAppSelector from "../Access/hooks";
+import React, { FC } from 'react';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
+import useAppSelector from '../Access/hooks';
 
 const ProtectedRoute: FC<RouteProps> = ({ path, children, ...rest }) => {
-  const { loggedIn } = useAppSelector((state) => state.user);
+  const { loggedIn } = useAppSelector(state => state.person);
   return (
     <Route
       path={path}
@@ -14,7 +14,7 @@ const ProtectedRoute: FC<RouteProps> = ({ path, children, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: '/login',
               state: { from: location },
             }}
           />

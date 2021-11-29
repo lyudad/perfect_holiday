@@ -16,7 +16,7 @@ const { Column } = Table;
 const Users = (): JSX.Element => {
   const { error, isLoading, data } = useGetListOfUsers();
   const state = store.getState();
-  const role = state.user.user.role;
+  const role = state.person.user.role;
   if (isLoading) return <Loading />;
   if (role === Role.EMPLOYEE)
     return (
