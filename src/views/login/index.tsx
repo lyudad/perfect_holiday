@@ -9,12 +9,14 @@ import { ILoginVars } from './types';
 import LoginButton from 'Components/Button/loginButton';
 import { url } from 'constants/constants';
 import { Redirect } from 'react-router';
-import { TRole } from 'Components/Access/types';
+import { IUser, TRole } from 'Components/Access/types';
 import { signIn } from 'Redux/users/userSlice';
+import { useDispatch } from 'react-redux';
 
 const { REACT_APP_BASE } = process.env;
 
 const LoginView = (): JSX.Element => {
+  const dispatch = useDispatch();
   const [status, setStatus] = useState<string>('');
   const [role, setRole] = useState<TRole>();
   const PostRequest = (values: ILoginVars) => {
@@ -25,11 +27,9 @@ const LoginView = (): JSX.Element => {
       })
       .then(res => {
         setStatus('Login is successful');
-        localStorage.setItem('token', res.data.access_token);
-        localStorage.setItem('role', res.data.role);
-        localStorage.setItem('userId', res.data.id);
         setRole(res.data.role);
-        signIn(res.data.user);
+        const user: IUser = res.data;
+        dispatch(signIn({ user }));
       })
       .catch(err => {
         if (err.response) {
@@ -37,7 +37,6 @@ const LoginView = (): JSX.Element => {
         }
       });
   };
-
   return (
     <>
       {role === 'employee' ? (

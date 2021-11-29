@@ -1,9 +1,11 @@
 import { SidebarBlock, SidebarUl, SidebarLi } from './styled';
 import { lang } from 'language/en';
 import { Link } from 'react-router-dom';
-import { role } from 'constants/constants';
+import store from 'Redux/store';
 
 const Sidebar = () => {
+  const state = store.getState();
+  const role = state.user.user.role;
   return (
     <SidebarBlock>
       <SidebarUl>

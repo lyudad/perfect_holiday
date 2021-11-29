@@ -14,11 +14,12 @@ import {
   StyledDivVacationInfo,
   ButtonWrapper,
 } from './styles';
-import { token, url } from 'constants/constants';
+import { url } from 'constants/constants';
 import { useRouteMatch } from 'react-router-dom';
 import { IMatchParams } from './types';
 import { sellectItemColor } from './../../constants/constants';
 import axios from 'axios';
+import store from 'Redux/store';
 const { REACT_APP_BASE } = process.env;
 const data = [
   {
@@ -64,7 +65,9 @@ const AdminView = (): JSX.Element => {
     return sellectItemColor(record.status) || '';
   };
   const SendPasswordId = () => {
-    axios
+    const state = store.getState();
+    const token = `Bearer ${state.user.user.access_token}`;
+    return axios
       .get(`${REACT_APP_BASE}${url.users}${url.pushPassword}${userId}`, {
         headers: { Authorization: token },
       })
