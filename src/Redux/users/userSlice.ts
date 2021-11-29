@@ -4,32 +4,33 @@ import { IUser } from 'Components/Access/types';
 
 interface TUserState {
   readonly loggedIn: boolean;
-  readonly user: IUser | null;
+  readonly user: IUser;
 }
 
 const initialState: TUserState = {
   loggedIn: false,
-  user: null,
+  user: { id: '', access_token: '', role: '' },
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    signIn: (state, action: PayloadAction<{ user: IUser }>) => {
+    signIn: (state, action: PayloadAction<{ person: IUser }>) => {
       state.loggedIn = true;
-      state.user = action.payload.user;
+      state.user = {
+        id: action.payload.person.id,
+        role: action.payload.person.role,
+        access_token: action.payload.person.access_token,
+      };
     },
-    signOut: (state) => {
+    signOut: state => {
       state.loggedIn = false;
-      state.user = null;
+      state.user = { id: '', access_token: '', role: '' };
     },
   },
 });
 
-export const {
-  signIn,
-  signOut,
-} = userSlice.actions;
+export const { signIn, signOut } = userSlice.actions;
 
 export default userSlice.reducer;

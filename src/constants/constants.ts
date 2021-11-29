@@ -1,4 +1,10 @@
-import { APPROVED, DECLINED, CHANGED } from "./statuses";
+import { APPROVED, DECLINED, CHANGED } from './statuses';
+
+export enum Role {
+  EMPLOYEE = 'employee',
+  ADMIN = 'admin',
+  SUPER = 'super',
+}
 
 export const url = {
   users: 'users/',
@@ -11,14 +17,11 @@ export const url = {
   pending: 'casual/pending',
 };
 
-export const sellectItemColor = ( status: string ) => {
-  if(status === DECLINED){
-    return 'red'
-  } else if(status === APPROVED){
-    return 'green'
+export const sellectItemColor = (status: string) => {
+  if (status === DECLINED) {
+    return 'red';
+  } else if (status === APPROVED) {
+    return 'green';
   }
-  return 'yellow'
-}
-
-export const token = `Bearer ${localStorage.getItem('token')}`;
-export const role = localStorage.getItem('role');
+  return 'yellow';
+};

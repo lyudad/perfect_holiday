@@ -1,4 +1,4 @@
-import { Table, Space, Button, message } from 'antd';
+import { Table, Space, Button, message, Result } from 'antd';
 import 'antd/dist/antd.css';
 import { StyledContent, StyledLayout } from './styles';
 import Sidebar from '../Sidebar';
@@ -9,13 +9,38 @@ import { lang } from 'language/en';
 import { toBlockUnblockUser } from 'hooks/useUsers';
 import ButtonUsers from 'Components/Button';
 import { IUserId } from 'hooks/types';
+import store from 'Redux/store';
+import { Role } from 'constants/constants';
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
   const { error, isLoading, data } = useGetListOfUsers();
-
+  const state = store.getState();
+  const role = state.person.user.role;
   if (isLoading) return <Loading />;
-  if (error instanceof Error) return <h1>Error: {error.message}</h1>;
+  if (role === Role.EMPLOYEE)
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="Sorry, but you do not have access to this page."
+        extra={
+          <Button type="primary" href="/user">
+            Back Home
+          </Button>
+        }
+      />
+    );
+  if (error instanceof Error)
+    return (
+      <Result
+        status="404"
+        title="404"
+        subTitle="Sorry, the page you visited does not exist."
+        extra={<Button type="primary">Back Home</Button>}
+      />
+    );
+
   const blockUser = (dataIndex: boolean, key: IUserId) =>
     toBlockUnblockUser(dataIndex, key)
       .then(() => message.success(lang.updateStatus.success))
