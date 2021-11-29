@@ -17,7 +17,7 @@ import {
 import { url } from 'constants/constants';
 import { useRouteMatch } from 'react-router-dom';
 import { IMatchParams } from './types';
-import { sellectItemColor } from './../../constants/constants';
+import { sellectItemColor } from 'constants/constants';
 import axios from 'axios';
 import store from 'Redux/store';
 const { REACT_APP_BASE } = process.env;

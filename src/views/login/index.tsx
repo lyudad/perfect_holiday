@@ -7,7 +7,7 @@ import 'antd/dist/antd.css';
 import axios from 'axios';
 import { ILoginVars } from './types';
 import LoginButton from 'Components/Button/loginButton';
-import { url } from 'constants/constants';
+import { Role, url } from 'constants/constants';
 import { Redirect } from 'react-router';
 import { IUser, TRole } from 'Components/Access/types';
 import { signIn } from 'Redux/users/userSlice';
@@ -39,9 +39,9 @@ const LoginView = (): JSX.Element => {
   };
   return (
     <>
-      {role === 'employee' ? (
+      {role === Role.EMPLOYEE ? (
         <Redirect to="user" />
-      ) : role === 'admin' ? (
+      ) : role === Role.ADMIN ? (
         <Redirect to="users" />
       ) : (
         <Row justify="center" align="middle">

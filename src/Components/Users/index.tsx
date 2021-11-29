@@ -9,14 +9,16 @@ import { lang } from 'language/en';
 import { toBlockUnblockUser } from 'hooks/useUsers';
 import ButtonUsers from 'Components/Button';
 import { IUserId } from 'hooks/types';
-import { role } from 'constants/constants';
+import store from 'Redux/store';
+import { Role } from 'constants/constants';
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
   const { error, isLoading, data } = useGetListOfUsers();
-  console.log();
+  const state = store.getState();
+  const role = state.user.user.role;
   if (isLoading) return <Loading />;
-  if (role === 'employee')
+  if (role === Role.EMPLOYEE)
     return (
       <Result
         status="403"

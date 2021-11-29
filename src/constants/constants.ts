@@ -1,6 +1,12 @@
 import store from 'Redux/store';
 import { APPROVED, DECLINED, CHANGED } from './statuses';
 
+export enum Role {
+  EMPLOYEE = 'employee',
+  ADMIN = 'admin',
+  SUPER = 'super',
+}
+
 export const url = {
   users: 'users/',
   admin: 'admin/',
