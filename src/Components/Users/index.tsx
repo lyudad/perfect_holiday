@@ -1,6 +1,6 @@
 import { Table, Space, Button, message } from 'antd';
 import 'antd/dist/antd.css';
-import { StyledContent, StyledLayout } from './styles';
+import { StyledContent, StyledLayout, StyledSearch } from './styles';
 import Sidebar from '../Sidebar';
 import useGetListOfUsers from 'hooks/useUsers';
 import Loading from 'Components/Loading';
@@ -24,6 +24,11 @@ const Users = (): JSX.Element => {
     <StyledLayout>
       <Sidebar />
       <StyledContent>
+        <StyledSearch
+          placeholder="search user"
+          enterButton="Search"
+          size="large"
+        />
         <ButtonUsers>+</ButtonUsers>
         <Table dataSource={data}>
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />

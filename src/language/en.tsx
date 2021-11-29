@@ -50,4 +50,15 @@ export const lang = {
     declineButton: 'Decline',
     editButton: 'Edit',
   },
+  superAdmin: {
+    userFirstName: 'First Name',
+    userLastName: 'Last Name',
+    actionsTitle: 'Actions',
+    editButton: 'Edit',
+    deleteButton: 'Delete',
+    successDelete: 'User successfully delete!',
+    failDelete: 'Error deleting user!',
+    roleTitle: 'Role',
+    searchInputText: 'Search user'
+  },
 };
