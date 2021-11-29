@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TUserState } from './userSlice';
+import storage from 'redux-persist/es/storage';
 
 const token = {
   set(token: TUserState) {
@@ -23,8 +24,7 @@ const signIn = createAsyncThunk('auth/login', async credentials => {
 
 const signOut = createAsyncThunk('auth/logout', async () => {
   try {
-    await sessionStorage.removeItem('auth');
-    return { token: null };
+    return storage.removeItem('persist:auth');
   } catch (error) {
     // error.message
   }
