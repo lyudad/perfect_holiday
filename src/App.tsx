@@ -4,6 +4,7 @@ import Container from './Components/Container';
 import LoginView from './views/login';
 import Dashbord from './Components/Dashbord';
 import UserView from './views/user';
+import SuperView from 'views/SuperView';
 import AdminView from './views/AdminView';
 import Users from './Components/Users';
 import Calendar from 'Components/Calendar';
@@ -17,6 +18,7 @@ function App(): JSX.Element {
           <Route path="/login">
             <LoginView />
           </Route>
+          <Route exact path="/super/:id" component={SuperView} />
           <Route exact path="/admin/:id" component={AdminView} />
           <Route exact path="/booking/:id" component={Calendar} />
           <Route path="/dashbord">

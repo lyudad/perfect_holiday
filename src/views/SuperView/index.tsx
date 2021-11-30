@@ -50,14 +50,14 @@ const SuperView = (): JSX.Element => {
                         dataIndex="id"
                         render={(dataIndex, key: IUserId) => (
                             <Space size="middle">
-                            <Link to={`/admin/${dataIndex}`}>Edit</Link>
-                            <Button
-                                onClick={() => deleteUser(dataIndex, key)}
-                                htmlType="submit"
-                                type="link"
-                            >
-                                {lang.superAdmin.deleteButton}
-                            </Button>
+                                <Link to={`/admin/${dataIndex}`}>Edit</Link>
+                                <Button
+                                    onClick={() => deleteUser(dataIndex, key)}
+                                    htmlType="submit"
+                                    type="link"
+                                >
+                                    {lang.superAdmin.deleteButton}
+                                </Button>
                             </Space>
                         )}
                     />
