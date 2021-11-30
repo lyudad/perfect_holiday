@@ -4,6 +4,7 @@ import { url } from 'constants/constants';
 import { IUserId, TBookkHoliday, User, TApprovedDay } from './types';
 import { TUpdateUser } from 'views/AdminView/types';
 import store from 'Redux/store';
+import { UserValues } from 'Components/AddUserModal/types';
 const { REACT_APP_BASE } = process.env;
 
 export default function useGetListOfUsers() {
@@ -60,6 +61,13 @@ export const toApprovedOrDisapproveRestDay = async (values: TApprovedDay) => {
   const state = store.getState();
   const token = `Bearer ${state.person.user.access_token}`;
   return axios.put(`${REACT_APP_BASE}${url.casual}`, values, {
+    headers: { Authorization: token },
+  });
+};
+export const toAddOnlyEmployee = async (values: UserValues) => {
+  const state = store.getState();
+  const token = `Bearer ${state.person.user.access_token}`;
+  return axios.post(`${REACT_APP_BASE}${url.users}`, values, {
     headers: { Authorization: token },
   });
 };

@@ -50,4 +50,14 @@ export const lang = {
     declineButton: 'Decline',
     editButton: 'Edit',
   },
+  addUser: {
+    'firstName-validation': "Please enter employee's first name !",
+    'lastName-validation': "Please enter employee's last name!",
+    'email-validation': "Please enter employee's email!",
+    title: 'Add a new Employee',
+    okText: 'Add',
+    cancelText: 'Cancel',
+    succeess: 'The employee was successfuly created',
+    fail: 'Something goes wrong. Try again later.',
+  },
 };
