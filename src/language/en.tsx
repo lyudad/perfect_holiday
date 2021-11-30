@@ -60,4 +60,7 @@ export const lang = {
     succeess: 'The employee was successfuly created',
     fail: 'Something goes wrong. Try again later.',
   },
+  searchUser: {
+    placeholder: 'Type an employee name',
+  },
 };
