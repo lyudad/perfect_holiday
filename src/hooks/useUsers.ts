@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { url } from 'constants/constants';
-import { IUserId, TBookkHoliday, User, TApprovedDay } from './types';
+import { IUserId, TBookkHoliday, User, TApprovedDay, TDeleteUser } from './types';
 import { TUpdateUser } from 'views/AdminView/types';
 import store from 'Redux/store';
 import { UserValues } from 'Components/AddUserModal/types';
@@ -68,6 +68,14 @@ export const toAddOnlyEmployee = async (values: UserValues) => {
   const state = store.getState();
   const token = `Bearer ${state.person.user.access_token}`;
   return axios.post(`${REACT_APP_BASE}${url.users}`, values, {
+    headers: { Authorization: token },
+  });
+};
+
+export const toDeleteUser = async (values: TDeleteUser) => {
+  const state = store.getState();
+  const token = `Bearer ${state.person.user.access_token}`;
+  return axios.delete(`${REACT_APP_BASE}${url.users}${values.id}`, {
     headers: { Authorization: token },
   });
 };

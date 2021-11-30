@@ -60,4 +60,16 @@ export const lang = {
     succeess: 'The employee was successfuly created',
     fail: 'Something goes wrong. Try again later.',
   },
+  superAdmin: {
+    userFirstName: 'First Name',
+    userLastName: 'Last Name',
+    actionsTitle: 'Actions',
+    editButton: 'Edit',
+    deleteButton: 'Delete',
+    successDelete: 'User successfully delete!',
+    failDelete: 'Error deleting user!',
+    roleTitle: 'Role',
+    searchInputText: 'Search user'
+  },
+
 };
