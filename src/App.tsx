@@ -28,7 +28,7 @@ function App(): JSX.Element {
               <Route path="/dashbord">
                 <Dashbord />
               </Route>
-              <Route path="/user">
+              <Route path="/user/:id">
                 <UserView />
               </Route>
               <Route path="/users">

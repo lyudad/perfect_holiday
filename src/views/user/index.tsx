@@ -2,7 +2,7 @@ import { useState } from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
 import { Row, Input, Form, Modal, Button, Table, Select } from 'antd';
-import './index.css'
+import './index.css';
 import {
   StyledLayout,
   StyledContent,
@@ -14,16 +14,19 @@ import {
   StyledModalContent,
   StyledInputContent,
 } from './styles';
-import { columns,} from './const';
-import {sellectItemColor} from './../../constants/constants'
+import { columns } from './const';
+import { sellectItemColor } from './../../constants/constants';
 import Layout from './layout';
 import Sidebar from '../../Components/Sidebar';
-import shortid from 'shortid';
+import { useRouteMatch } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-
+import { bookigRestDays } from 'hooks/useUsers';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { type } from 'os';
+import { AxiosResponse } from 'axios';
+import { IMatchParams } from 'views/AdminView/types';
+import { TBookkHoliday } from 'hooks/types';
+
 const { Option } = Select;
 
 const data = [
@@ -57,55 +60,58 @@ const data = [
   },
 ];
 
+type Vacation = {
+  startDate: Date;
+  endDate: Date;
+};
 const UserView = (): JSX.Element => {
-  type Data = typeof data;
-
-  type Type = string;
-
-  type Vacation = {
-    startDate: Date;
-    endDate: Date;
-  };
-
-  // eslint-disable-next-line no-unused-vars
-  const [request, setRequest] = useState<Data>(data);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedType, setSelectedType] = useState<Type>('vacation');
-
+  const [type, setType] = useState<string>('vacation');
   const { control, handleSubmit, watch } = useForm<Vacation>();
+
   const watchAll = watch();
   const today = new Date();
 
-  const onChangeType = (type: string) => {
-    setSelectedType(type);
+  const newStartDate = new Date(watchAll.startDate);
+  const newEndDate = new Date(watchAll.endDate);
+  const userId = useRouteMatch<IMatchParams>().params.id;
+
+  const onChangeType = (type: any) => {
+    setType(type);
   };
 
-  const onSubmit: SubmitHandler<Vacation> = (data: Vacation) => {
-    const newStartDate = new Date(data.startDate);
-    const firstDate = newStartDate.toLocaleDateString().slice(0, 10);
+  function addLeadingZero(d: number) {
+    return d < 10 ? '0' + d : d;
+  }
+  function showCurrentDate(value: Date) {
+    const getCurrentDay = addLeadingZero(value.getDate());
+    const getCurrentMonth = addLeadingZero(value.getMonth() + 1);
+    const getCurrentYear = value.getFullYear();
+    return `${getCurrentYear}-${getCurrentMonth}-${getCurrentDay}`;
+  }
 
-    const newEndDate = new Date(data.endDate);
-    const endDate = newEndDate.toLocaleDateString().slice(0, 10);
-    onChangeType(selectedType);
-    const item = {
-      key: shortid.generate(),
-      startDate: firstDate,
-      endDate: endDate,
-      status: 'pending',
-      type: selectedType,
-    };
-    console.log(item);
+  const start_date = showCurrentDate(newStartDate);
+  const end_date = showCurrentDate(newEndDate);
 
-    setRequest(prevState => [item, ...prevState]);
+  const onSubmit: SubmitHandler<Vacation> = () => {
+    onChangeType(type);
+    BookingNewVacation();
     toggleModal();
   };
+
+  const days: TBookkHoliday = { type, start_date, end_date };
+  console.log(days);
+
+  const BookingNewVacation: () => Promise<
+    AxiosResponse<TBookkHoliday, IMatchParams>
+  > = () => bookigRestDays(days, userId);
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
- const SelectColor = (record:{status:string}) =>
- {return sellectItemColor(record.status) || ''
- }
+  const SelectColor = (record: { status: string }) => {
+    return sellectItemColor(record.status) || '';
+  };
 
   return (
     <Layout>
@@ -161,11 +167,11 @@ const UserView = (): JSX.Element => {
                 <SelectBlock
                   size="middle"
                   defaultValue="vacation"
-                  onChange={() => setSelectedType(type)}
-                  value={selectedType}
+                  onSelect={type => onChangeType(type)}
+                  value={type}
                 >
                   <Option value="vacation">Vacation</Option>
-                  <Option value="sickleave">Sick leave</Option>
+                  <Option value="sick">Sick leave</Option>
                 </SelectBlock>
               </StyledInputContent>
 
@@ -230,8 +236,12 @@ const UserView = (): JSX.Element => {
           >
             +
           </StyledButton>
-          <Table columns={columns} dataSource={data} size="large"
-                 rowClassName={SelectColor}/>
+          <Table
+            columns={columns}
+            dataSource={data}
+            size="large"
+            rowClassName={SelectColor}
+          />
         </StyledContent>
       </StyledLayout>
     </Layout>
