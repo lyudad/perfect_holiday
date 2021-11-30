@@ -1,6 +1,6 @@
 import { Table, Space, Button, message } from 'antd';
 import 'antd/dist/antd.css';
-import { StyledContent, StyledLayout } from './styles';
+import { Row, StyledContent, StyledLayout } from './styles';
 import Sidebar from '../Sidebar';
 import useGetListOfUsers from 'hooks/useUsers';
 import Loading from 'Components/Loading';
@@ -36,8 +36,13 @@ const Users = (): JSX.Element => {
     <StyledLayout>
       <Sidebar />
       <StyledContent>
-        <div>
-          <Button type="primary" shape="round" onClick={() => setVisible(true)}>
+        <Row justify="end">
+          <Button
+            size="large"
+            type="primary"
+            shape="round"
+            onClick={() => setVisible(true)}
+          >
             +
           </Button>
           <CollectionCreateForm
@@ -45,7 +50,7 @@ const Users = (): JSX.Element => {
             onCreate={() => setVisible(false)}
             onCancel={() => setVisible(false)}
           />
-        </div>
+        </Row>
         <Table dataSource={data}>
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
           <Column
