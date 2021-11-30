@@ -5,11 +5,14 @@ import { Layout, Button, Input } from "antd";
 const { Search } = Input;
 const { Content } = Layout;
 
+export const StyledSearch = styled(Search)`
+  width: calc(100% - 15%);
+`;
+
 export const StyledLayout = styled(Layout)`
   display: flex;
   flex-direction: row;
   height: 100vh;
-  
 `;
 
 export const StyledButton = styled(Button)`

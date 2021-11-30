@@ -1,13 +1,8 @@
 import styled from "styled-components";
 
-import {Layout, Button, Input} from "antd";
+import {Layout, Button } from "antd";
 
 const {Content} = Layout;
-const {Search} = Input;
-
-export const StyledSearch = styled(Search)`
-  width: calc(100% - 15%);
-`;
 
 export const StyledLayout = styled(Layout)`
   display: flex;
