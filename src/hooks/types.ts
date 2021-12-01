@@ -1,8 +1,11 @@
 export type UserRoleType = 'employee' | 'admin' | 'super';
+export type TStatus = 'approved' | 'pending' | 'declined' | 'changed';
+
 export interface IUserId {
   id: string;
 }
 export type User = {
+  id: string;
   role: UserRoleType;
   email: string;
   password: string;
@@ -17,4 +20,10 @@ export type TBookkHoliday = {
   start_date: string;
   end_date: string;
   type: string;
+};
+
+export type TApprovedDay = {
+  id: string;
+  status: TStatus;
+  userId: string;
 };

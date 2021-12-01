@@ -12,6 +12,7 @@ const initialState: TUserState = {
   loggedIn: false,
   user: null,
   token: null,
+  user: { id: '', access_token: '', role: '' },
 };
 
 const userSlice = createSlice({
@@ -37,5 +38,7 @@ const userSlice = createSlice({
       });
   },
 });
+
+export const { signIn, signOut } = userSlice.actions;
 
 export default userSlice.reducer;

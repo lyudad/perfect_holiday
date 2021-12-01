@@ -7,13 +7,16 @@ import 'antd/dist/antd.css';
 import axios from 'axios';
 import { ILoginVars } from './types';
 import LoginButton from 'Components/Button/loginButton';
-import { url } from 'constants/constants';
+import { Role, url } from 'constants/constants';
 import { Redirect } from 'react-router';
-import { TRole } from 'Components/Access/types';
+import { IUser, TRole } from 'Components/Access/types';
+import { signIn } from 'Redux/users/userSlice';
+import { useDispatch } from 'react-redux';
 
 const { REACT_APP_BASE } = process.env;
 
 const LoginView = (): JSX.Element => {
+  const dispatch = useDispatch();
   const [status, setStatus] = useState<string>('');
   const [role, setRole] = useState<TRole>();
   const PostRequest = (values: ILoginVars) => {
@@ -24,10 +27,9 @@ const LoginView = (): JSX.Element => {
       })
       .then(res => {
         setStatus('Login is successful');
-        localStorage.setItem('token', res.data.access_token);
-        localStorage.setItem('role', res.data.role);
-        localStorage.setItem('user', JSON.stringify(res.data));
         setRole(res.data.role);
+        const person: IUser = res.data;
+        dispatch(signIn({ person }));
       })
       .catch(err => {
         if (err.response) {
@@ -35,10 +37,11 @@ const LoginView = (): JSX.Element => {
         }
       });
   };
-
   return (
     <>
-      {role ? (
+      {role === Role.EMPLOYEE ? (
+        <Redirect to="user" />
+      ) : role === Role.ADMIN ? (
         <Redirect to="users" />
       ) : (
         <Row justify="center" align="middle">

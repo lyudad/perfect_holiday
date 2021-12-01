@@ -40,12 +40,27 @@ export const lang = {
   },
   dashboard: {
     userTitle: 'User',
+    userFirstName: 'First Name',
+    userLastName: 'Last Name',
     startDateTitle: 'Start Date',
     endDateTitle: 'End Date',
-    typeTitle: 'Typr',
+    typeTitle: 'Type',
     actionTitle: 'Action',
     approveButton: 'Approve',
     declineButton: 'Decline',
     editButton: 'Edit',
+  },
+  addUser: {
+    'firstName-validation': "Please enter employee's first name !",
+    'lastName-validation': "Please enter employee's last name!",
+    'email-validation': "Please enter employee's email!",
+    title: 'Add a new Employee',
+    okText: 'Add',
+    cancelText: 'Cancel',
+    succeess: 'The employee was successfuly created',
+    fail: 'Something goes wrong. Try again later.',
+  },
+  searchUser: {
+    placeholder: 'Type an employee name',
   },
 };
