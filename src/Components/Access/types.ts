@@ -1,9 +1,10 @@
-export type TRole = 'super' | 'admin' | 'employee';
+export type TRole = 'super' | 'admin' | 'employee' | '';
 
 export interface IUser {
-  _id: string;
-  name: string;
+  id: string;
+  access_token: string;
   role: TRole;
+  token: string;
 }
 
 export interface IPermission {
