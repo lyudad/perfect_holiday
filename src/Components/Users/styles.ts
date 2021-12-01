@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Layout, Button, Row as SRow } from 'antd';
+import { Layout, Button, Row as SRow, Input as SInput } from 'antd';
 
 const { Content } = Layout;
 export const StyledLayout = styled(Layout)`
@@ -22,4 +22,7 @@ export const StyledContent = styled(Content)`
 `;
 export const Row = styled(SRow)`
   margin-bottom: 0.5rem;
+`;
+export const Input = styled(SInput)`
+  width: 450px;
 `;
