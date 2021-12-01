@@ -7,7 +7,7 @@ import {
   StyledLayout,
   StyledContent,
   StyledButton,
-  StyledFormItem,
+  StyledDivNameInfo,
   StyledDivContent,
   StyledDivVacationInfo,
   SelectBlock,
@@ -25,7 +25,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { IMatchParams } from 'views/AdminView/types';
 import { TBookkHoliday } from 'hooks/types';
-
+import { useSelector } from 'react-redux';
+import userSelectors from 'Redux/users/userSelectors';
 const { Option } = Select;
 
 const data = [
@@ -63,7 +64,9 @@ type Vacation = {
   startDate: Date;
   endDate: Date;
 };
+
 const UserView = (): JSX.Element => {
+  const name = useSelector(userSelectors.getUserName);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [type, setType] = useState<string>('vacation');
   const { control, handleSubmit, watch } = useForm<Vacation>();
@@ -84,7 +87,6 @@ const UserView = (): JSX.Element => {
   const end_date = showCurrentDate(newEndDate);
 
   const days: TBookkHoliday = { type, start_date, end_date };
-  console.log(days);
 
   const onSubmit: SubmitHandler<Vacation> = () => {
     onChangeType(type);
@@ -176,33 +178,9 @@ const UserView = (): JSX.Element => {
         <StyledContent>
           <StyledDivContent className="site-layout-background">
             <Row>
-              <Form name="VacationForm" layout="horizontal" size="large">
-                <StyledFormItem
-                  name="FirstName"
-                  rules={[
-                    {
-                      type: 'string',
-                      required: true,
-                      message: `${lang.username['firstName-validation']}`,
-                    },
-                  ]}
-                >
-                  <Input placeholder="FirstName" />
-                </StyledFormItem>
-
-                <StyledFormItem
-                  name="LastName"
-                  rules={[
-                    {
-                      type: 'string',
-                      required: true,
-                      message: `${lang.username['lastName-validation']}`,
-                    },
-                  ]}
-                >
-                  <Input placeholder="LastName" />
-                </StyledFormItem>
-              </Form>
+              <StyledDivNameInfo>
+                <strong>Welcome,{name}</strong>
+              </StyledDivNameInfo>
             </Row>
             <Row>
               <StyledDivVacationInfo>
