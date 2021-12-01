@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
 import { Row, Input, Form, Modal, Button, Table, Select } from 'antd';
@@ -14,16 +14,15 @@ import {
   StyledModalContent,
   StyledInputContent,
 } from './styles';
-import { columns } from './const';
-import { sellectItemColor } from './../../constants/constants';
+import { columns, showCurrentDate } from './const';
+import { sellectItemColor } from 'constants/constants';
 import Layout from './layout';
-import Sidebar from '../../Components/Sidebar';
+import Sidebar from 'Components/Sidebar';
 import { useRouteMatch } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { bookigRestDays } from 'hooks/useUsers';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { AxiosResponse } from 'axios';
 import { IMatchParams } from 'views/AdminView/types';
 import { TBookkHoliday } from 'hooks/types';
 
@@ -74,37 +73,24 @@ const UserView = (): JSX.Element => {
 
   const newStartDate = new Date(watchAll.startDate);
   const newEndDate = new Date(watchAll.endDate);
+
   const userId = useRouteMatch<IMatchParams>().params.id;
 
   const onChangeType = (type: any) => {
     setType(type);
   };
 
-  function addLeadingZero(d: number) {
-    return d < 10 ? '0' + d : d;
-  }
-  function showCurrentDate(value: Date) {
-    const getCurrentDay = addLeadingZero(value.getDate());
-    const getCurrentMonth = addLeadingZero(value.getMonth() + 1);
-    const getCurrentYear = value.getFullYear();
-    return `${getCurrentYear}-${getCurrentMonth}-${getCurrentDay}`;
-  }
-
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
-
-  const onSubmit: SubmitHandler<Vacation> = () => {
-    onChangeType(type);
-    BookingNewVacation();
-    toggleModal();
-  };
 
   const days: TBookkHoliday = { type, start_date, end_date };
   console.log(days);
 
-  const BookingNewVacation: () => Promise<
-    AxiosResponse<TBookkHoliday, IMatchParams>
-  > = () => bookigRestDays(days, userId);
+  const onSubmit: SubmitHandler<Vacation> = () => {
+    onChangeType(type);
+    bookigRestDays(days, userId);
+    toggleModal();
+  };
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);

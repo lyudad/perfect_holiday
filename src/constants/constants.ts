@@ -1,4 +1,4 @@
-import { APPROVED, DECLINED, CHANGED } from './statuses';
+import { APPROVED, DECLINED } from './statuses';
 
 export enum Role {
   EMPLOYEE = 'employee',
