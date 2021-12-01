@@ -9,11 +9,14 @@ import { lang } from 'language/en';
 import { toBlockUnblockUser } from 'hooks/useUsers';
 import ButtonUsers from 'Components/Button';
 import { IUserId } from 'hooks/types';
+import {sellectItemColor} from './../../constants/constants'
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
   const { error, isLoading, data } = useGetListOfUsers();
-
+    const SelectColor = (record:{action:string}) =>
+    {return sellectItemColor(record.action) || ''
+    }
   if (isLoading) return <Loading />;
   if (error instanceof Error) return <h1>Error: {error.message}</h1>;
   const blockUser = (dataIndex: boolean, key: IUserId) =>
@@ -25,7 +28,7 @@ const Users = (): JSX.Element => {
       <Sidebar />
       <StyledContent>
         <ButtonUsers>+</ButtonUsers>
-        <Table dataSource={data}>
+        <Table rowClassName={SelectColor} dataSource={data} >
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
           <Column
             title="Action"
