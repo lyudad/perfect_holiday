@@ -5,6 +5,7 @@ import { IUserId, TBookkHoliday, User, TApprovedDay } from './types';
 import { TUpdateUser } from 'views/AdminView/types';
 import store from 'Redux/store';
 import { UserValues } from 'Components/AddUserModal/types';
+
 const { REACT_APP_BASE } = process.env;
 
 export default function useGetListOfUsers() {
@@ -67,17 +68,6 @@ export const toApprovedOrDisapproveRestDay = async (values: TApprovedDay) => {
   });
 };
 
-export const getUserRequestDays = async (userId: string) => {
-  const state = store.getState();
-  const token = `Bearer ${state.person.user.access_token}`;
-  return useQuery('casual', async (): Promise<Array<User>> => {
-    const { data } = await axios.get(`${REACT_APP_BASE}${url.casual}${userId}`, {
-      headers: { Authorization: token },
-    });
-    return data;
-  });
-};
-
 export const toAddOnlyEmployee = async (values: UserValues) => {
   const state = store.getState();
   const token = `Bearer ${state.person.user.access_token}`;
@@ -85,3 +75,26 @@ export const toAddOnlyEmployee = async (values: UserValues) => {
     headers: { Authorization: token },
   });
 };
+
+export function useGetUserData() {
+  const state = store.getState();
+  const token = `Bearer ${state.person.user.access_token}`;
+  return useQuery('users', async userId => {
+    const { data } = await axios.get(`${REACT_APP_BASE}${url.casual}${userId}`, {
+      headers: { Authorization: token },
+    });
+    return data;
+  });
+}
+
+export function getUserRequestDays(userId: string) {
+  const state = store.getState();
+  const token = `Bearer ${state.person.user.access_token}`;
+  return useQuery('casual', async (): Promise<Array<User>> => {
+    const { data } = await axios.get(`${REACT_APP_BASE}${url.casual}${userId}`, {
+      headers: { Authorization: token },
+    });
+
+    return data;
+  });
+}

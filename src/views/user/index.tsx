@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
-import { Row, Input, Form, Modal, Button, Table, Select } from 'antd';
+import { Row, Form, Modal, Button, Table, Select } from 'antd';
 import './index.css';
 import {
   StyledLayout,
@@ -20,45 +20,13 @@ import Layout from './layout';
 import Sidebar from 'Components/Sidebar';
 import { useRouteMatch } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { bookigRestDays } from 'hooks/useUsers';
+import { bookigRestDays, getUserRequestDays } from 'hooks/useUsers';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { IMatchParams } from 'views/AdminView/types';
 import { TBookkHoliday } from 'hooks/types';
-import { useSelector } from 'react-redux';
-import userSelectors from 'Redux/users/userSelectors';
-const { Option } = Select;
 
-const data = [
-  {
-    key: 'PQBVhT9Ve',
-    startDate: '16th Nov 2021',
-    endDate: '26th Dec 2021',
-    status: 'approved',
-    type: 'vacation',
-  },
-  {
-    key: 'JrL0fbUFW',
-    startDate: '16th Nov 2021',
-    endDate: '26th Dec 2021',
-    status: 'approved',
-    type: 'vacation',
-  },
-  {
-    key: 'vpL0AMwK1y',
-    startDate: '16th Nov 2021',
-    endDate: '26th Dec 2021',
-    status: 'pending',
-    type: 'vacation',
-  },
-  {
-    key: 'A6xDpRGOm',
-    startDate: '16th Nov 2021',
-    endDate: '26th Dec 2021',
-    status: 'declined',
-    type: 'sick leave',
-  },
-];
+const { Option } = Select;
 
 type Vacation = {
   startDate: Date;
@@ -66,7 +34,6 @@ type Vacation = {
 };
 
 const UserView = (): JSX.Element => {
-  const name = useSelector(userSelectors.getUserName);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [type, setType] = useState<string>('vacation');
   const { control, handleSubmit, watch } = useForm<Vacation>();
@@ -78,15 +45,23 @@ const UserView = (): JSX.Element => {
   const newEndDate = new Date(watchAll.endDate);
 
   const userId = useRouteMatch<IMatchParams>().params.id;
+  const { data } = getUserRequestDays(userId);
+  // console.log(data);
+
+  const start_date = showCurrentDate(newStartDate);
+  const end_date = showCurrentDate(newEndDate);
+  console.log(start_date);
+  console.log(end_date);
+
+  const days: TBookkHoliday = { type, start_date, end_date };
+
+  useEffect(() => {
+    //
+  }, []);
 
   const onChangeType = (type: any) => {
     setType(type);
   };
-
-  const start_date = showCurrentDate(newStartDate);
-  const end_date = showCurrentDate(newEndDate);
-
-  const days: TBookkHoliday = { type, start_date, end_date };
 
   const onSubmit: SubmitHandler<Vacation> = () => {
     onChangeType(type);
@@ -97,6 +72,7 @@ const UserView = (): JSX.Element => {
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
+
   const SelectColor = (record: { status: string }) => {
     return sellectItemColor(record.status) || '';
   };
@@ -176,21 +152,24 @@ const UserView = (): JSX.Element => {
         )}
         <Sidebar />
         <StyledContent>
-          <StyledDivContent className="site-layout-background">
-            <Row>
-              <StyledDivNameInfo>
-                <strong>Welcome,{name}</strong>
-              </StyledDivNameInfo>
-            </Row>
-            <Row>
-              <StyledDivVacationInfo>
-                <strong>2 sick leave</strong>
-              </StyledDivVacationInfo>
-              <StyledDivVacationInfo>
-                <strong>14 vacation days</strong>
-              </StyledDivVacationInfo>
-            </Row>
-          </StyledDivContent>
+          {data?.map(({ first_name, available_sick_days, available_vacation }) => (
+            <StyledDivContent className="site-layout-background">
+              <Row>
+                <StyledDivNameInfo>
+                  <strong>Welcome, {first_name}</strong>
+                </StyledDivNameInfo>
+              </Row>
+              <Row>
+                <StyledDivVacationInfo>
+                  <strong>{available_sick_days} sick leave</strong>
+                </StyledDivVacationInfo>
+                <StyledDivVacationInfo>
+                  <strong>{available_vacation} vacation days</strong>
+                </StyledDivVacationInfo>
+              </Row>
+            </StyledDivContent>
+          ))}
+
           <StyledButton
             type="primary"
             shape="round"
@@ -200,12 +179,14 @@ const UserView = (): JSX.Element => {
           >
             +
           </StyledButton>
-          <Table
-            columns={columns}
-            dataSource={data}
-            size="large"
-            rowClassName={SelectColor}
-          />
+          {data?.map(({ vacations }: any) => (
+            <Table
+              columns={columns}
+              dataSource={vacations}
+              size="large"
+              rowClassName={SelectColor}
+            />
+          ))}
         </StyledContent>
       </StyledLayout>
     </Layout>
