@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, {useState} from 'react';
 import Sidebar from 'Components/Sidebar';
 import { lang } from 'language/en';
 import { columns } from './const';
@@ -31,6 +31,8 @@ import { type } from 'os';
 const {REACT_APP_BASE} = process.env
 const { Option } = Select;
 import store from 'Redux/store';        
+import { Role } from 'constants/constants';
+
 const data = [
   {
     key: '1',
@@ -102,6 +104,12 @@ const AdminView = (): JSX.Element => {
     setIsModalVisible(!isModalVisible);
   };
   const [form] = Form.useForm();
+  const [type, setType] = useState<string>('employee');
+  const state = store.getState();
+  const role = state.person.user.role;
+  const InitialState = {
+    canSelectRoleInEdit: (role === Role.SUPER)
+  };
   const userId = useRouteMatch<IMatchParams>().params.id;
   const updateUserInfo = () => {
     toUpdateUserInfo(form.getFieldsValue(), userId)
@@ -209,7 +217,7 @@ const AdminView = (): JSX.Element => {
               onFinish={updateUserInfo}
               size="large"
             >
-              <Row justify="space-between">
+              <Row justify="space-between"> 
                 <Col span={6}>
                   <Form.Item name="first_name" rules={[{ type: 'string' }]}>
                     <Input placeholder={lang.userInfo.firstName} />
@@ -225,6 +233,24 @@ const AdminView = (): JSX.Element => {
                     <Input placeholder={lang.userInfo.email} />
                   </Form.Item>
                 </Col>
+                {
+                  (InitialState.canSelectRoleInEdit)
+                  &&
+                  <Col span={3}>
+                    <Form.Item name="role" rules={[{ type: 'string' }]}>
+                      <SelectBlock
+                        placeholder={lang.superAdmin.roleTitle}
+                      >
+                        <Option value="admin" key="id" >
+                          Admin
+                        </Option>
+                        <Option value="employee">
+                          Employee
+                        </Option>
+                      </SelectBlock>
+                    </Form.Item>
+                  </Col>
+                }
                 <Col span={4}>
                   <Form.Item>
                     <Button

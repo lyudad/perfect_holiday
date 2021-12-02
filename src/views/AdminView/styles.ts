@@ -64,3 +64,7 @@ float: right;
 
 export const StyledInput = styled(Input)`
 width: 100%`;
+
+export const SelectBlock = styled(Select)`
+    width: 120px;
+`;

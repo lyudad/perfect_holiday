@@ -4,14 +4,11 @@ import userOperations from './userOperation';
 
 export interface TUserState {
   loggedIn: boolean;
-  user: IUser | null;
-  token: string | null;
+  user: IUser;
 }
 
 const initialState: TUserState = {
   loggedIn: false,
-  user: null,
-  token: null,
   user: { id: '', access_token: '', role: '' },
 };
 
@@ -19,7 +16,18 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    // omit reducer cases
+    signIn: (state, action: PayloadAction<{ person: IUser }>) => {
+      state.loggedIn = true;
+      state.user = {
+        id: action.payload.person.id,
+        role: action.payload.person.role,
+        access_token: action.payload.person.access_token,
+      };
+    },
+    signOut: state => {
+      state.loggedIn = false;
+      state.user = { id: '', access_token: '', role: '' };
+    },
   },
   extraReducers: builder => {
     builder
@@ -28,13 +36,12 @@ const userSlice = createSlice({
         (state, action: PayloadAction<{ user: IUser }>) => {
           state.loggedIn = true;
           state.user = action.payload.user;
-          state.token = action.payload.user.token;
+          state.user.access_token = action.payload.user.access_token;
         },
       )
       .addCase(userOperations.signOut.fulfilled, state => {
         state.loggedIn = false;
-        state.user = null;
-        state.token = null;
+        state.user = { id: '', access_token: '', role: '' };
       });
   },
 });
