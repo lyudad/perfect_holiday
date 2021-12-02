@@ -27,7 +27,7 @@ export const sellectItemColor = (status: string) => {
 };
 
 export const checkIsBlock = ( block: boolean ) => {
-  if (block === true) {
+  if (block) {
     return 'gray-color'
   }
   return ''

@@ -16,12 +16,13 @@ import { NotAccess } from 'Components/403';
 import { CollectionCreateForm } from '../AddUserModal/index';
 import React from 'react';
 import './index.css'
-import {checkIsBlock} from './../../constants/constants'
+import {checkIsBlock} from '/constants/constants'
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
-  const SelectColor = (record:{is_block:boolean}) =>
-  {return checkIsBlock(record.is_block) || ''}
+  const SelectColor = (record:{is_block:boolean}) => {
+    return checkIsBlock(record.is_block) || ''
+  }
   const { error, isLoading, data } = useGetListOfUsers();
   const [visible, setVisible] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = React.useState('');
