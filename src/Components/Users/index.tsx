@@ -10,15 +10,18 @@ import { lang } from 'language/en';
 import { toBlockUnblockUser, toDeleteUser } from 'hooks/useUsers';
 import { IUserId, User } from 'hooks/types';
 import store from 'Redux/store';
-import { Role, url } from 'constants/constants';
+import { Role, url, checkIsBlock } from 'constants/constants';
 import { SetStateAction, useEffect, useState } from 'react';
 import { NotAccess } from 'Components/403';
 import { CollectionCreateForm } from '../AddUserModal/index';
 import React from 'react';
-
+import './index.css'
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
+  const SelectColor = (record:{is_block:boolean}) => {
+    return checkIsBlock(record.is_block) || ''
+  }
   const { error, isLoading, data } = useGetListOfUsers();
   const [visible, setVisible] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -85,7 +88,10 @@ const Users = (): JSX.Element => {
             onCancel={() => setVisible(false)}
           />
         </Row>
-        <Table dataSource={!searchTerm ? data : searchResults} rowKey="id">
+        <Table dataSource={!searchTerm ? data : searchResults}
+               rowKey="id"
+               rowClassName={SelectColor}
+        >
           <Column title={lang.userInfo.firstName} dataIndex="first_name" key="id" />
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
           {
