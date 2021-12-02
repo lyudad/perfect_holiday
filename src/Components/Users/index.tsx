@@ -38,7 +38,7 @@ const Users = (): JSX.Element => {
   const blockUser = (dataIndex: boolean, key: IUserId) => {
     toBlockUnblockUser(dataIndex, key)
       .then(() => message.success(lang.updateStatus.success))
-      .catch(() => message.success(lang.updateStatus.success));
+      .catch(() => message.error(lang.updateStatus.fail));
   };
 
   const deleteUser = (dataIndex: string, key: IUserId) => {
