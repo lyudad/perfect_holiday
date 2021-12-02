@@ -39,7 +39,7 @@ const LoginView = (): JSX.Element => {
     <>
       {role === Role.EMPLOYEE ? (
         <Redirect to="user" />
-      ) : role === Role.ADMIN ? (
+      ) : role === Role.ADMIN || role === Role.SUPER ? (
         <Redirect to="users" />
       ) : (
         <Row justify="center" align="middle">
