@@ -49,6 +49,10 @@ export const lang = {
     approveButton: 'Approve',
     declineButton: 'Decline',
     editButton: 'Edit',
+    messageStatusApproved: 'Approved successful!',
+    failMessageStatusApproved: 'Fail to approved!',
+    messageStatusDeclined: 'Declined successful!',
+    failMessageStatusDeclined: 'Fail to declined!',
   },
   addUser: {
     'firstName-validation': "Please enter employee's first name !",

@@ -1,4 +1,4 @@
-import { Button, Space, Table } from 'antd';
+import { Button, Space, Table, message } from 'antd';
 import { StyledLayout, StyledContent } from './styles';
 import Sidebar from 'Components/Sidebar';
 import { useAllNotApprovedRestDays , toApprovedOrDisapproveRestDay } from 'hooks/useUsers';
@@ -21,7 +21,9 @@ const Dashbord = (): JSX.Element => {
       status: APPROVED,
       id: key.id,
       userId: dataIndex,
-    });
+    })
+    .then(() => message.success(lang.dashboard.messageStatusApproved))
+    .catch(() => message.error(lang.dashboard.failMessageStatusApproved));
   };
 
   const putStatusDeclined = (dataIndex: string, key: IUserId) => {
@@ -29,7 +31,9 @@ const Dashbord = (): JSX.Element => {
       status: DECLINED,
       id: key.id,
       userId: dataIndex,
-    });
+    })
+    .then(() => message.success(lang.dashboard.messageStatusDeclined))
+    .catch(() => message.error(lang.dashboard.failMessageStatusDeclined));
   }
 
   return (
@@ -37,18 +41,16 @@ const Dashbord = (): JSX.Element => {
       <Sidebar />
       <StyledContent>
         <Table dataSource={data} pagination={{ pageSize: 10 }}  >
-          <ColumnGroup title={lang.dashboard.userTitle}>
-            <Column
-              title={lang.dashboard.userFirstName}
-              dataIndex={['user', 'first_name']}
-              key="id"
-            />
-            <Column
-              title={lang.dashboard.userLastName}
-              dataIndex={['user', 'last_name']}
-              key="id"
-            />
-          </ColumnGroup>
+          <Column
+            title={lang.dashboard.userFirstName}
+            dataIndex={['user', 'first_name']}
+            key="id"
+          />
+          <Column
+            title={lang.dashboard.userLastName}
+            dataIndex={['user', 'last_name']}
+            key="id"
+          />
           <Column
             title={lang.dashboard.startDateTitle}
             dataIndex="start_date"

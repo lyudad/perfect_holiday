@@ -27,9 +27,9 @@ const Users = (): JSX.Element => {
   const role = state.person.user.role;
 
   const InitialState = {
-    canBlockUnblockUser: (role === 'admin'),
-    canDeleteUser: (role === 'super'),
-    canColumnRole: (role === 'super')
+    canBlockUnblockUser: (role === Role.ADMIN),
+    canDeleteUser: (role === Role.SUPER),
+    canColumnRole: (role === Role.SUPER)
   };
 
   const blockUser = (dataIndex: boolean, key: IUserId) => {
@@ -44,7 +44,7 @@ const Users = (): JSX.Element => {
     userId: dataIndex,
     })
     .then(() => message.success(lang.superAdmin.successDelete))
-    .catch(() => message.success(lang.superAdmin.failDelete));
+    .catch(() => message.error(lang.superAdmin.failDelete));
   };
   const handleChange = (event: { target: { value: SetStateAction<string> } }) =>
     setSearchTerm(event.target.value);
@@ -85,10 +85,8 @@ const Users = (): JSX.Element => {
             onCancel={() => setVisible(false)}
           />
         </Row>
-        <Table dataSource={data}>
-          <Column title={lang.userInfo.firstName} dataIndex="first_name" key="id" />
-        </Table>
         <Table dataSource={!searchTerm ? data : searchResults} rowKey="id">
+          <Column title={lang.userInfo.firstName} dataIndex="first_name" key="id" />
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
           {
             (InitialState.canColumnRole)
@@ -134,7 +132,7 @@ const Users = (): JSX.Element => {
                     htmlType="submit"
                     type="link"
                   >
-                    Delete User
+                    {lang.superAdmin.deleteButton}
                   </Button>}
               </Space>
             )}

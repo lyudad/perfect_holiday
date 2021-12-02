@@ -3,6 +3,7 @@ import { toAddOnlyEmployee } from 'hooks/useUsers';
 import { lang } from 'language/en';
 import { CollectionCreateFormProps, UserValues } from './types';
 import store from 'Redux/store';
+import { Role } from 'constants/constants';
 
 const { Option } = Select;
 
@@ -15,7 +16,7 @@ export const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
     const state = store.getState();
     const role = state.person.user.role;
     const InitialState = {
-      canSelectRoleInModal: (role === 'super')
+      canSelectRoleInModal: (role === Role.SUPER)
     };
   return (
     <Modal

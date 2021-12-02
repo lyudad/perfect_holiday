@@ -21,6 +21,8 @@ import { IMatchParams } from './types';
 import { sellectItemColor } from 'constants/constants';
 import axios from 'axios';
 import store from 'Redux/store';
+import { Role } from 'constants/constants';
+
 const { REACT_APP_BASE } = process.env;
 const { Option } = Select;
 const data = [
@@ -60,7 +62,7 @@ const AdminView = (): JSX.Element => {
   const state = store.getState();
   const role = state.person.user.role;
   const InitialState = {
-    canSelectRoleInEdit: (role === 'super')
+    canSelectRoleInEdit: (role === Role.SUPER)
   };
   const userId = useRouteMatch<IMatchParams>().params.id;
   const updateUserInfo = () => {
