@@ -7,7 +7,7 @@ import Loading from 'Components/Loading';
 import { NotFound } from '../404/index';
 import { Link } from 'react-router-dom';
 import { lang } from 'language/en';
-import { toBlockUnblockUser } from 'hooks/useUsers';
+import { toBlockUnblockUser, toDeleteUser } from 'hooks/useUsers';
 import { IUserId, User } from 'hooks/types';
 import store from 'Redux/store';
 import { Role, url } from 'constants/constants';
@@ -26,12 +26,26 @@ const Users = (): JSX.Element => {
   const state = store.getState();
   const role = state.person.user.role;
 
+  const InitialState = {
+    canBlockUnblockUser: (role === Role.ADMIN),
+    canDeleteUser: (role === Role.SUPER),
+    canColumnRole: (role === Role.SUPER)
+  };
+
   const blockUser = (dataIndex: boolean, key: IUserId) => {
     toBlockUnblockUser(dataIndex, key)
       .then(() => message.success(lang.updateStatus.success))
       .catch(() => message.success(lang.updateStatus.success));
   };
 
+  const deleteUser = (dataIndex: string, key: IUserId) => {
+    toDeleteUser({
+    id: key.id,
+    userId: dataIndex,
+    })
+    .then(() => message.success(lang.superAdmin.successDelete))
+    .catch(() => message.error(lang.superAdmin.failDelete));
+  };
   const handleChange = (event: { target: { value: SetStateAction<string> } }) =>
     setSearchTerm(event.target.value);
   useEffect(() => {
@@ -72,10 +86,16 @@ const Users = (): JSX.Element => {
           />
         </Row>
         <Table dataSource={!searchTerm ? data : searchResults} rowKey="id">
+          <Column title={lang.userInfo.firstName} dataIndex="first_name" key="id" />
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
+          {
+            (InitialState.canColumnRole)
+            &&
+            <Column title={lang.superAdmin.roleTitle} dataIndex="role" key="id" />
+          }
           <Column
-            title="Action"
-            key="id"
+            title={lang.superAdmin.actionsTitle}
+            key="action"
             dataIndex="id"
             render={dataIndex => (
               <Space size="middle">
@@ -89,15 +109,31 @@ const Users = (): JSX.Element => {
             key="id"
             render={(dataIndex, key: IUserId) => (
               <Space size="middle">
-                <Button
-                  onClick={() => {
-                    blockUser(dataIndex, key);
-                  }}
-                  htmlType="submit"
-                  type="link"
-                >
-                  {dataIndex ? lang.updateStatus.block : lang.updateStatus.unblock}
-                </Button>
+                {
+                  (InitialState.canBlockUnblockUser)
+                  &&
+                  <Button
+                    onClick={() => {
+                      blockUser(dataIndex, key);
+                    }}
+                    htmlType="submit"
+                    type="link"
+                  >
+                    {dataIndex ? lang.updateStatus.block : lang.updateStatus.unblock}
+                  </Button>
+                }
+                {
+                  (InitialState.canDeleteUser)
+                  &&
+                  <Button 
+                    onClick={() => {
+                      deleteUser(dataIndex, key)
+                    }}
+                    htmlType="submit"
+                    type="link"
+                  >
+                    {lang.superAdmin.deleteButton}
+                  </Button>}
               </Space>
             )}
           />

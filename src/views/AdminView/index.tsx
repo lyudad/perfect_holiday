@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Sidebar from 'Components/Sidebar';
 import { lang } from 'language/en';
 import { columns } from './const';
 import Layout from './layout';
 import { toUpdateUserInfo } from 'hooks/useUsers';
 import 'antd/dist/antd.css';
-import { Row, Input, Form, Col, Button, Table, message } from 'antd';
+import { Row, Input, Form, Col, Button, Table, message, Select } from 'antd';
 import {
   StyledLayout,
   StyledContent,
@@ -13,6 +13,7 @@ import {
   StyledDivContent,
   StyledDivVacationInfo,
   ButtonWrapper,
+  SelectBlock
 } from './styles';
 import { url } from 'constants/constants';
 import { useRouteMatch } from 'react-router-dom';
@@ -20,7 +21,10 @@ import { IMatchParams } from './types';
 import { sellectItemColor } from 'constants/constants';
 import axios from 'axios';
 import store from 'Redux/store';
+import { Role } from 'constants/constants';
+
 const { REACT_APP_BASE } = process.env;
+const { Option } = Select;
 const data = [
   {
     key: '1',
@@ -54,6 +58,12 @@ const data = [
 
 const AdminView = (): JSX.Element => {
   const [form] = Form.useForm();
+  const [type, setType] = useState<string>('employee');
+  const state = store.getState();
+  const role = state.person.user.role;
+  const InitialState = {
+    canSelectRoleInEdit: (role === Role.SUPER)
+  };
   const userId = useRouteMatch<IMatchParams>().params.id;
   const updateUserInfo = () => {
     toUpdateUserInfo(form.getFieldsValue(), userId)
@@ -91,7 +101,7 @@ const AdminView = (): JSX.Element => {
               onFinish={updateUserInfo}
               size="large"
             >
-              <Row justify="space-between">
+              <Row justify="space-between"> 
                 <Col span={6}>
                   <Form.Item name="first_name" rules={[{ type: 'string' }]}>
                     <Input placeholder={lang.userInfo.firstName} />
@@ -107,6 +117,24 @@ const AdminView = (): JSX.Element => {
                     <Input placeholder={lang.userInfo.email} />
                   </Form.Item>
                 </Col>
+                {
+                  (InitialState.canSelectRoleInEdit)
+                  &&
+                  <Col span={3}>
+                    <Form.Item name="role" rules={[{ type: 'string' }]}>
+                      <SelectBlock
+                        placeholder={lang.superAdmin.roleTitle}
+                      >
+                        <Option value="admin" key="id" >
+                          Admin
+                        </Option>
+                        <Option value="employee">
+                          Employee
+                        </Option>
+                      </SelectBlock>
+                    </Form.Item>
+                  </Col>
+                }
                 <Col span={4}>
                   <Form.Item>
                     <Button

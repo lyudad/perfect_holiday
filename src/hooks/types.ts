@@ -27,3 +27,8 @@ export type TApprovedDay = {
   status: TStatus;
   userId: string;
 };
+
+export type TDeleteUser = {
+  id: string;
+  userId: string;
+}
