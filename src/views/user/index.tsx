@@ -15,9 +15,9 @@ import {
   StyledInputContent,
 } from './styles';
 import { columns } from './const';
-import { sellectItemColor } from './../../constants/constants';
+import { sellectItemColor } from 'constants/constants';
 import Layout from './layout';
-import Sidebar from '../../Components/Sidebar';
+import Sidebar from 'Components/Sidebar';
 import shortid from 'shortid';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
