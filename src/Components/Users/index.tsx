@@ -10,13 +10,12 @@ import { lang } from 'language/en';
 import { toBlockUnblockUser } from 'hooks/useUsers';
 import { IUserId, User } from 'hooks/types';
 import store from 'Redux/store';
-import { Role, url } from 'constants/constants';
+import { Role, url, checkIsBlock } from 'constants/constants';
 import { SetStateAction, useEffect, useState } from 'react';
 import { NotAccess } from 'Components/403';
 import { CollectionCreateForm } from '../AddUserModal/index';
 import React from 'react';
 import './index.css'
-import {checkIsBlock} from '/constants/constants'
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
