@@ -46,18 +46,11 @@ const UserView = (): JSX.Element => {
 
   const userId = useRouteMatch<IMatchParams>().params.id;
   const { data } = getUserRequestDays(userId);
-  // console.log(data);
 
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
-  console.log(start_date);
-  console.log(end_date);
 
   const days: TBookkHoliday = { type, start_date, end_date };
-
-  useEffect(() => {
-    //
-  }, []);
 
   const onChangeType = (type: any) => {
     setType(type);
