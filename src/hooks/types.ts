@@ -5,6 +5,7 @@ export interface IUserId {
   id: string;
 }
 export type User = {
+  id: string;
   role: UserRoleType;
   email: string;
   password: string;

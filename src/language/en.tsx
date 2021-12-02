@@ -72,4 +72,7 @@ export const lang = {
     roleTitle: 'Role',
     searchInputText: 'Search user'
   },
+  searchUser: {
+    placeholder: 'Type an employee name',
+  },
 };
