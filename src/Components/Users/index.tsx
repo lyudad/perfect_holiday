@@ -15,10 +15,13 @@ import { SetStateAction, useEffect, useState } from 'react';
 import { NotAccess } from 'Components/403';
 import { CollectionCreateForm } from '../AddUserModal/index';
 import React from 'react';
-
+import './index.css'
+import {checkIsBlock} from './../../constants/constants'
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
+  const SelectColor = (record:{is_block:boolean}) =>
+  {return checkIsBlock(record.is_block) || ''}
   const { error, isLoading, data } = useGetListOfUsers();
   const [visible, setVisible] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -71,7 +74,10 @@ const Users = (): JSX.Element => {
             onCancel={() => setVisible(false)}
           />
         </Row>
-        <Table dataSource={!searchTerm ? data : searchResults} rowKey="id">
+        <Table dataSource={!searchTerm ? data : searchResults}
+               rowKey="id"
+               rowClassName={SelectColor}
+        >
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
           <Column
             title="Action"

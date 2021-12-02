@@ -25,3 +25,12 @@ export const sellectItemColor = (status: string) => {
   }
   return 'yellow';
 };
+
+export const checkIsBlock = ( block: boolean ) => {
+  if (block === true) {
+    return 'gray-color'
+  }
+  return ''
+
+}
+
