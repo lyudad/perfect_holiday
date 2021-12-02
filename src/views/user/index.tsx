@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
-import { Row, Input, Form, Modal, Button, Table, Select } from 'antd';
-import './index.css'
+import { Row, Form, Modal, Button, Table, Select } from 'antd';
+import './index.css';
 import {
   StyledLayout,
   StyledContent,
@@ -14,10 +14,10 @@ import {
   StyledModalContent,
   StyledInputContent,
 } from './styles';
-import { columns,} from './const';
-import {sellectItemColor} from './../../constants/constants'
+import { columns } from './const';
+import { sellectItemColor } from 'constants/constants';
 import Layout from './layout';
-import Sidebar from '../../Components/Sidebar';
+import Sidebar from 'Components/Sidebar';
 import shortid from 'shortid';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
@@ -104,9 +104,9 @@ const UserView = (): JSX.Element => {
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
- const SelectColor = (record:{status:string}) =>
- {return sellectItemColor(record.status) || ''
- }
+  const SelectColor = (record: { status: string }) => {
+    return sellectItemColor(record.status) || '';
+  };
 
   return (
     <Layout>
@@ -207,8 +207,12 @@ const UserView = (): JSX.Element => {
           >
             +
           </StyledButton>
-          <Table columns={columns} dataSource={data} size="large"
-                 rowClassName={SelectColor}/>
+          <Table
+            columns={columns}
+            dataSource={data}
+            size="large"
+            rowClassName={SelectColor}
+          />
         </StyledContent>
       </StyledLayout>
     </Layout>

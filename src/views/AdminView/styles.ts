@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import {Layout, Button, Form, Input} from "antd";
+import {Layout, Button, Form, Input, Select} from "antd";
 
 const { Content } = Layout;
 
@@ -49,3 +49,7 @@ float: right;
 
 export const StyledInput = styled(Input)`
 width: 100%`;
+
+export const SelectBlock = styled(Select)`
+    width: 120px;
+`;
