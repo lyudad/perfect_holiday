@@ -26,15 +26,13 @@ const LoginView = (): JSX.Element => {
         password: values['password'],
       })
       .then(res => {
-        setStatus('Login is successful');
-        setRole(res.data.role);
         const person: IUser = res.data;
         dispatch(signIn({ person }));
+        setStatus(lang.login['status-success']);
+        setRole(res.data.role);
       })
       .catch(err => {
-        if (err.response) {
-          if (err.response.status === 401) setStatus('Wrong email or password');
-        }
+        if (err.response.status === 401) setStatus(lang.login['status-error']);
       });
   };
   return (

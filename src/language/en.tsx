@@ -2,6 +2,8 @@ export const lang = {
   login: {
     'email-validation': 'Please enter your email address as your login!',
     'password-validation': 'Please enter your password!',
+    'status-success': 'Login is successful',
+    'status-error': 'Wrong email or password',
   },
   username: {
     'firstName-validation': 'Please enter your first name!',
