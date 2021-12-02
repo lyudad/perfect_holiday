@@ -54,6 +54,7 @@ export const lang = {
     'firstName-validation': "Please enter employee's first name !",
     'lastName-validation': "Please enter employee's last name!",
     'email-validation': "Please enter employee's email!",
+    'role-validation': "Please select role!",
     title: 'Add a new Employee',
     okText: 'Add',
     cancelText: 'Cancel',
