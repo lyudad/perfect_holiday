@@ -18,13 +18,12 @@ import { columns, showCurrentDate } from './const';
 import { sellectItemColor } from 'constants/constants';
 import Layout from './layout';
 import Sidebar from 'Components/Sidebar';
-import { useRouteMatch } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { bookigRestDays, getUserRequestDays } from 'hooks/useUsers';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { IMatchParams } from 'views/AdminView/types';
 import { TBookkHoliday } from 'hooks/types';
+import store from 'Redux/store';
 
 const { Option } = Select;
 
@@ -44,7 +43,8 @@ const UserView = (): JSX.Element => {
   const newStartDate = new Date(watchAll.startDate);
   const newEndDate = new Date(watchAll.endDate);
 
-  const userId = useRouteMatch<IMatchParams>().params.id;
+  const state = store.getState();
+  const userId = state.person.user.id;
   const { data } = getUserRequestDays(userId);
 
   const start_date = showCurrentDate(newStartDate);
@@ -65,7 +65,7 @@ const UserView = (): JSX.Element => {
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
-  
+
   const SelectColor = (record: { status: string }) => {
     return sellectItemColor(record.status) || '';
   };

@@ -41,7 +41,7 @@ const LoginView = (): JSX.Element => {
   return (
     <>
       {role === Role.EMPLOYEE ? (
-        <Redirect to={`user/${userId}`} />
+        <Redirect to="user" />
       ) : role === Role.ADMIN || role === Role.SUPER ? (
         <Redirect to="users" />
       ) : (
