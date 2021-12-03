@@ -65,6 +65,7 @@ const UserView = (): JSX.Element => {
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
+  
   const SelectColor = (record: { status: string }) => {
     return sellectItemColor(record.status) || '';
   };
