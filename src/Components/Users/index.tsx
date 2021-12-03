@@ -10,13 +10,14 @@ import { toBlockUnblockUser } from 'hooks/useUsers';
 import ButtonUsers from 'Components/Button';
 import { IUserId } from 'hooks/types';
 import {sellectItemColor} from './../../constants/constants'
+import { useMutation } from 'react-query';
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
-  const { error, isLoading, data } = useGetListOfUsers();
-    const SelectColor = (record:{action:string}) =>
-    {return sellectItemColor(record.action) || ''
-    }
+  const { error, isLoading, data } =useGetListOfUsers();
+  const mutation = useMutation((newTodo:any)=>
+       blockUser(newTodo.dataIndex, newTodo.key)
+  )
   if (isLoading) return <Loading />;
   if (error instanceof Error) return <h1>Error: {error.message}</h1>;
   const blockUser = (dataIndex: boolean, key: IUserId) =>
@@ -28,7 +29,7 @@ const Users = (): JSX.Element => {
       <Sidebar />
       <StyledContent>
         <ButtonUsers>+</ButtonUsers>
-        <Table rowClassName={SelectColor} dataSource={data} >
+        <Table  dataSource={data} >
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
           <Column
             title="Action"
@@ -48,12 +49,14 @@ const Users = (): JSX.Element => {
               <Space size="middle">
                 <Button
                   onClick={() => {
-                    blockUser(dataIndex, key);
+                    // blockUser(dataIndex, key);
+                      mutation.mutate({dataIndex: dataIndex, key:key})
                   }}
                   htmlType="submit"
                   type="link"
                 >
-                  {dataIndex ? lang.updateStatus.block : lang.updateStatus.unblock}
+                    {mutation.isSuccess ? lang.updateStatus.block : lang.updateStatus.unblock}
+                  {/*{dataIndex ? lang.updateStatus.block : lang.updateStatus.unblock}*/}
                 </Button>
               </Space>
             )}
