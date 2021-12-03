@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { url } from 'constants/constants';
+import { Role, url } from 'constants/constants';
 import { IUserId, TBookkHoliday, User, TApprovedDay, TDeleteUser } from './types';
 import { TUpdateUser } from 'views/AdminView/types';
 import store from 'Redux/store';
@@ -11,10 +11,16 @@ const { REACT_APP_BASE } = process.env;
 export default function useGetListOfUsers() {
   const state = store.getState();
   const token = `Bearer ${state.person.user.access_token}`;
+  const role = state.person.user.role;
   return useQuery('users', async (): Promise<Array<User>> => {
-    const { data } = await axios.get(`${REACT_APP_BASE}${url.users}`, {
-      headers: { Authorization: token },
-    });
+    const { data } = await axios.get(
+      `${REACT_APP_BASE}${url.users}${
+        role === Role.SUPER ? url.forsuper : url.foradmin
+      }`,
+      {
+        headers: { Authorization: token },
+      },
+    );
     return data;
   });
 }
@@ -106,4 +112,3 @@ export const toDeleteUser = async (values: TDeleteUser) => {
     headers: { Authorization: token },
   });
 };
-

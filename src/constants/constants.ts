@@ -15,6 +15,8 @@ export const url = {
   mail: 'mail/',
   pushPassword: 'push-password/',
   pending: 'casual/pending',
+  forsuper: 'admin-employee',
+  foradmin: 'employee',
 };
 
 export const sellectItemColor = (status: string) => {
@@ -26,11 +28,9 @@ export const sellectItemColor = (status: string) => {
   return 'yellow';
 };
 
-export const checkIsBlock = ( block: boolean ) => {
+export const checkIsBlock = (block: boolean) => {
   if (block) {
-    return 'gray-color'
+    return 'gray-color';
   }
-  return ''
-
-}
-
+  return '';
+};
