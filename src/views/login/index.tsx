@@ -12,6 +12,7 @@ import { Redirect } from 'react-router';
 import { IUser, TRole } from 'Components/Access/types';
 import { signIn } from 'Redux/users/userSlice';
 import { useDispatch } from 'react-redux';
+import store from 'Redux/store';
 
 const { REACT_APP_BASE } = process.env;
 
@@ -19,6 +20,8 @@ const LoginView = (): JSX.Element => {
   const dispatch = useDispatch();
   const [status, setStatus] = useState<string>('');
   const [role, setRole] = useState<TRole>();
+  const state = store.getState();
+  const userId = state.person.user.id;
   const PostRequest = (values: ILoginVars) => {
     axios
       .post(`${REACT_APP_BASE}${url.auth}${url.login}`, {
@@ -38,7 +41,7 @@ const LoginView = (): JSX.Element => {
   return (
     <>
       {role === Role.EMPLOYEE ? (
-        <Redirect to="user" />
+        <Redirect to={`user/${userId}`} />
       ) : role === Role.ADMIN || role === Role.SUPER ? (
         <Redirect to="users" />
       ) : (
