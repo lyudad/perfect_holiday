@@ -1,7 +1,11 @@
-import { Form, Input, message, Modal } from 'antd';
+import { Form, Input, message, Modal, Select } from 'antd';
 import { toAddOnlyEmployee } from 'hooks/useUsers';
 import { lang } from 'language/en';
 import { CollectionCreateFormProps, UserValues } from './types';
+import store from 'Redux/store';
+import { Role } from 'constants/constants';
+
+const { Option } = Select;
 
 export const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
   visible,
@@ -9,6 +13,11 @@ export const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
   onCancel,
 }) => {
   const [form] = Form.useForm();
+    const state = store.getState();
+    const role = state.person.user.role;
+    const InitialState = {
+      canSelectRoleInModal: (role === Role.SUPER)
+    };
   return (
     <Modal
       visible={visible}
@@ -63,6 +72,25 @@ export const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
         >
           <Input />
         </Form.Item>
+        {
+          (InitialState.canSelectRoleInModal)
+          &&
+          <Form.Item
+            label={lang.superAdmin.roleTitle}
+            name="role"
+          >
+            <Select
+              defaultValue="employee"
+            >
+              <Option value="admin" key="id">
+                Admin
+              </Option>
+              <Option value="employee" key="id">
+                Employee
+              </Option>
+            </Select>
+          </Form.Item>
+        }
       </Form>
     </Modal>
   );

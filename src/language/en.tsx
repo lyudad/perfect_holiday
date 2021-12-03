@@ -2,6 +2,8 @@ export const lang = {
   login: {
     'email-validation': 'Please enter your email address as your login!',
     'password-validation': 'Please enter your password!',
+    'status-success': 'Login is successful',
+    'status-error': 'Wrong email or password',
   },
   username: {
     'firstName-validation': 'Please enter your first name!',
@@ -49,16 +51,32 @@ export const lang = {
     approveButton: 'Approve',
     declineButton: 'Decline',
     editButton: 'Edit',
+    messageStatusApproved: 'Approved successful!',
+    failMessageStatusApproved: 'Fail to approved!',
+    messageStatusDeclined: 'Declined successful!',
+    failMessageStatusDeclined: 'Fail to declined!',
   },
   addUser: {
     'firstName-validation': "Please enter employee's first name !",
     'lastName-validation': "Please enter employee's last name!",
     'email-validation': "Please enter employee's email!",
+    'role-validation': "Please select role!",
     title: 'Add a new Employee',
     okText: 'Add',
     cancelText: 'Cancel',
     succeess: 'The employee was successfuly created',
     fail: 'Something goes wrong. Try again later.',
+  },
+  superAdmin: {
+    userFirstName: 'First Name',
+    userLastName: 'Last Name',
+    actionsTitle: 'Actions',
+    editButton: 'Edit',
+    deleteButton: 'Delete',
+    successDelete: 'User successfully delete!',
+    failDelete: 'Error deleting user!',
+    roleTitle: 'Role',
+    searchInputText: 'Search user'
   },
   searchUser: {
     placeholder: 'Type an employee name',
