@@ -45,7 +45,7 @@ const UserView = (): JSX.Element => {
 
   const state = store.getState();
   const userId = state.person.user.id;
-  const { data } = getUserRequestDays(userId);
+  const { data, refetch } = getUserRequestDays(userId);
 
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
@@ -60,6 +60,7 @@ const UserView = (): JSX.Element => {
     onChangeType(type);
     bookigRestDays(days, userId);
     toggleModal();
+    refetch();
   };
 
   const toggleModal = () => {
