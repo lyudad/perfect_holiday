@@ -22,7 +22,7 @@ const Users = (): JSX.Element => {
   const SelectColor = (record: { is_block: boolean }) => {
     return checkIsBlock(record.is_block) || '';
   };
-  const { error, isLoading, data } = useGetListOfUsers();
+  const { error, isLoading, data, refetch } = useGetListOfUsers();
   const [visible, setVisible] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = React.useState('');
   const [searchResults, setSearchResults] = React.useState<User[]>([]);
@@ -37,8 +37,11 @@ const Users = (): JSX.Element => {
 
   const blockUser = (dataIndex: boolean, key: IUserId) => {
     toBlockUnblockUser(dataIndex, key)
-      .then(() => message.success(lang.updateStatus.success))
-      .catch(() => message.error(lang.updateStatus.fail));
+      .then(() => message.loading(lang.info.loading))
+      .catch(() => message.error(lang.updateStatus.fail))
+      .finally(() => {
+        return refetch(), message.success(lang.updateStatus.success);
+      });
   };
 
   const deleteUser = (dataIndex: string, key: IUserId) => {
@@ -46,8 +49,11 @@ const Users = (): JSX.Element => {
       id: key.id,
       userId: dataIndex,
     })
-      .then(() => message.success(lang.superAdmin.successDelete))
-      .catch(() => message.error(lang.superAdmin.failDelete));
+      .then(() => message.loading(lang.info.loading))
+      .catch(() => message.error(lang.superAdmin.failDelete))
+      .finally(() => {
+        return refetch(), message.success(lang.superAdmin.successDelete);
+      });
   };
   const handleChange = (event: { target: { value: SetStateAction<string> } }) =>
     setSearchTerm(event.target.value);

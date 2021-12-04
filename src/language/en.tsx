@@ -60,7 +60,7 @@ export const lang = {
     'firstName-validation': "Please enter employee's first name !",
     'lastName-validation': "Please enter employee's last name!",
     'email-validation': "Please enter employee's email!",
-    'role-validation': "Please select role!",
+    'role-validation': 'Please select role!',
     title: 'Add a new Employee',
     okText: 'Add',
     cancelText: 'Cancel',
@@ -76,9 +76,12 @@ export const lang = {
     successDelete: 'User successfully delete!',
     failDelete: 'Error deleting user!',
     roleTitle: 'Role',
-    searchInputText: 'Search user'
+    searchInputText: 'Search user',
   },
   searchUser: {
     placeholder: 'Type an employee name',
+  },
+  info: {
+    loading: 'Please wait...',
   },
 };
