@@ -15,6 +15,7 @@ export const CollectionDeleteForm: React.FC<CollectionDeleteProps> = ({values, v
     };
     return (
         <Modal
+            mask={false}
             visible={visible}
             title={lang.deleteUser.title}
             okText={lang.deleteUser.okText}
