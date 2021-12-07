@@ -1,19 +1,35 @@
-import { Button, Space, Table, message } from 'antd';
+import { Button, Space, Table, message, Modal, Form } from 'antd';
 import { StyledLayout, StyledContent } from './styles';
 import Sidebar from 'Components/Sidebar';
 import {
   useAllNotApprovedRestDays,
   toApprovedOrDisapproveRestDay,
+  getUserRequestDays,
+  toEditRestDays,
+  bookigRestDays
 } from 'hooks/useUsers';
 import Loading from 'Components/Loading';
 import { lang } from 'language/en';
-import { APPROVED, DECLINED } from 'constants/statuses';
-import { IUserId } from 'hooks/types';
+import { APPROVED, DECLINED, CHANGED } from 'constants/statuses';
+import { IUserId, TEditRestDays, TBookkHoliday, TStatus, TEditVacationsDaysUser } from 'hooks/types';
+import { StyledInputContent, StyledModalContent } from 'views/user/styles'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
+import store from 'Redux/store';
+import { showCurrentDate } from 'views/user/const';
+import React, { useState } from 'react';
 
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
+
+type Vacation = {
+  startDate: Date;
+  endDate: Date;
+};
 
 const Dashbord = (): JSX.Element => {
   const { error, isLoading, data } = useAllNotApprovedRestDays();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const { control, handleSubmit, watch } = useForm<Vacation>();
 
   if (isLoading) return <Loading />;
   if (error instanceof Error) return <h1>Error: {error.message}</h1>;
@@ -38,8 +54,109 @@ const Dashbord = (): JSX.Element => {
       .catch(() => message.error(lang.dashboard.failMessageStatusDeclined));
   };
 
+
+  const watchAll = watch();
+  const today = new Date();
+
+  const newStartDate = new Date(watchAll.startDate);
+  const newEndDate = new Date(watchAll.endDate);
+
+  const state = store.getState();
+  const userId = state.person.user.id;
+
+  const start_date = showCurrentDate(newStartDate);
+  const end_date = showCurrentDate(newEndDate);
+
+  // const days: TEditVacationsDaysUser = { start_date, end_date, status: CHANGED };
+
+  const putEditDays = (key: any) => {
+    toEditRestDays({
+      status: CHANGED,
+      id: key.id,
+      userId: state.person.user.id,
+      start_date: start_date,
+      end_date: end_date,
+    })
+      .then(() => message.success(lang.dashboard.messageStatusDeclined))
+      .catch(() => message.error(lang.dashboard.failMessageStatusDeclined));
+  };
+  
+  const onSubmit: SubmitHandler<Vacation> = () => {
+    // toEditRestDays(days, userId);
+    putEditDays(userId);
+    toggleModal();
+    console.log(start_date);
+    console.log(end_date);
+    // console.log(days);
+  };
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
   return (
     <StyledLayout>
+      {Modal && (
+          <Modal
+            onCancel={toggleModal}
+            visible={isModalVisible}
+            wrapClassName="reservation_modal"
+            width={600}
+            footer={null}
+          >
+            <div className="reserv_message">Please choose dates of reservation.</div>
+            <Form onSubmitCapture={handleSubmit(onSubmit)}>
+              <StyledInputContent>
+                <Controller
+                  name="startDate"
+                  control={control}
+                  render={({ field }) => {
+                    return (
+                      <DatePicker
+                        selectsStart
+                        dateFormat="dd.MM.yyyy"
+                        startDate={watchAll.startDate}
+                        endDate={watchAll.endDate}
+                        maxDate={watchAll.endDate}
+                        minDate={today}
+                        selected={field.value}
+                        onChange={field.onChange}
+                        placeholderText="Start date"
+                      />
+                    );
+                  }}
+                />
+                <Controller
+                  name="endDate"
+                  control={control}
+                  render={({ field }) => {
+                    return (
+                      <DatePicker
+                        selectsEnd
+                        dateFormat="dd.MM.yyyy"
+                        startDate={watchAll.startDate}
+                        endDate={watchAll.endDate}
+                        minDate={watchAll.startDate}
+                        selected={field.value}
+                        onChange={field.onChange}
+                        placeholderText="End date"
+                      />
+                    );
+                  }}
+                />
+              </StyledInputContent>
+
+              <StyledModalContent>
+                <Button onClick={toggleModal}>Cancel</Button>
+                <Form.Item>
+                  <Button type="primary" htmlType="submit">
+                    Confirm Reservation
+                  </Button>
+                </Form.Item>
+              </StyledModalContent>
+            </Form>
+          </Modal>
+        )}
       <Sidebar />
       <StyledContent>
         <Table dataSource={data} pagination={{ pageSize: 10 }}>
@@ -85,7 +202,11 @@ const Dashbord = (): JSX.Element => {
                 >
                   {lang.dashboard.declineButton}
                 </Button>
-                <Button htmlType="submit" type="link">
+                <Button
+                  htmlType="submit"
+                  type="link"
+                  onClick={() => setIsModalVisible(true)}
+                >
                   {lang.dashboard.editButton}
                 </Button>
               </Space>
@@ -97,3 +218,7 @@ const Dashbord = (): JSX.Element => {
   );
 };
 export default Dashbord;
+function key(dataIndex: any, key: any) {
+  throw new Error('Function not implemented.');
+}
+
