@@ -33,7 +33,7 @@ export const CollectionDeleteForm: React.FC<CollectionDeleteProps> = ({values, v
                 onCreate();
             }}
         >
-            <h3>Are you want to delete this user</h3>
+            {lang.deleteUser.description}
         </Modal>
     );
 };

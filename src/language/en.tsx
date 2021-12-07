@@ -72,6 +72,7 @@ export const lang = {
     title: 'Deleting User',
     okText: 'Delete',
     cancelText: 'Cancel',
+    description: 'Are you want to delete this user?'
   },
   superAdmin: {
     userFirstName: 'First Name',
