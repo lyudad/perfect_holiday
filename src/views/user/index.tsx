@@ -52,7 +52,7 @@ const UserView = (): JSX.Element => {
 
   const state = store.getState();
   const userId = state.person.user.id;
-  const { data, refetch } = getUserRequestDays(userId);
+  const { data, refetch, isRefetching, isFetched } = getUserRequestDays(userId);
 
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
@@ -78,13 +78,23 @@ const UserView = (): JSX.Element => {
     return sellectItemColor(record.status) || '';
   };
 
-  const userVacations = data?.find(user => user.vacations)?.vacations;
-
-  const sickDays = userVacations?.filter(
-    val => val.type === TypeRestDay.SICK && val.status !== DECLINED,
-  );
+  let userVacations;
   let lastSickDay: Date;
-  if (sickDays === undefined) {
+  let lastVacationDay: Date;
+  let sickDays;
+  let vacationDays;
+
+  if (isRefetching || isFetched) {
+    userVacations = data?.find(user => user.vacations)?.vacations;
+    sickDays = userVacations?.filter(
+      val => val.type === TypeRestDay.SICK && val.status !== DECLINED,
+    );
+    vacationDays = userVacations?.filter(
+      val => val.type === TypeRestDay.VACATION && val.status !== DECLINED,
+    );
+  }
+
+  if (!sickDays) {
     lastSickDay = today;
   } else {
     lastSickDay = new Date(
@@ -95,13 +105,7 @@ const UserView = (): JSX.Element => {
     );
     lastSickDay.setDate(lastSickDay.getDate() + howManyPassSickDays);
   }
-
-  const vacationDays = userVacations?.filter(
-    val => val.type === TypeRestDay.VACATION && val.status !== DECLINED,
-  );
-
-  let lastVacationDay: Date;
-  if (vacationDays === undefined) {
+  if (!vacationDays) {
     lastVacationDay = today;
   } else {
     lastVacationDay = new Date(
