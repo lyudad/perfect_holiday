@@ -14,7 +14,12 @@ import {
   StyledModalContent,
   StyledInputContent,
 } from './styles';
-import { columns, showCurrentDate } from './const';
+import {
+  columns,
+  howManyPassSickDays,
+  howManyPassVacationDays,
+  showCurrentDate,
+} from './const';
 import { sellectItemColor } from 'constants/constants';
 import Layout from './layout';
 import Sidebar from 'Components/Sidebar';
@@ -22,8 +27,10 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { bookigRestDays, getUserRequestDays } from 'hooks/useUsers';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { TBookkHoliday } from 'hooks/types';
+import { TBookkHoliday, THoliday } from 'hooks/types';
 import store from 'Redux/store';
+import { TypeRestDay } from './types';
+import { DECLINED } from 'constants/statuses';
 
 const { Option } = Select;
 
@@ -71,6 +78,40 @@ const UserView = (): JSX.Element => {
     return sellectItemColor(record.status) || '';
   };
 
+  const userVacations = data?.find(user => user.vacations)?.vacations;
+
+  const sickDays = userVacations?.filter(
+    val => val.type === TypeRestDay.SICK && val.status !== DECLINED,
+  );
+  let lastSickDay: Date;
+  if (sickDays === undefined) {
+    lastSickDay = today;
+  } else {
+    lastSickDay = new Date(
+      sickDays.sort(
+        (val1: THoliday, val2: THoliday) =>
+          Number(new Date(val1.end_date)) - Number(new Date(val2.end_date)),
+      )[sickDays.length - 1].end_date,
+    );
+    lastSickDay.setDate(lastSickDay.getDate() + howManyPassSickDays);
+  }
+
+  const vacationDays = userVacations?.filter(
+    val => val.type === TypeRestDay.VACATION && val.status !== DECLINED,
+  );
+
+  let lastVacationDay: Date;
+  if (vacationDays === undefined) {
+    lastVacationDay = today;
+  } else {
+    lastVacationDay = new Date(
+      vacationDays.sort(
+        (val1: THoliday, val2: THoliday) =>
+          Number(new Date(val1.end_date)) - Number(new Date(val2.end_date)),
+      )[vacationDays.length - 1].end_date,
+    );
+    lastVacationDay.setDate(lastVacationDay.getDate() + howManyPassVacationDays);
+  }
   return (
     <Layout>
       <StyledLayout>
@@ -96,7 +137,11 @@ const UserView = (): JSX.Element => {
                         startDate={watchAll.startDate}
                         endDate={watchAll.endDate}
                         maxDate={watchAll.endDate}
-                        minDate={today}
+                        minDate={
+                          type === TypeRestDay.VACATION
+                            ? lastVacationDay
+                            : lastSickDay
+                        }
                         selected={field.value}
                         onChange={field.onChange}
                         placeholderText="Start date"
@@ -117,7 +162,7 @@ const UserView = (): JSX.Element => {
                         minDate={watchAll.startDate}
                         selected={field.value}
                         onChange={field.onChange}
-                        placeholderText="Start date"
+                        placeholderText="End date"
                       />
                     );
                   }}
