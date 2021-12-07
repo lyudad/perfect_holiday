@@ -27,7 +27,7 @@ type Vacation = {
 };
 
 const Dashbord = (): JSX.Element => {
-  const { error, isLoading, data } = useAllNotApprovedRestDays();
+  const { error, isLoading, data, refetch } = useAllNotApprovedRestDays();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { control, handleSubmit, watch } = useForm<Vacation>();
 
@@ -40,8 +40,11 @@ const Dashbord = (): JSX.Element => {
       id: key.id,
       userId: dataIndex,
     })
-      .then(() => message.success(lang.dashboard.messageStatusApproved))
-      .catch(() => message.error(lang.dashboard.failMessageStatusApproved));
+      .then(() => message.loading(lang.info.loading))
+      .catch(() => message.error(lang.dashboard.failMessageStatusApproved))
+      .finally(() => {
+        return refetch(), message.success(lang.dashboard.messageStatusApproved);
+      });
   };
 
   const putStatusDeclined = (dataIndex: string, key: IUserId) => {
@@ -50,8 +53,11 @@ const Dashbord = (): JSX.Element => {
       id: key.id,
       userId: dataIndex,
     })
-      .then(() => message.success(lang.dashboard.messageStatusDeclined))
-      .catch(() => message.error(lang.dashboard.failMessageStatusDeclined));
+      .then(() => message.loading(lang.info.loading))
+      .catch(() => message.error(lang.dashboard.failMessageStatusDeclined))
+      .finally(() => {
+        return refetch(), message.success(lang.dashboard.messageStatusDeclined);
+      });
   };
 
 

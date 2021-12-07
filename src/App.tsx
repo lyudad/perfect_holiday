@@ -11,7 +11,10 @@ import { NotFound } from 'Components/404';
 import { Provider } from 'react-redux';
 import store, { persistor } from 'Redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { Role } from 'constants/constants';
 const queryClient = new QueryClient();
+const state = store.getState();
+const role = state.person.user.role;
 
 function App(): JSX.Element {
   return (
@@ -20,6 +23,7 @@ function App(): JSX.Element {
         <PersistGate persistor={persistor}>
           <Container>
             <Switch>
+              <Route path="/" exact component={!role ? LoginView : Users} />
               <Route path="/login">
                 <LoginView />
               </Route>

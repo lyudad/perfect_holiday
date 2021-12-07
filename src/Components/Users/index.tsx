@@ -15,14 +15,14 @@ import { SetStateAction, useEffect, useState } from 'react';
 import { NotAccess } from 'Components/403';
 import { CollectionCreateForm } from '../AddUserModal/index';
 import React from 'react';
-import './index.css'
+import './index.css';
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
-  const SelectColor = (record:{is_block:boolean}) => {
-    return checkIsBlock(record.is_block) || ''
-  }
-  const { error, isLoading, data } = useGetListOfUsers();
+  const SelectColor = (record: { is_block: boolean }) => {
+    return checkIsBlock(record.is_block) || '';
+  };
+  const { error, isLoading, data, refetch } = useGetListOfUsers();
   const [visible, setVisible] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = React.useState('');
   const [searchResults, setSearchResults] = React.useState<User[]>([]);
@@ -30,32 +30,41 @@ const Users = (): JSX.Element => {
   const role = state.person.user.role;
 
   const InitialState = {
-    canBlockUnblockUser: (role === Role.ADMIN),
-    canDeleteUser: (role === Role.SUPER),
-    canColumnRole: (role === Role.SUPER)
+    canBlockUnblockUser: role === Role.ADMIN,
+    canDeleteUser: role === Role.SUPER,
+    canColumnRole: role === Role.SUPER,
   };
 
   const blockUser = (dataIndex: boolean, key: IUserId) => {
     toBlockUnblockUser(dataIndex, key)
-      .then(() => message.success(lang.updateStatus.success))
-      .catch(() => message.error(lang.updateStatus.fail));
+      .then(() => message.loading(lang.info.loading))
+      .catch(() => message.error(lang.updateStatus.fail))
+      .finally(() => {
+        return refetch(), message.success(lang.updateStatus.success);
+      });
   };
 
   const deleteUser = (dataIndex: string, key: IUserId) => {
     toDeleteUser({
-    id: key.id,
-    userId: dataIndex,
+      id: key.id,
+      userId: dataIndex,
     })
-    .then(() => message.success(lang.superAdmin.successDelete))
-    .catch(() => message.error(lang.superAdmin.failDelete));
+      .then(() => message.loading(lang.info.loading))
+      .catch(() => message.error(lang.superAdmin.failDelete))
+      .finally(() => {
+        return refetch(), message.success(lang.superAdmin.successDelete);
+      });
   };
   const handleChange = (event: { target: { value: SetStateAction<string> } }) =>
     setSearchTerm(event.target.value);
   useEffect(() => {
     if (!data) return;
-    const results: User[] = data.filter(person =>
-      person.last_name.toLowerCase().includes(searchTerm),
-    );
+    const results: User[] = data.filter(person => {
+      return (
+        person.last_name.toLowerCase().includes(searchTerm) ||
+        person.first_name.toLowerCase().includes(searchTerm)
+      );
+    });
     setSearchResults(results);
   }, [searchTerm]);
 
@@ -88,17 +97,16 @@ const Users = (): JSX.Element => {
             onCancel={() => setVisible(false)}
           />
         </Row>
-        <Table dataSource={!searchTerm ? data : searchResults}
-               rowKey="id"
-               rowClassName={SelectColor}
+        <Table
+          dataSource={!searchTerm ? data : searchResults}
+          rowKey="id"
+          rowClassName={SelectColor}
         >
           <Column title={lang.userInfo.firstName} dataIndex="first_name" key="id" />
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
-          {
-            (InitialState.canColumnRole)
-            &&
+          {InitialState.canColumnRole && (
             <Column title={lang.superAdmin.roleTitle} dataIndex="role" key="id" />
-          }
+          )}
           <Column
             title={lang.superAdmin.actionsTitle}
             key="action"
@@ -115,9 +123,7 @@ const Users = (): JSX.Element => {
             key="id"
             render={(dataIndex, key: IUserId) => (
               <Space size="middle">
-                {
-                  (InitialState.canBlockUnblockUser)
-                  &&
+                {InitialState.canBlockUnblockUser && (
                   <Button
                     onClick={() => {
                       blockUser(dataIndex, key);
@@ -127,19 +133,18 @@ const Users = (): JSX.Element => {
                   >
                     {dataIndex ? lang.updateStatus.block : lang.updateStatus.unblock}
                   </Button>
-                }
-                {
-                  (InitialState.canDeleteUser)
-                  &&
-                  <Button 
+                )}
+                {InitialState.canDeleteUser && (
+                  <Button
                     onClick={() => {
-                      deleteUser(dataIndex, key)
+                      deleteUser(dataIndex, key);
                     }}
                     htmlType="submit"
                     type="link"
                   >
                     {lang.superAdmin.deleteButton}
-                  </Button>}
+                  </Button>
+                )}
               </Space>
             )}
           />
