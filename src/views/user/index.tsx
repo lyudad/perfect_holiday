@@ -227,9 +227,7 @@ const UserView = (): JSX.Element => {
                 <StyledDivVacationInfo>
                   <strong>{available_vacation} vacation days</strong>
                 </StyledDivVacationInfo>
-                <StyledDivVacationInfo>
-                  <strong>{available_unpaid_days} unpaid days</strong>
-                </StyledDivVacationInfo>
+
               </Row>
             </StyledDivContent>
           ))}
