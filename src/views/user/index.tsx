@@ -18,6 +18,7 @@ import {
   columns,
   howManyPassSickDays,
   howManyPassVacationDays,
+  howManyPassUnpaidDays,
   showCurrentDate,
 } from './const';
 import { sellectItemColor } from 'constants/constants';
@@ -81,6 +82,8 @@ const UserView = (): JSX.Element => {
   let userVacations;
   let lastSickDay: Date;
   let lastVacationDay: Date;
+  let lastUnpaidDay: Date;
+  let unpaidDays;
   let sickDays;
   let vacationDays;
 
@@ -91,6 +94,9 @@ const UserView = (): JSX.Element => {
     );
     vacationDays = userVacations?.filter(
       val => val.type === TypeRestDay.VACATION && val.status !== DECLINED,
+    );
+    unpaidDays = userVacations?.filter(
+        val => val.type === TypeRestDay.VACATION && val.status !== DECLINED,
     );
   }
 
@@ -104,6 +110,17 @@ const UserView = (): JSX.Element => {
       )[sickDays.length - 1].end_date,
     );
     lastSickDay.setDate(lastSickDay.getDate() + howManyPassSickDays);
+  }
+  if (unpaidDays === undefined) {
+    lastUnpaidDay = today;
+  } else {
+    lastUnpaidDay = new Date(
+        unpaidDays.sort(
+            (val1: THoliday, val2: THoliday) =>
+                Number(new Date(val1.end_date)) - Number(new Date(val2.end_date)),
+        )[unpaidDays.length - 1].end_date,
+    );
+    lastUnpaidDay.setDate(lastUnpaidDay.getDate() + howManyPassUnpaidDays);
   }
   if (vacationDays === undefined) {
     lastVacationDay = today;
@@ -196,7 +213,7 @@ const UserView = (): JSX.Element => {
         )}
         <Sidebar />
         <StyledContent>
-          {data?.map(({ first_name, available_sick_days, available_vacation }) => (
+          {data?.map(({ first_name, available_sick_days, available_vacation,available_unpaid_days }) => (
             <StyledDivContent className="site-layout-background">
               <Row>
                 <StyledDivNameInfo>
@@ -209,6 +226,9 @@ const UserView = (): JSX.Element => {
                 </StyledDivVacationInfo>
                 <StyledDivVacationInfo>
                   <strong>{available_vacation} vacation days</strong>
+                </StyledDivVacationInfo>
+                <StyledDivVacationInfo>
+                  <strong>{available_unpaid_days} unpaid days</strong>
                 </StyledDivVacationInfo>
               </Row>
             </StyledDivContent>

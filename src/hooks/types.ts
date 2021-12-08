@@ -14,6 +14,7 @@ export type User = {
   is_block: boolean;
   available_vacation: number;
   available_sick_days: number;
+  available_unpaid_days: number;
   vacations?: Array<THoliday>;
 };
 
