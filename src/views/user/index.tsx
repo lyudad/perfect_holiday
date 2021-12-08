@@ -179,6 +179,7 @@ const UserView = (): JSX.Element => {
                 >
                   <Option value="vacation">Vacation</Option>
                   <Option value="sick">Sick leave</Option>
+                  <Option value="unpaid">Unpaid</Option>
                 </SelectBlock>
               </StyledInputContent>
 
