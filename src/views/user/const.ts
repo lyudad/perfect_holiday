@@ -26,3 +26,5 @@ export function showCurrentDate(value: Date) {
   const getCurrentYear = value.getFullYear();
   return `${getCurrentYear}-${getCurrentMonth}-${getCurrentDay}`;
 }
+export const howManyPassSickDays = 30;
+export const howManyPassVacationDays = 60;

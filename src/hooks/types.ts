@@ -14,12 +14,20 @@ export type User = {
   is_block: boolean;
   available_vacation: number;
   available_sick_days: number;
+  vacations?: Array<THoliday>;
 };
 
 export type TBookkHoliday = {
   start_date: string;
   end_date: string;
   type: string;
+};
+export type THoliday = {
+  start_date: string;
+  end_date: string;
+  type: string;
+  status: TStatus;
+  userId: string;
 };
 
 export type TApprovedDay = {
@@ -45,4 +53,4 @@ export type TEditVacationsDaysUser = {
 export type TDeleteUser = {
   id: string;
   userId: string;
-}
+};
