@@ -13,6 +13,7 @@ export const url = {
   auth: 'auth/',
   casual: 'casual/',
   mail: 'mail/',
+  editing: 'editing/',
   pushPassword: 'push-password/',
   pending: 'casual/pending',
   forsuper: 'admin-employee',

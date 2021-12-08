@@ -11,7 +11,7 @@ import {
 import Loading from 'Components/Loading';
 import { lang } from 'language/en';
 import { APPROVED, DECLINED, CHANGED } from 'constants/statuses';
-import { IUserId, TEditRestDays, TBookkHoliday, TStatus, TEditVacationsDaysUser } from 'hooks/types';
+import { IUserId, TEditRestDays, TBookkHoliday, TStatus, TEditVacationsDaysUser, TDeleteUser } from 'hooks/types';
 import { StyledInputContent, StyledModalContent } from 'views/user/styles'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
@@ -72,28 +72,33 @@ const Dashbord = (): JSX.Element => {
 
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
+  // const days: TEditRestDays = { start_date, end_date, status: CHANGED };
 
-  // const days: TEditVacationsDaysUser = { start_date, end_date, status: CHANGED };
-
-  const putEditDays = (key: any) => {
+  // const putEditDays = (dataIndex: string, key: TEditRestDays) => {
+  //   toEditRestDays({
+  //     status: CHANGED,
+  //     id: key.id,
+  //     userId: dataIndex,
+  //     start_date: start_date,
+  //     end_date: end_date,
+  //   })
+  //     .then(() => message.success(lang.dashboard.messageStatusDeclined))
+  //     .catch(() => message.error(lang.dashboard.failMessageStatusDeclined));
+  // };
+  
+  const onSubmit: SubmitHandler<TEditRestDays> = (dataIndex: string, key: TEditRestDays) => {
+    // putEditDays();
     toEditRestDays({
       status: CHANGED,
       id: key.id,
-      userId: state.person.user.id,
+      userId: dataIndex,
       start_date: start_date,
       end_date: end_date,
-    })
-      .then(() => message.success(lang.dashboard.messageStatusDeclined))
-      .catch(() => message.error(lang.dashboard.failMessageStatusDeclined));
-  };
-  
-  const onSubmit: SubmitHandler<Vacation> = () => {
-    // toEditRestDays(days, userId);
-    putEditDays(userId);
+    });
     toggleModal();
     console.log(start_date);
     console.log(end_date);
-    // console.log(days);
+    // console.log(toEditRestDays);
   };
 
   const toggleModal = () => {

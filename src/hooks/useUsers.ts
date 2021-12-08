@@ -108,7 +108,7 @@ export function getUserRequestDays(userId: string) {
 export const toEditRestDays = async (values: TEditRestDays) => {
   const state = store.getState();
   const token = `Bearer ${state.person.user.access_token}`;
-  return axios.put(`${REACT_APP_BASE}${url.casual}`, values, {
+  return axios.put(`${REACT_APP_BASE}${url.casual}${url.editing}${values.id}`, {
     headers: { Authorization: token },
   });
 };
