@@ -142,10 +142,7 @@ const Users = (): JSX.Element => {
                           onCancel={() => setVisibleDelete(false)}
                       />
                 </>
-
-
                 )}
-
               </Space>
 
             )}
