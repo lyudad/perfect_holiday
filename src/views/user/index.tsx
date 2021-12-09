@@ -94,7 +94,7 @@ const UserView = (): JSX.Element => {
     );
   }
 
-  if (sickDays === undefined) {
+  if (sickDays === undefined || sickDays.length <= 1) {
     lastSickDay = today;
   } else {
     lastSickDay = new Date(
@@ -105,7 +105,7 @@ const UserView = (): JSX.Element => {
     );
     lastSickDay.setDate(lastSickDay.getDate() + howManyPassSickDays);
   }
-  if (vacationDays === undefined) {
+  if (vacationDays === undefined || vacationDays.length <= 1) {
     lastVacationDay = today;
   } else {
     lastVacationDay = new Date(
