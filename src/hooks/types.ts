@@ -36,14 +36,6 @@ export type TApprovedDay = {
   userId: string;
 };
 
-export type TEditRestDays = {
-  id: string;
-  status: TStatus;
-  start_date: string;
-  end_date: string;
-  // userId: string;
-}
-
 export type TDeleteUser = {
   id: string;
   userId: string;

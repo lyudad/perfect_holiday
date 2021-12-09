@@ -9,28 +9,32 @@ import {
 import Loading from 'Components/Loading';
 import { lang } from 'language/en';
 import { APPROVED, DECLINED, CHANGED } from 'constants/statuses';
-import { IUserId, TEditRestDays } from 'hooks/types';
+import { IUserId } from 'hooks/types';
 import { StyledInputContent, StyledModalContent } from 'views/user/styles'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import { showCurrentDate } from 'views/user/const';
-import React, { useState } from 'react';
-// import { IUser } from 'Components/Access/types';
+import { useState } from 'react';
 
 const { Column } = Table;
-
-type Vacation = {
-  startDate: Date;
-  endDate: Date;
-};
 
 const Dashbord = (): JSX.Element => {
   const { error, isLoading, data, refetch } = useAllNotApprovedRestDays();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { control, handleSubmit, watch } = useForm<Vacation>();
+  const { control, handleSubmit, watch } = useForm();
+  const [ids, setIds] = useState<any>();
 
   if (isLoading) return <Loading />;
   if (error instanceof Error) return <h1>Error: {error.message}</h1>;
+
+  const watchAll = watch();
+  const today = new Date();
+
+  const newStartDate = new Date(watchAll.startDate);
+  const newEndDate = new Date(watchAll.endDate);
+
+  const start_date = showCurrentDate(newStartDate);
+  const end_date = showCurrentDate(newEndDate);
 
   const putStatusApproved = (dataIndex: string, key: IUserId) => {
     toApprovedOrDisapproveRestDay({
@@ -58,34 +62,19 @@ const Dashbord = (): JSX.Element => {
       });
   };
 
-
-  const watchAll = watch();
-  const today = new Date();
-
-  const newStartDate = new Date(watchAll.startDate);
-  const newEndDate = new Date(watchAll.endDate);
-
-  const start_date = showCurrentDate(newStartDate);
-  const end_date = showCurrentDate(newEndDate);
-
-  const onSubmit: SubmitHandler<TEditRestDays> = (key: IUserId) => {
-    // putEditDays();
+  const onSubmit = () => {
     toEditRestDays({
+      ...ids,
       status: CHANGED,
-      id: key.id,
-      // userId: dataIndex,
       start_date: start_date,
       end_date: end_date,
     })
-      .then(() => message.loading(lang.info.loading))
-      .catch(() => message.error(lang.dashboard.failMessageStatusDeclined))
-      .finally(() => {
-        return refetch(), message.success(lang.dashboard.messageStatusDeclined);
-      });
-    toggleModal();
-    console.log(start_date);
-    console.log(end_date);
-    console.log(key)
+    .then(() => message.loading(lang.info.loading))
+    .catch(() => message.error(lang.dashboard.failMessageStatusEditing))
+    .finally(() => {
+      return refetch(), message.success(lang.dashboard.messageStatusEditing);
+    });
+    toggleModal()
   };
 
   const toggleModal = () => {
@@ -95,66 +84,66 @@ const Dashbord = (): JSX.Element => {
   return (
     <StyledLayout>
       {Modal && (
-          <Modal
-            onCancel={toggleModal}
-            visible={isModalVisible}
-            wrapClassName="reservation_modal"
-            width={600}
-            footer={null}
-          >
-            <div className="reserv_message">Please choose dates of reservation.</div>
-            <Form onSubmitCapture={handleSubmit(onSubmit)}>
-              <StyledInputContent>
-                <Controller
-                  name="startDate"
-                  control={control}
-                  render={({ field }) => {
-                    return (
-                      <DatePicker
-                        selectsStart
-                        dateFormat="dd.MM.yyyy"
-                        startDate={watchAll.startDate}
-                        endDate={watchAll.endDate}
-                        maxDate={watchAll.endDate}
-                        minDate={today}
-                        selected={field.value}
-                        onChange={field.onChange}
-                        placeholderText="Start date"
-                      />
-                    );
-                  }}
-                />
-                <Controller
-                  name="endDate"
-                  control={control}
-                  render={({ field }) => {
-                    return (
-                      <DatePicker
-                        selectsEnd
-                        dateFormat="dd.MM.yyyy"
-                        startDate={watchAll.startDate}
-                        endDate={watchAll.endDate}
-                        minDate={watchAll.startDate}
-                        selected={field.value}
-                        onChange={field.onChange}
-                        placeholderText="End date"
-                      />
-                    );
-                  }}
-                />
-              </StyledInputContent>
+        <Modal
+          onCancel={toggleModal}
+          visible={isModalVisible}
+          wrapClassName="reservation_modal"
+          width={600}
+          footer={null}
+        >
+          <div className="reserv_message">Please choose dates of reservation.</div>
+          <Form onSubmitCapture={handleSubmit(onSubmit)}>
+            <StyledInputContent>
+              <Controller
+                name="startDate"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <DatePicker
+                      selectsStart
+                      dateFormat="dd.MM.yyyy"
+                      startDate={watchAll.startDate}
+                      endDate={watchAll.endDate}
+                      maxDate={watchAll.endDate}
+                      minDate={today}
+                      selected={field.value}
+                      onChange={field.onChange}
+                      placeholderText="Start date"
+                    />
+                  );
+                }}
+              />
+              <Controller
+                name="endDate"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <DatePicker
+                      selectsEnd
+                      dateFormat="dd.MM.yyyy"
+                      startDate={watchAll.startDate}
+                      endDate={watchAll.endDate}
+                      minDate={watchAll.startDate}
+                      selected={field.value}
+                      onChange={field.onChange}
+                      placeholderText="End date"
+                    />
+                  );
+                }}
+              />
+            </StyledInputContent>
 
-              <StyledModalContent>
-                <Button onClick={toggleModal}>Cancel</Button>
-                <Form.Item>
-                  <Button type="primary" htmlType="submit">
-                    Confirm Reservation
-                  </Button>
-                </Form.Item>
-              </StyledModalContent>
-            </Form>
-          </Modal>
-        )}
+            <StyledModalContent>
+              <Button onClick={toggleModal}>Cancel</Button>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Confirm Reservation
+                </Button>
+              </Form.Item>
+            </StyledModalContent>
+          </Form>
+        </Modal>
+      )}
       <Sidebar />
       <StyledContent>
         <Table dataSource={data} pagination={{ pageSize: 10 }}>
@@ -203,7 +192,10 @@ const Dashbord = (): JSX.Element => {
                 <Button
                   htmlType="submit"
                   type="link"
-                  onClick={() => setIsModalVisible(true)}
+                  onClick={() => {
+                    setIsModalVisible(true),
+                      setIds({ userId: dataIndex, id: key.id });
+                  }}
                 >
                   {lang.dashboard.editButton}
                 </Button>
@@ -215,4 +207,5 @@ const Dashbord = (): JSX.Element => {
     </StyledLayout>
   );
 };
+
 export default Dashbord;

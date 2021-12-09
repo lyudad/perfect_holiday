@@ -55,6 +55,8 @@ export const lang = {
     failMessageStatusApproved: 'Fail to approved!',
     messageStatusDeclined: 'Declined successful!',
     failMessageStatusDeclined: 'Fail to declined!',
+    messageStatusEditing: 'Edited successfully!',
+    failMessageStatusEditing: 'Fail to edited!',
   },
   addUser: {
     'firstName-validation': "Please enter employee's first name !",

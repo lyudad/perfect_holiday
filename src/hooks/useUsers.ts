@@ -1,11 +1,10 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { Role, url } from 'constants/constants';
-import { IUserId, TBookkHoliday, User, TApprovedDay, TDeleteUser, TEditRestDays } from './types';
+import { IUserId, TBookkHoliday, User, TApprovedDay, TDeleteUser } from './types';
 import { TUpdateUser } from 'views/AdminView/types';
 import store from 'Redux/store';
 import { UserValues } from 'Components/AddUserModal/types';
-import { IUser } from 'Components/Access/types';
 
 const { REACT_APP_BASE } = process.env;
 
@@ -105,10 +104,10 @@ export function getUserRequestDays(userId: string) {
   });
 }
 
-export const toEditRestDays = async (values: TEditRestDays) => {
+export const toEditRestDays = async (values: any) => {
   const state = store.getState();
   const token = `Bearer ${state.person.user.access_token}`;
-  return axios.put(`${REACT_APP_BASE}${url.casual}${url.editing}${values.id}`, values, {
+  return axios.put(`${REACT_APP_BASE}${url.casual}editing`, values, {
     headers: { Authorization: token },
   });
 };
