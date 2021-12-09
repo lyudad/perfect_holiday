@@ -9,7 +9,14 @@ export interface TUserState {
 
 const initialState: TUserState = {
   loggedIn: false,
-  user: { id: '', access_token: '', role: '' },
+  user: {
+    id: '',
+    access_token: '',
+    role: '',
+    name: '',
+    sickDays: 0,
+    vacationDays: 0,
+  },
 };
 
 const userSlice = createSlice({
@@ -22,11 +29,21 @@ const userSlice = createSlice({
         id: action.payload.person.id,
         role: action.payload.person.role,
         access_token: action.payload.person.access_token,
+        name: action.payload.person.name,
+        sickDays: action.payload.person.sickDays,
+        vacationDays: action.payload.person.vacationDays,
       };
     },
     signOut: state => {
       state.loggedIn = false;
-      state.user = { id: '', access_token: '', role: '' };
+      state.user = {
+        id: '',
+        access_token: '',
+        role: '',
+        name: '',
+        sickDays: 0,
+        vacationDays: 0,
+      };
     },
   },
   extraReducers: builder => {
@@ -41,7 +58,14 @@ const userSlice = createSlice({
       )
       .addCase(userOperations.signOut.fulfilled, state => {
         state.loggedIn = false;
-        state.user = { id: '', access_token: '', role: '' };
+        state.user = {
+          id: '',
+          access_token: '',
+          role: '',
+          name: '',
+          sickDays: 0,
+          vacationDays: 0,
+        };
       });
   },
 });
