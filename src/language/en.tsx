@@ -70,7 +70,6 @@ export const lang = {
     fail: 'Something goes wrong. Try again later.',
   },
   deleteUser: {
-
     title: 'Deleting User',
     okText: 'Delete',
     cancelText: 'Cancel',
@@ -93,4 +92,11 @@ export const lang = {
   info: {
     loading: 'Please wait...',
   },
+  modalCalendar: {
+    topText: 'Please choose dates of reservation.',
+    cancelButton: 'Cancel',
+    confirmButton: 'Confirm Reservation',
+    selectVacation: 'Vacation',
+    selectSickLeave: 'Sick leave',
+  }
 };

@@ -10,9 +10,8 @@ import Loading from 'Components/Loading';
 import { lang } from 'language/en';
 import { APPROVED, DECLINED, CHANGED } from 'constants/statuses';
 import { IUserId } from 'hooks/types';
-import { StyledInputContent, StyledModalContent } from 'views/user/styles'
+import { StyledInputContent, StyledModalContent, StyledDatePicker  } from 'views/user/styles'
 import { Controller, useForm } from 'react-hook-form';
-import DatePicker from 'react-datepicker';
 import { showCurrentDate } from 'views/user/const';
 import { useState } from 'react';
 
@@ -91,7 +90,7 @@ const Dashbord = (): JSX.Element => {
           width={600}
           footer={null}
         >
-          <div className="reserv_message">Please choose dates of reservation.</div>
+          <div className="reserv_message">{lang.modalCalendar.topText}</div>
           <Form onSubmitCapture={handleSubmit(onSubmit)}>
             <StyledInputContent>
               <Controller
@@ -99,7 +98,7 @@ const Dashbord = (): JSX.Element => {
                 control={control}
                 render={({ field }) => {
                   return (
-                    <DatePicker
+                    <StyledDatePicker
                       selectsStart
                       dateFormat="dd.MM.yyyy"
                       startDate={watchAll.startDate}
@@ -118,7 +117,7 @@ const Dashbord = (): JSX.Element => {
                 control={control}
                 render={({ field }) => {
                   return (
-                    <DatePicker
+                    <StyledDatePicker
                       selectsEnd
                       dateFormat="dd.MM.yyyy"
                       startDate={watchAll.startDate}
@@ -134,10 +133,10 @@ const Dashbord = (): JSX.Element => {
             </StyledInputContent>
 
             <StyledModalContent>
-              <Button onClick={toggleModal}>Cancel</Button>
+              <Button onClick={toggleModal}>{lang.modalCalendar.cancelButton}</Button>
               <Form.Item>
                 <Button type="primary" htmlType="submit">
-                  Confirm Reservation
+                  {lang.modalCalendar.confirmButton}
                 </Button>
               </Form.Item>
             </StyledModalContent>
