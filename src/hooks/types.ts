@@ -41,13 +41,7 @@ export type TEditRestDays = {
   status: TStatus;
   start_date: string;
   end_date: string;
-  userId: string;
-}
-
-export type TEditVacationsDaysUser = {
-  start_date: string;
-  end_date: string;
-  status: TStatus;
+  // userId: string;
 }
 
 export type TDeleteUser = {

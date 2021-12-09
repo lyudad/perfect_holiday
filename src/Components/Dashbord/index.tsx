@@ -4,20 +4,18 @@ import Sidebar from 'Components/Sidebar';
 import {
   useAllNotApprovedRestDays,
   toApprovedOrDisapproveRestDay,
-  getUserRequestDays,
   toEditRestDays,
-  bookigRestDays
 } from 'hooks/useUsers';
 import Loading from 'Components/Loading';
 import { lang } from 'language/en';
 import { APPROVED, DECLINED, CHANGED } from 'constants/statuses';
-import { IUserId, TEditRestDays, TBookkHoliday, TStatus, TEditVacationsDaysUser, TDeleteUser } from 'hooks/types';
+import { IUserId, TEditRestDays } from 'hooks/types';
 import { StyledInputContent, StyledModalContent } from 'views/user/styles'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
-import store from 'Redux/store';
 import { showCurrentDate } from 'views/user/const';
 import React, { useState } from 'react';
+// import { IUser } from 'Components/Access/types';
 
 const { Column } = Table;
 
@@ -67,38 +65,27 @@ const Dashbord = (): JSX.Element => {
   const newStartDate = new Date(watchAll.startDate);
   const newEndDate = new Date(watchAll.endDate);
 
-  const state = store.getState();
-  const userId = state.person.user.id;
-
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
-  // const days: TEditRestDays = { start_date, end_date, status: CHANGED };
 
-  // const putEditDays = (dataIndex: string, key: TEditRestDays) => {
-  //   toEditRestDays({
-  //     status: CHANGED,
-  //     id: key.id,
-  //     userId: dataIndex,
-  //     start_date: start_date,
-  //     end_date: end_date,
-  //   })
-  //     .then(() => message.success(lang.dashboard.messageStatusDeclined))
-  //     .catch(() => message.error(lang.dashboard.failMessageStatusDeclined));
-  // };
-  
-  const onSubmit: SubmitHandler<TEditRestDays> = (dataIndex: string, key: TEditRestDays) => {
+  const onSubmit: SubmitHandler<TEditRestDays> = (key: IUserId) => {
     // putEditDays();
     toEditRestDays({
       status: CHANGED,
       id: key.id,
-      userId: dataIndex,
+      // userId: dataIndex,
       start_date: start_date,
       end_date: end_date,
-    });
+    })
+      .then(() => message.loading(lang.info.loading))
+      .catch(() => message.error(lang.dashboard.failMessageStatusDeclined))
+      .finally(() => {
+        return refetch(), message.success(lang.dashboard.messageStatusDeclined);
+      });
     toggleModal();
     console.log(start_date);
     console.log(end_date);
-    // console.log(toEditRestDays);
+    console.log(key)
   };
 
   const toggleModal = () => {
@@ -229,7 +216,3 @@ const Dashbord = (): JSX.Element => {
   );
 };
 export default Dashbord;
-function key(dataIndex: any, key: any) {
-  throw new Error('Function not implemented.');
-}
-
