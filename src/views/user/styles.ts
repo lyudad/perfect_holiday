@@ -9,6 +9,7 @@ export const StyledDatePicker = styled(DatePicker)`
   border: 1px solid #d9d9d9;
   border-radius: 2px;
   text-align: center;
+  padding: 4px 15px;
 
   :hover {
     border: 1px solid #40a9ff;

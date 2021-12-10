@@ -13,6 +13,7 @@ import {
   SelectBlock,
   StyledModalContent,
   StyledInputContent,
+  StyledDatePicker
 } from './styles';
 import {
   columns,
@@ -135,7 +136,7 @@ const UserView = (): JSX.Element => {
                   control={control}
                   render={({ field }) => {
                     return (
-                      <DatePicker
+                      <StyledDatePicker
                         selectsStart
                         dateFormat="dd.MM.yyyy"
                         startDate={watchAll.startDate}
@@ -158,7 +159,7 @@ const UserView = (): JSX.Element => {
                   control={control}
                   render={({ field }) => {
                     return (
-                      <DatePicker
+                      <StyledDatePicker
                         selectsEnd
                         dateFormat="dd.MM.yyyy"
                         startDate={watchAll.startDate}
