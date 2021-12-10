@@ -123,7 +123,7 @@ const UserView = (): JSX.Element => {
     );
     lastUnpaidDay.setDate(lastUnpaidDay.getDate() + howManyPassUnpaidDays);
   }
-  if (vacationDays === undefined || vacationDays.length <= 1) {
+  if (!vacationDays || vacationDays.length <= 1) {
 
     lastVacationDay = today;
   } else {
