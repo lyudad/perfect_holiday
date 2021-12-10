@@ -58,7 +58,6 @@ const UserView = (): JSX.Element => {
   const vacation = state.person.user.vacationDays;
 
   const { data, refetch, isRefetching, isFetched } = getUserRequestDays(userId);
-  console.log(data);
 
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
@@ -225,14 +224,12 @@ const UserView = (): JSX.Element => {
           >
             +
           </StyledButton>
-          {/* {data?.map(({ vacations }: any) => ( */}
           <Table
             columns={columns}
             dataSource={data}
             size="large"
             rowClassName={SelectColor}
           />
-          {/* ))} */}
         </StyledContent>
       </StyledLayout>
     </Layout>

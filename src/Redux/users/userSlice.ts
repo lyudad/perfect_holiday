@@ -6,17 +6,18 @@ export interface TUserState {
   loggedIn: boolean;
   user: IUser;
 }
+const resetState: IUser = {
+  id: '',
+  access_token: '',
+  role: '',
+  name: '',
+  sickDays: 0,
+  vacationDays: 0,
+};
 
 const initialState: TUserState = {
   loggedIn: false,
-  user: {
-    id: '',
-    access_token: '',
-    role: '',
-    name: '',
-    sickDays: 0,
-    vacationDays: 0,
-  },
+  user: resetState,
 };
 
 const userSlice = createSlice({
@@ -36,14 +37,7 @@ const userSlice = createSlice({
     },
     signOut: state => {
       state.loggedIn = false;
-      state.user = {
-        id: '',
-        access_token: '',
-        role: '',
-        name: '',
-        sickDays: 0,
-        vacationDays: 0,
-      };
+      state.user = resetState;
     },
   },
   extraReducers: builder => {
@@ -58,14 +52,7 @@ const userSlice = createSlice({
       )
       .addCase(userOperations.signOut.fulfilled, state => {
         state.loggedIn = false;
-        state.user = {
-          id: '',
-          access_token: '',
-          role: '',
-          name: '',
-          sickDays: 0,
-          vacationDays: 0,
-        };
+        state.user = resetState;
       });
   },
 });
