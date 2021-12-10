@@ -96,7 +96,7 @@ const UserView = (): JSX.Element => {
       val => val.type === TypeRestDay.VACATION && val.status !== DECLINED,
     );
     unpaidDays = userVacations?.filter(
-        val => val.type === TypeRestDay.VACATION && val.status !== DECLINED,
+        val => val.type === TypeRestDay.UNPAID && val.status !== DECLINED,
     );
   }
 
@@ -112,7 +112,7 @@ const UserView = (): JSX.Element => {
     lastSickDay.setDate(lastSickDay.getDate() + howManyPassSickDays);
   }
 
-  if (unpaidDays === undefined) {
+  if (!unpaidDays || unpaidDays.length <=1) {
     lastUnpaidDay = today;
   } else {
     lastUnpaidDay = new Date(
@@ -215,7 +215,7 @@ const UserView = (): JSX.Element => {
         )}
         <Sidebar />
         <StyledContent>
-          {data?.map(({ first_name, available_sick_days, available_vacation,available_unpaid_days }) => (
+          {data?.map(({ first_name, available_sick_days, available_vacation }) => (
             <StyledDivContent className="site-layout-background">
               <Row>
                 <StyledDivNameInfo>
