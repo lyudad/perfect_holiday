@@ -9,7 +9,7 @@ import {
 import Loading from 'Components/Loading';
 import { lang } from 'language/en';
 import { APPROVED, DECLINED, CHANGED } from 'constants/statuses';
-import { IUserId } from 'hooks/types';
+import { IUserId, TEditRestDays } from 'hooks/types';
 import { StyledInputContent, StyledModalContent, StyledDatePicker  } from 'views/user/styles'
 import { Controller, useForm } from 'react-hook-form';
 import { showCurrentDate } from 'views/user/const';
@@ -21,7 +21,7 @@ const Dashbord = (): JSX.Element => {
   const { error, isLoading, data, refetch } = useAllNotApprovedRestDays();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { control, handleSubmit, watch } = useForm();
-  const [ids, setIds] = useState<any>();
+  const [ids, setIds] = useState<TEditRestDays>();
 
   if (isLoading) return <Loading />;
   if (error instanceof Error) return <h1>Error: {error.message}</h1>;

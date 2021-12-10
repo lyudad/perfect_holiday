@@ -36,6 +36,12 @@ export type TApprovedDay = {
   userId: string;
 };
 
+export type TEditRestDays = {
+  id: string;
+  userId: string;
+};
+
+
 export type TDeleteUser = {
   id: string;
   userId: string;
