@@ -9,7 +9,7 @@ import {
 import Loading from 'Components/Loading';
 import { lang } from 'language/en';
 import { APPROVED, DECLINED, CHANGED } from 'constants/statuses';
-import { IUserId, TEditRestDays } from 'hooks/types';
+import { IUserId, TEditRestDays, TVacationRestDays } from 'hooks/types';
 import { StyledInputContent, StyledModalContent, StyledDatePicker  } from 'views/user/styles'
 import { Controller, useForm } from 'react-hook-form';
 import { showCurrentDate } from 'views/user/const';
@@ -20,7 +20,7 @@ const { Column } = Table;
 const Dashbord = (): JSX.Element => {
   const { error, isLoading, data, refetch } = useAllNotApprovedRestDays();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { control, handleSubmit, watch } = useForm();
+  const { control, handleSubmit, watch } = useForm<TVacationRestDays>();
   const [ids, setIds] = useState<TEditRestDays>();
 
   if (isLoading) return <Loading />;
@@ -82,67 +82,65 @@ const Dashbord = (): JSX.Element => {
 
   return (
     <StyledLayout>
-      {Modal && (
-        <Modal
-          onCancel={toggleModal}
-          visible={isModalVisible}
-          wrapClassName="reservation_modal"
-          width={600}
-          footer={null}
-        >
-          <div className="reserv_message">{lang.modalCalendar.topText}</div>
-          <Form onSubmitCapture={handleSubmit(onSubmit)}>
-            <StyledInputContent>
-              <Controller
-                name="startDate"
-                control={control}
-                render={({ field }) => {
-                  return (
-                    <StyledDatePicker
-                      selectsStart
-                      dateFormat="dd.MM.yyyy"
-                      startDate={watchAll.startDate}
-                      endDate={watchAll.endDate}
-                      maxDate={watchAll.endDate}
-                      minDate={today}
-                      selected={field.value}
-                      onChange={field.onChange}
-                      placeholderText="Start date"
-                    />
-                  );
-                }}
-              />
-              <Controller
-                name="endDate"
-                control={control}
-                render={({ field }) => {
-                  return (
-                    <StyledDatePicker
-                      selectsEnd
-                      dateFormat="dd.MM.yyyy"
-                      startDate={watchAll.startDate}
-                      endDate={watchAll.endDate}
-                      minDate={watchAll.startDate}
-                      selected={field.value}
-                      onChange={field.onChange}
-                      placeholderText="End date"
-                    />
-                  );
-                }}
-              />
-            </StyledInputContent>
+      <Modal
+        onCancel={toggleModal}
+        visible={isModalVisible}
+        wrapClassName="reservation_modal"
+        width={600}
+        footer={null}
+      >
+        <div className="reserv_message">{lang.modalCalendar.topText}</div>
+        <Form onSubmitCapture={handleSubmit(onSubmit)}>
+          <StyledInputContent>
+            <Controller
+              name="startDate"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <StyledDatePicker
+                    selectsStart
+                    dateFormat="dd.MM.yyyy"
+                    startDate={watchAll.startDate}
+                    endDate={watchAll.endDate}
+                    maxDate={watchAll.endDate}
+                    minDate={today}
+                    selected={field.value}
+                    onChange={field.onChange}
+                    placeholderText="Start date"
+                  />
+                );
+              }}
+            />
+            <Controller
+              name="endDate"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <StyledDatePicker
+                    selectsEnd
+                    dateFormat="dd.MM.yyyy"
+                    startDate={watchAll.startDate}
+                    endDate={watchAll.endDate}
+                    minDate={watchAll.startDate}
+                    selected={field.value}
+                    onChange={field.onChange}
+                    placeholderText="End date"
+                  />
+                );
+              }}
+            />
+          </StyledInputContent>
 
-            <StyledModalContent>
-              <Button onClick={toggleModal}>{lang.modalCalendar.cancelButton}</Button>
-              <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  {lang.modalCalendar.confirmButton}
-                </Button>
-              </Form.Item>
-            </StyledModalContent>
-          </Form>
-        </Modal>
-      )}
+          <StyledModalContent>
+            <Button onClick={toggleModal}>{lang.modalCalendar.cancelButton}</Button>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                {lang.modalCalendar.confirmButton}
+              </Button>
+            </Form.Item>
+          </StyledModalContent>
+        </Form>
+      </Modal>
       <Sidebar />
       <StyledContent>
         <Table dataSource={data} pagination={{ pageSize: 10 }}>

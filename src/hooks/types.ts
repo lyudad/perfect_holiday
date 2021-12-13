@@ -43,6 +43,10 @@ export type TEditRestDays = {
   userId: string;
 };
 
+export type TVacationRestDays = {
+  startDate: Date;
+  endDate: Date;
+};
 
 export type TDeleteUser = {
   id: string;
