@@ -18,7 +18,6 @@ import {
   columns,
   howManyPassSickDays,
   howManyPassVacationDays,
-  howManyPassUnpaidDays,
   showCurrentDate,
 } from './const';
 import { sellectItemColor } from 'constants/constants';
@@ -87,8 +86,6 @@ const UserView = (): JSX.Element => {
   let userVacations;
   let lastSickDay: Date;
   let lastVacationDay: Date;
-  let lastUnpaidDay: Date;
-  let unpaidDays;
   let sickDays;
   let vacationDays;
 
@@ -99,9 +96,6 @@ const UserView = (): JSX.Element => {
     );
     vacationDays = userVacations?.filter(
       val => val.type === TypeRestDay.VACATION && val.status !== DECLINED,
-    );
-    unpaidDays = userVacations?.filter(
-        val => val.type === TypeRestDay.UNPAID && val.status !== DECLINED,
     );
   }
 
@@ -115,18 +109,6 @@ const UserView = (): JSX.Element => {
       )[sickDays.length - 1].end_date,
     );
     lastSickDay.setDate(lastSickDay.getDate() + howManyPassSickDays);
-  }
-
-  if (!unpaidDays || unpaidDays.length <=1) {
-    lastUnpaidDay = today;
-  } else {
-    lastUnpaidDay = new Date(
-        unpaidDays.sort(
-            (val1: THoliday, val2: THoliday) =>
-                Number(new Date(val1.end_date)) - Number(new Date(val2.end_date)),
-        )[unpaidDays.length - 1].end_date,
-    );
-    lastUnpaidDay.setDate(lastUnpaidDay.getDate() + howManyPassUnpaidDays);
   }
   if (!vacationDays || vacationDays.length <= 1) {
 
@@ -246,7 +228,7 @@ const UserView = (): JSX.Element => {
           </StyledButton>
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={userVacations}
             size="large"
             rowClassName={SelectColor}
           />
