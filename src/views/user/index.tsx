@@ -13,6 +13,7 @@ import {
   SelectBlock,
   StyledModalContent,
   StyledInputContent,
+  StyledDatePicker
 } from './styles';
 import {
   columns,
@@ -133,7 +134,7 @@ const UserView = (): JSX.Element => {
             width={600}
             footer={null}
           >
-            <div className="reserv_message">Please choose dates of reservation.</div>
+            <div className="reserv_message">{lang.modalCalendar.topText}</div>
             <Form onSubmitCapture={handleSubmit(onSubmit)}>
               <StyledInputContent>
                 <Controller
@@ -141,7 +142,7 @@ const UserView = (): JSX.Element => {
                   control={control}
                   render={({ field }) => {
                     return (
-                      <DatePicker
+                      <StyledDatePicker
                         selectsStart
                         dateFormat="dd.MM.yyyy"
                         startDate={watchAll.startDate}
@@ -164,7 +165,7 @@ const UserView = (): JSX.Element => {
                   control={control}
                   render={({ field }) => {
                     return (
-                      <DatePicker
+                      <StyledDatePicker
                         selectsEnd
                         dateFormat="dd.MM.yyyy"
                         startDate={watchAll.startDate}
@@ -183,17 +184,17 @@ const UserView = (): JSX.Element => {
                   onSelect={type => onChangeType(type)}
                   value={type}
                 >
-                  <Option value="vacation">Vacation</Option>
-                  <Option value="sick">Sick leave</Option>
+                  <Option value="vacation">{lang.modalCalendar.selectVacation}</Option>
+                  <Option value="sick">{lang.modalCalendar.selectSickLeave}</Option>
                   <Option value="unpaid">Unpaid</Option>
                 </SelectBlock>
               </StyledInputContent>
 
               <StyledModalContent>
-                <Button onClick={toggleModal}>Cancel</Button>
+                <Button onClick={toggleModal}>{lang.modalCalendar.cancelButton}</Button>
                 <Form.Item>
                   <Button type="primary" htmlType="submit">
-                    Confirm Reservation
+                    {lang.modalCalendar.confirmButton}
                   </Button>
                 </Form.Item>
               </StyledModalContent>
