@@ -20,7 +20,7 @@ export const url = {
   foradmin: 'employee',
 };
 
-export const sellectItemColor = (status: string) => {
+export const selectItemColor = (status: string) => {
   if (status === DECLINED) {
     return 'red';
   } else if (status === APPROVED) {

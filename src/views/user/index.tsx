@@ -21,7 +21,7 @@ import {
   howManyPassVacationDays,
   showCurrentDate,
 } from './const';
-import { sellectItemColor } from 'constants/constants';
+import { selectItemColor } from 'constants/constants';
 import Layout from './layout';
 import Sidebar from 'Components/Sidebar';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -81,7 +81,7 @@ const UserView = (): JSX.Element => {
   };
 
   const SelectColor = (record: { status: string }) => {
-    return sellectItemColor(record.status) || '';
+    return selectItemColor(record.status) || '';
   };
 
   let userVacations;
@@ -227,7 +227,7 @@ const UserView = (): JSX.Element => {
           </StyledButton>
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={userVacations}
             size="large"
             rowClassName={SelectColor}
           />
