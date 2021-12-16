@@ -18,7 +18,6 @@ export const StyledDivVacationInfo = styled("div")`
 `;
 export const StyledDivContent = styled("div")`
   padding: 24px;
-  /* text-align: left; */
 `;
 export const StyledFormItem = styled(Form.Item)`
   display: inline-block;

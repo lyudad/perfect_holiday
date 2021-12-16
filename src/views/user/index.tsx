@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
-import { Row, Form, Modal, Button, Table, Select } from 'antd';
+import { Row, Form, Modal, Button, Table, Select, Space } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 import './index.css';
 import {
   StyledLayout,
@@ -16,7 +17,7 @@ import {
   StyledDatePicker
 } from './styles';
 import {
-  columns,
+  // columns,
   howManyPassSickDays,
   howManyPassVacationDays,
   showCurrentDate,
@@ -123,6 +124,40 @@ const UserView = (): JSX.Element => {
     );
     lastVacationDay.setDate(lastVacationDay.getDate() + howManyPassVacationDays);
   }
+
+  const columns = [
+    {
+      title: 'Start Date',
+      dataIndex: 'start_date',
+    },
+    {
+      title: 'End Date',
+      dataIndex: 'end_date',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+    },
+    {
+      title: 'Type',
+      dataIndex: 'type',
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      render: () => (
+        <Space>
+          <Button
+            htmlType="submit"
+            type="link"
+            // onClick={() => putStatusApproved(dataIndex, key)}
+          >
+            {lang.superAdmin.deleteButton}
+          </Button>
+        </Space>
+      )}
+  ];
+
   return (
     <Layout>
       <StyledLayout>
