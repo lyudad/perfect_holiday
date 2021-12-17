@@ -23,6 +23,8 @@ const Users = (): JSX.Element => {
   const SelectColor = (record: { is_block: boolean }) => {
     return checkIsBlock(record.is_block) || '';
   };
+  const [deleteId, setDeleteId]=useState<IUserId>({id:''})
+  const [dataIndexState, setDataIndexState]=useState<string>('')
   const { error, isLoading, data, refetch } = useGetListOfUsers();
   const [visible, setVisible] = useState<boolean>(false);
   const [visibleDelete, setVisibleDelete] = useState<boolean>(false);
@@ -129,6 +131,8 @@ const Users = (): JSX.Element => {
                       <Button
                         onClick={() => {
                           setVisibleDelete(true);
+                          setDeleteId(key)
+                          setDataIndexState(dataIndex)
                         }}
                         htmlType="submit"
                         type="link"
@@ -136,7 +140,7 @@ const Users = (): JSX.Element => {
                       {lang.superAdmin.deleteButton}
                     </Button>
                       <CollectionDeleteForm
-                          values={{dataIndex: dataIndex,key:key}}
+                          values={{dataIndex: dataIndexState,key:deleteId}}
                           visible={visibleDelete}
                           onCreate={() => setVisibleDelete(false)}
                           onCancel={() => setVisibleDelete(false)}
