@@ -3,10 +3,7 @@ import Sidebar from 'Components/Sidebar';
 import { lang } from 'language/en';
 import { columns } from './const';
 import Layout from './layout';
-import useGetListOfUsers, {
-  getUserRequestDays,
-  toUpdateUserInfo,
-} from 'hooks/useUsers';
+import { getUserRequestDays, toUpdateUserInfo } from 'hooks/useUsers';
 import 'antd/dist/antd.css';
 import { Row, Input, Form, Col, Button, Table, message, Select } from 'antd';
 import {
@@ -33,14 +30,12 @@ const { Option } = Select;
 const AdminView = (): JSX.Element => {
   const [form] = Form.useForm();
   const state = store.getState();
-  // console.log(state);
 
   const userId = useRouteMatch<IMatchParams>().params.id;
-  console.log(userId);
 
-  const { data } = useGetListOfUsers();
-  // const { data } = getUserRequestDays(userId);
-  console.log(data);
+  const { data } = getUserRequestDays(userId);
+
+  const userVacations = data?.find(user => user.vacations)?.vacations;
 
   const role = state.person.user.role;
   const InitialState = {
@@ -181,7 +176,7 @@ const AdminView = (): JSX.Element => {
 
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={userVacations}
             size="large"
             rowClassName={SelectColor}
           />

@@ -226,7 +226,7 @@ const UserView = (): JSX.Element => {
           </StyledButton>
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={userVacations}
             size="large"
             rowClassName={SelectColor}
           />
