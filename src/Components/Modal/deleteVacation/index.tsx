@@ -1,12 +1,11 @@
 import { message, Modal } from 'antd';
 import { toDeleteVacations, getUserRequestDays } from 'hooks/useUsers';
 import { lang } from 'language/en';
-import { CollectionDeleteProps } from './types';
-import { IUserId } from 'hooks/types';
+import { CollectionDeleteVacationProps } from './types';
 import store from 'Redux/store';
 
 
-export const CollectionDeleteVacation: React.FC<CollectionDeleteProps> = ({values, visible, onCreate, onCancel}) => {
+export const CollectionDeleteVacation: React.FC<CollectionDeleteVacationProps> = ({values, visible, onCreate, onCancel}) => {
     const state = store.getState();
     const userId = state.person.user.id;
     const {refetch} = getUserRequestDays(userId);

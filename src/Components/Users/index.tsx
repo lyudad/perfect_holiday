@@ -127,28 +127,28 @@ const Users = (): JSX.Element => {
                     {dataIndex ? lang.updateStatus.block : lang.updateStatus.unblock}
                   </Button>
                 )}
-                {InitialState.canDeleteUser && (<>
-                      <Button
-                        onClick={() => {
-                          setVisibleDelete(true);
-                          setDeleteId(key)
-                          setDataIndexState(dataIndex)
-                        }}
-                        htmlType="submit"
-                        type="link"
+                {InitialState.canDeleteUser && (
+                  <>
+                    <Button
+                      onClick={() => {
+                        setVisibleDelete(true);
+                        setDeleteId(key)
+                        setDataIndexState(dataIndex)
+                      }}
+                      htmlType="submit"
+                      type="link"
                     >
                       {lang.superAdmin.deleteButton}
                     </Button>
-                      <CollectionDeleteForm
-                          values={{dataIndex: dataIndexState,key:deleteId}}
-                          visible={visibleDelete}
-                          onCreate={() => setVisibleDelete(false)}
-                          onCancel={() => setVisibleDelete(false)}
-                      />
-                </>
+                    <CollectionDeleteForm
+                        values={{dataIndex: dataIndexState,key:deleteId}}
+                        visible={visibleDelete}
+                        onCreate={() => setVisibleDelete(false)}
+                        onCancel={() => setVisibleDelete(false)}
+                    />
+                  </>
                 )}
               </Space>
-
             )}
           />
         </Table>
