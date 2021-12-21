@@ -29,7 +29,7 @@ export const CollectionDeleteForm: React.FC<CollectionDeleteProps> = ({values, v
                     refetch();
                     message.success(lang.superAdmin.successDelete, 5);
                 }).catch(() => {
-                    message.error(lang.addUser.succeess, 5);
+                    message.error(lang.superAdmin.failDelete, 5);
                 });
                 onCreate();
             }}

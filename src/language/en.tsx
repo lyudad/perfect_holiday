@@ -98,5 +98,14 @@ export const lang = {
     confirmButton: 'Confirm Reservation',
     selectVacation: 'Vacation',
     selectSickLeave: 'Sick leave',
+  },
+  deleteVacation: {
+    deleteButton: 'Delete',
+    title: 'Deleting Vacation',
+    okText: 'Delete',
+    cancelText: 'Cancel',
+    description: 'Are you want to delete this vacation?',
+    successDelete: 'Vacation successfully deleted!',
+    failDelete: 'Error deleting vacation!'
   }
 };

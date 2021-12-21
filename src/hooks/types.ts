@@ -52,3 +52,8 @@ export type TDeleteUser = {
   id: string;
   userId: string;
 };
+
+export type TDeleteVacation = {
+  id: string;
+  userId: string;
+}

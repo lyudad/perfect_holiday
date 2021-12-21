@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
 import { Row, Form, Modal, Button, Table, Select, Space } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { CollectionDeleteVacation } from 'Components/Modal/deleteVacation';
 import './index.css';
 import {
   StyledLayout,
@@ -27,12 +27,13 @@ import Layout from './layout';
 import Sidebar from 'Components/Sidebar';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { bookigRestDays, getUserRequestDays } from 'hooks/useUsers';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { TBookkHoliday, THoliday } from 'hooks/types';
 import store from 'Redux/store';
 import { TypeRestDay } from './types';
 import { DECLINED } from 'constants/statuses';
+// import { PENDING } from 'constants/statuses';
+import { IUserId } from 'hooks/types';
 
 const { Option } = Select;
 
@@ -45,6 +46,9 @@ const UserView = (): JSX.Element => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [type, setType] = useState<string>('vacation');
   const { control, handleSubmit, watch } = useForm<Vacation>();
+  const [visibleDelete, setVisibleDelete] = useState<boolean>(false);
+  const [deleteId, setDeleteId]=useState<IUserId>({id:''})
+  const [dataIndexState, setDataIndexState]=useState<string>('')
 
   const watchAll = watch();
   const today = new Date();
@@ -129,33 +133,49 @@ const UserView = (): JSX.Element => {
     {
       title: 'Start Date',
       dataIndex: 'start_date',
+      key: 'id',
     },
     {
       title: 'End Date',
       dataIndex: 'end_date',
+      key: 'id',
     },
     {
       title: 'Status',
       dataIndex: 'status',
+      key: 'id,',
     },
     {
       title: 'Type',
       dataIndex: 'type',
+      key: 'id,'
     },
     {
       title: 'Action',
       dataIndex: 'action',
-      render: () => (
+      key: 'id',
+      render: (dataIndex: string, key: IUserId) => (
         <Space>
           <Button
+            onClick={() => {
+              setVisibleDelete(true);
+              setDeleteId(key)
+              setDataIndexState(dataIndex)
+            }}
             htmlType="submit"
             type="link"
-            // onClick={() => putStatusApproved(dataIndex, key)}
           >
-            {lang.superAdmin.deleteButton}
+            {lang.deleteVacation.deleteButton}
           </Button>
+          <CollectionDeleteVacation
+            values={{dataIndex: dataIndexState, key: deleteId}}
+            visible={visibleDelete}
+            onCreate={() => setVisibleDelete(false)}
+            onCancel={() => setVisibleDelete(false)}
+          />
         </Space>
-      )}
+      )
+    }
   ];
 
   return (
