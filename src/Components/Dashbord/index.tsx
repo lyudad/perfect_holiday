@@ -19,9 +19,6 @@ const { Column } = Table;
 
 const Dashbord = (): JSX.Element => {
   const { error, isLoading, data, refetch } = useAllNotApprovedRestDays();
-  const [firstDate,setFirstDate]= useState<string>('')
-  const [lastDate,setLastDate]= useState<string>('')
-  const [typeVac, setTypeVac]= useState<string>('')
   const [typeVacEdit, setTypeVacEdit]= useState<string>('')
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { control, handleSubmit, watch } = useForm<TVacationRestDays>();
@@ -39,36 +36,34 @@ const Dashbord = (): JSX.Element => {
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
   const dateDiffInDays = (a: Date, b: Date)=> {
-    // Discard the time and time-zone information.
     const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
     const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
 
     return Math.floor((utc2 - utc1) / MS_PER_DAY);
   }
   const putStatusApproved = (dataIndex: string, key: IUserDay) => {
-    const difference = dateDiffInDays(new Date(firstDate), new Date(lastDate));
-    console.log(new Date(firstDate).getDate(),new Date(lastDate).getDate(),difference,key.type)
+    const difference = dateDiffInDays(new Date(key.start_date), new Date(key.end_date));
     toApprovedOrDisapproveRestDay({
       status: APPROVED,
       id: key.id,
       userId: dataIndex,
       diffDays: difference,
-      type: typeVac
+      type:  key.type,
     })
       .then(() => message.loading(lang.info.loading))
       .catch(() => message.error(lang.dashboard.failMessageStatusApproved))
       .finally(() => {
-        return refetch(), console.log('diff'+difference);
+        return refetch(), message.success(lang.dashboard.messageStatusApproved);
       });
   };
 
-  const putStatusDeclined = (dataIndex: string, key: IUserId) => {
+  const putStatusDeclined = (dataIndex: string, key: IUserDay) => {
     toApprovedOrDisapproveRestDay({
       status: DECLINED,
       id: key.id,
       userId: dataIndex,
       diffDays: 0,
-      type: typeVac,
+      type: key.type,
     })
       .then(() => message.loading(lang.info.loading))
       .catch(() => message.error(lang.dashboard.failMessageStatusDeclined))
@@ -76,7 +71,6 @@ const Dashbord = (): JSX.Element => {
         return refetch(), message.success(lang.dashboard.messageStatusDeclined);
       });
   };
-
   const onSubmit = () => {
     const difference = dateDiffInDays(new Date(start_date), new Date(end_date));
     console.log(difference,typeVacEdit)
@@ -99,7 +93,6 @@ const Dashbord = (): JSX.Element => {
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
-
   return (
     <StyledLayout>
       <Modal
@@ -192,17 +185,13 @@ const Dashbord = (): JSX.Element => {
             defaultFilteredValue={['user', 'userId']}
             render={(dataIndex: string, key: IUserDay) => (
               <Space size="middle">
-
                 <Button
                   htmlType="submit"
                   type="link"
                   onClick={() => {
-                    console.log('------ ',key.start_date,key.start_date,key.type)
-                    setFirstDate(key.start_date);
-                    setLastDate(key.end_date);
-                    setTypeVac(key.type)
-                    console.log(firstDate,lastDate);
-                    putStatusApproved(dataIndex, key);}}
+                    putStatusApproved(dataIndex, key);
+                  }}
+
                 >
                   {lang.dashboard.approveButton}
                 </Button>
