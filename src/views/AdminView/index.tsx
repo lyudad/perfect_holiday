@@ -3,8 +3,9 @@ import Sidebar from 'Components/Sidebar';
 import { lang } from 'language/en';
 import { columns } from './const';
 import Layout from './layout';
-import { toUpdateUserInfo } from 'hooks/useUsers';
+import { toUpdateUserInfo, getUserRequestDays } from 'hooks/useUsers';
 import 'antd/dist/antd.css';
+import { User } from 'hooks/types';
 import { Row, Input, Form, Col, Button, Table, message, Select } from 'antd';
 import {
   StyledLayout,
@@ -25,46 +26,22 @@ import { Role } from 'constants/constants';
 
 const { REACT_APP_BASE } = process.env;
 const { Option } = Select;
-const data = [
-  {
-    key: '1',
-    month: 'June 2020',
-    dates: '10-20',
-    status: 'approved',
-    type: 'vacation',
-  },
-  {
-    key: '2',
-    month: 'April 2020',
-    dates: '01-09',
-    status: 'approved',
-    type: 'vacation',
-  },
-  {
-    key: '3',
-    month: 'January 2020',
-    dates: '08-10',
-    status: 'pending',
-    type: 'vacation',
-  },
-  {
-    key: '4',
-    month: 'February 2019',
-    dates: '08',
-    status: 'pending',
-    type: 'sick leave',
-  },
-];
+
 
 const AdminView = (): JSX.Element => {
   const [form] = Form.useForm();
-  const [type, setType] = useState<string>('employee');
   const state = store.getState();
+
   const role = state.person.user.role;
   const InitialState = {
     canSelectRoleInEdit: (role === Role.SUPER)
   };
+
   const userId = useRouteMatch<IMatchParams>().params.id;
+  const { data } = getUserRequestDays(userId);
+
+  const userVacations = data?.find(user => user.vacations)?.vacations;
+
   const updateUserInfo = () => {
     toUpdateUserInfo(form.getFieldsValue(), userId)
       .then(() => message.success(lang.updateStatus.success))
@@ -125,11 +102,11 @@ const AdminView = (): JSX.Element => {
                       <SelectBlock
                         placeholder={lang.superAdmin.roleTitle}
                       >
-                        <Option value="admin" key="id" >
-                          Admin
+                        <Option value="admin" key="id">
+                          {lang.userRole.userAdmin}
                         </Option>
                         <Option value="employee">
-                          Employee
+                          {lang.userRole.userEmployee}
                         </Option>
                       </SelectBlock>
                     </Form.Item>
@@ -143,21 +120,51 @@ const AdminView = (): JSX.Element => {
                       shape="round"
                       size="large"
                     >
-                      Save
+                      {lang.superAdmin.saveButton}
                     </Button>
                   </Form.Item>
                 </Col>
               </Row>
             </Form>
 
-            <Row>
-              <StyledDivVacationInfo>
-                <strong>2 sick leave</strong>
-              </StyledDivVacationInfo>
-              <StyledDivVacationInfo>
-                <strong>14 vacation days</strong>
-              </StyledDivVacationInfo>
-            </Row>
+            {data?.map(
+              ({
+                id,
+                first_name,
+                available_sick_days,
+                available_vacation,
+                last_name,
+                email,
+              }: User) => (
+                <div>
+                  {id == userId ? (
+                    <Row>
+                      <StyledDivVacationInfo>
+                        <strong>{first_name}</strong>
+                      </StyledDivVacationInfo>
+                      <StyledDivVacationInfo>
+                        <strong>{last_name}</strong>
+                      </StyledDivVacationInfo>
+                      <StyledDivVacationInfo>
+                        <strong>{email}</strong>
+                      </StyledDivVacationInfo>
+                    </Row>
+                  ) : null}
+                  {id == userId ? (
+                    <Row>
+                      <StyledDivVacationInfo>
+                        <strong>{available_sick_days}</strong>
+                        <strong>{lang.superAdmin.rowSickDays}</strong>
+                      </StyledDivVacationInfo>
+                      <StyledDivVacationInfo>
+                        <strong>{available_vacation}</strong>
+                        <strong>{lang.superAdmin.rowVacationDays}</strong>
+                      </StyledDivVacationInfo>
+                    </Row>
+                  ) : null}
+                </div>
+              ),
+            )}
           </StyledDivContent>
           <ButtonWrapper>
             <StyledButton
@@ -174,7 +181,7 @@ const AdminView = (): JSX.Element => {
           </ButtonWrapper>
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={userVacations}
             size="large"
             rowClassName={SelectColor}
           />

@@ -85,6 +85,9 @@ export const lang = {
     failDelete: 'Error deleting user!',
     roleTitle: 'Role',
     searchInputText: 'Search user',
+    saveButton: 'Save',
+    rowSickDays: ' sick days',
+    rowVacationDays: ' vacation days',
   },
   searchUser: {
     placeholder: 'Type an employee name',
@@ -114,5 +117,9 @@ export const lang = {
     statusColumn: 'Status',
     typeColumn: 'Type',
     actionColumn: 'Action',
+  },
+  userRole: {
+    userAdmin: 'Admin',
+    userEmployee: 'Employee',
   },
 };
