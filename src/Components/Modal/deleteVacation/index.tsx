@@ -9,6 +9,7 @@ export const CollectionDeleteVacation: React.FC<CollectionDeleteVacationProps> =
     const state = store.getState();
     const userId = state.person.user.id;
     const {refetch} = getUserRequestDays(userId);
+
     return (
         <Modal
             mask={false}

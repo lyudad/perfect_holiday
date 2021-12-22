@@ -123,7 +123,7 @@ export const toDeleteUser = async (values: TDeleteUser) => {
 export const toDeleteVacations = async (values: TDeleteVacation) => {
   const state = store.getState();
   const token = `Bearer ${state.person.user.access_token}`;
-  return axios.delete(`${REACT_APP_BASE}${url.casual}${values.id}`, {
-    headers: { Authorization: token },
+  return axios.delete(`${REACT_APP_BASE}${url.casual}${values.userId}`, {
+    headers: { Authorization: token }, data: { id: values.id },
   });
 };

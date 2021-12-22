@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from 'react';
+import { useState } from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
 import { Row, Form, Modal, Button, Table, Select, Space } from 'antd';
@@ -17,7 +17,6 @@ import {
   StyledDatePicker
 } from './styles';
 import {
-  // columns,
   howManyPassSickDays,
   howManyPassVacationDays,
   showCurrentDate,
@@ -28,14 +27,11 @@ import Sidebar from 'Components/Sidebar';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { bookigRestDays, getUserRequestDays } from 'hooks/useUsers';
 import 'react-datepicker/dist/react-datepicker.css';
-import { TBookkHoliday, TDeleteVacation, THoliday } from 'hooks/types';
+import { TBookkHoliday, THoliday} from 'hooks/types';
 import store from 'Redux/store';
 import { TypeRestDay } from './types';
 import { DECLINED, PENDING } from 'constants/statuses';
-// import { PENDING } from 'constants/statuses';
 import { IUserId } from 'hooks/types';
-import { Status } from 'views/login/styles';
-import { stat } from 'fs';
 
 const { Option } = Select;
 const { Column } = Table;
@@ -50,8 +46,7 @@ const UserView = (): JSX.Element => {
   const [type, setType] = useState<string>('vacation');
   const { control, handleSubmit, watch } = useForm<Vacation>();
   const [visibleDelete, setVisibleDelete] = useState<boolean>(false);
-  const [deleteId, setDeleteId]=useState<IUserId>({id:''})
-  const [dataIndexState, setDataIndexState]=useState<string>('')
+  const [deleteId, setDeleteId] = useState<IUserId>({id:''})
 
   const watchAll = watch();
   const today = new Date();
@@ -131,11 +126,6 @@ const UserView = (): JSX.Element => {
     );
     lastVacationDay.setDate(lastVacationDay.getDate() + howManyPassVacationDays);
   }
-
-    const role = state.person.user.role;
-    const InitialState = {
-        canDeletePendingVacation: (role === 'employee')
-    };
 
   return (
     <Layout>
@@ -264,34 +254,32 @@ const UserView = (): JSX.Element => {
                 key="id"
             />
             <Column
-                title="Action"
-                dataIndex="action"
-                key="id"
-                render={(dataIndex, key: IUserId) => (
-                    <>
-                        {InitialState.canDeletePendingVacation &&(
-                            <Space size="middle">
-                                <Button
-                                    onClick={() => {
-                                        setVisibleDelete(true);
-                                        setDeleteId(key)
-                                        setDataIndexState(dataIndex)
-                                    }}
-                                    htmlType="submit"
-                                    type="link"
-                                >
-                                    {lang.deleteVacation.deleteButton}
-                                </Button>
-                                <CollectionDeleteVacation
-                                    values={{dataIndex: dataIndexState, key: deleteId}}
-                                    visible={visibleDelete}
-                                    onCreate={() => setVisibleDelete(false)}
-                                    onCancel={() => setVisibleDelete(false)}
-                                />
-                            </Space>
-                        )}
-                    </>
-                )}
+              title="Action"
+              dataIndex="status"
+              key="id"
+              render={(dataIndex: string, key: IUserId) => (
+                <>
+                  <Space size="middle">
+                    <Button
+                      disabled={dataIndex !== PENDING}
+                      onClick={() => {
+                        setVisibleDelete(true);
+                        setDeleteId(key)
+                      }}
+                      htmlType="submit"
+                      type="link"
+                    >
+                      {lang.deleteVacation.deleteButton}
+                    </Button>
+                    <CollectionDeleteVacation
+                      values={{dataIndex: userId, key: deleteId}}
+                      visible={visibleDelete}
+                      onCreate={() => setVisibleDelete(false)}
+                      onCancel={() => setVisibleDelete(false)}
+                    />
+                  </Space>
+                </>
+              )}
             />
           </Table>
         </StyledContent>
