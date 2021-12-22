@@ -14,7 +14,7 @@ import { StyledInputContent, StyledModalContent, StyledDatePicker  } from 'views
 import { Controller, useForm } from 'react-hook-form';
 import { showCurrentDate } from 'views/user/const';
 import { useState } from 'react';
-
+import {dateDiffInDays} from 'Components/Functions/DiffDays'
 const { Column } = Table;
 
 const Dashbord = (): JSX.Element => {
@@ -26,7 +26,7 @@ const Dashbord = (): JSX.Element => {
 
   if (isLoading) return <Loading />;
   if (error instanceof Error) return <h1>Error: {error.message}</h1>;
-  const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
   const watchAll = watch();
   const today = new Date();
 
@@ -35,12 +35,7 @@ const Dashbord = (): JSX.Element => {
 
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
-  const dateDiffInDays = (a: Date, b: Date)=> {
-    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
 
-    return Math.floor((utc2 - utc1) / MS_PER_DAY);
-  }
   const putStatusApproved = (dataIndex: string, key: IUserDay) => {
     const difference = dateDiffInDays(new Date(key.start_date), new Date(key.end_date));
     toApprovedOrDisapproveRestDay({
@@ -73,7 +68,6 @@ const Dashbord = (): JSX.Element => {
   };
   const onSubmit = () => {
     const difference = dateDiffInDays(new Date(start_date), new Date(end_date));
-    console.log(difference,typeVacEdit)
     toEditRestDays({
       ...ids,
       status: CHANGED,
