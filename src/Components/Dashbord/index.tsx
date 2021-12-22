@@ -20,7 +20,7 @@ const { Column } = Table;
 const Dashbord = (): JSX.Element => {
   const { error, isLoading, data, refetch } = useAllNotApprovedRestDays();
   const [typeVacEdit, setTypeVacEdit]= useState<string>('')
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const { control, handleSubmit, watch } = useForm<TVacationRestDays>();
   const [ids, setIds] = useState<TEditRestDays>();
 
