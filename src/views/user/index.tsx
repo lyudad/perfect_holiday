@@ -234,27 +234,27 @@ const UserView = (): JSX.Element => {
 
           <Table dataSource={userVacations} pagination={{ pageSize: 10 }} size="large" rowClassName={SelectColor}>
             <Column
-                title="Start Date"
+                title={lang.userPage.startDateColumn}
                 dataIndex= "start_date"
                 key="id"
             />
             <Column
-                title="End Date"
+                title={lang.userPage.endDateColumn}
                 dataIndex= "end_date"
                 key="id"
             />
             <Column
-                title="Status"
+                title={lang.userPage.statusColumn}
                 dataIndex= "status"
                 key="id"
             />
             <Column
-                title="Type"
+                title={lang.userPage.typeColumn}
                 dataIndex= "type"
                 key="id"
             />
             <Column
-              title="Action"
+              title={lang.userPage.actionColumn}
               dataIndex="status"
               key="id"
               render={(dataIndex: string, key: IUserId) => (

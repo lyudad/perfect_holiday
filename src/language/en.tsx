@@ -107,5 +107,12 @@ export const lang = {
     description: 'Are you want to delete this vacation?',
     successDelete: 'Vacation successfully deleted!',
     failDelete: 'Error deleting vacation!'
-  }
+  },
+  userPage: {
+    startDateColumn: 'Start Date',
+    endDateColumn: 'End Date',
+    statusColumn: 'Status',
+    typeColumn: 'Type',
+    actionColumn: 'Action',
+  },
 };
