@@ -184,29 +184,25 @@ const AdminView = (): JSX.Element => {
                     </Col>
                   </Row>
                 </Form>
-                {id == userId ? (
-                  <Row>
-                    <StyledDivVacationInfo>
-                      <strong>{first_name}</strong>
-                    </StyledDivVacationInfo>
-                    <StyledDivVacationInfo>
-                      <strong>{last_name}</strong>
-                    </StyledDivVacationInfo>
-                    <StyledDivVacationInfo>
-                      <strong>{email}</strong>
-                    </StyledDivVacationInfo>
-                  </Row>
-                ) : null}
-                {id == userId ? (
-                  <Row>
-                    <StyledDivVacationInfo>
-                      <strong>{available_sick_days} Sick days</strong>
-                    </StyledDivVacationInfo>
-                    <StyledDivVacationInfo>
-                      <strong>{available_vacation} Vacation days</strong>
-                    </StyledDivVacationInfo>
-                  </Row>
-                ) : null}
+                <Row>
+                  <StyledDivVacationInfo>
+                    <strong>{first_name}</strong>
+                  </StyledDivVacationInfo>
+                  <StyledDivVacationInfo>
+                    <strong>{last_name}</strong>
+                  </StyledDivVacationInfo>
+                  <StyledDivVacationInfo>
+                    <strong>{email}</strong>
+                  </StyledDivVacationInfo>
+                </Row>
+                <Row>
+                  <StyledDivVacationInfo>
+                    <strong>{available_sick_days} Sick days</strong>
+                  </StyledDivVacationInfo>
+                  <StyledDivVacationInfo>
+                    <strong>{available_vacation} Vacation days</strong>
+                  </StyledDivVacationInfo>
+                </Row>
               </StyledDivContent>
               <ButtonWrapper>
                 <StyledButton
