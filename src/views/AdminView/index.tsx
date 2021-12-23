@@ -137,31 +137,27 @@ const AdminView = (): JSX.Element => {
                 email,
               }: User) => (
                 <div>
-                  {id == userId ? (
-                    <Row>
-                      <StyledDivVacationInfo>
-                        <strong>{first_name}</strong>
-                      </StyledDivVacationInfo>
-                      <StyledDivVacationInfo>
-                        <strong>{last_name}</strong>
-                      </StyledDivVacationInfo>
-                      <StyledDivVacationInfo>
-                        <strong>{email}</strong>
-                      </StyledDivVacationInfo>
-                    </Row>
-                  ) : null}
-                  {id == userId ? (
-                    <Row>
-                      <StyledDivVacationInfo>
-                        <strong>{available_sick_days}</strong>
-                        <strong>{lang.superAdmin.rowSickDays}</strong>
-                      </StyledDivVacationInfo>
-                      <StyledDivVacationInfo>
-                        <strong>{available_vacation}</strong>
-                        <strong>{lang.superAdmin.rowVacationDays}</strong>
-                      </StyledDivVacationInfo>
-                    </Row>
-                  ) : null}
+                  <Row>
+                    <StyledDivVacationInfo>
+                      <strong>{first_name}</strong>
+                    </StyledDivVacationInfo>
+                    <StyledDivVacationInfo>
+                      <strong>{last_name}</strong>
+                    </StyledDivVacationInfo>
+                    <StyledDivVacationInfo>
+                      <strong>{email}</strong>
+                    </StyledDivVacationInfo>
+                  </Row>
+                  <Row>
+                    <StyledDivVacationInfo>
+                      <strong>{available_sick_days}</strong>
+                      <strong>{lang.superAdmin.rowSickDays}</strong>
+                    </StyledDivVacationInfo>
+                    <StyledDivVacationInfo>
+                      <strong>{available_vacation}</strong>
+                      <strong>{lang.superAdmin.rowVacationDays}</strong>
+                    </StyledDivVacationInfo>
+                  </Row>
                 </div>
               ),
             )}
