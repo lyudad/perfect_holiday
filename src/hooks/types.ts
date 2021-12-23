@@ -4,6 +4,12 @@ export type TStatus = 'approved' | 'pending' | 'declined' | 'changed';
 export interface IUserId {
   id: string;
 }
+export interface IUserDay {
+  id: string;
+  start_date: string,
+  end_date: string,
+  type: string;
+}
 export type User = {
   id: string;
   role: UserRoleType;
@@ -36,6 +42,18 @@ export type TApprovedDay = {
   id: string;
   status: TStatus;
   userId: string;
+  diffDays: number;
+  type: string;
+};
+
+export type TEditRestDays = {
+  id: string;
+  userId: string;
+};
+
+export type TVacationRestDays = {
+  startDate: Date;
+  endDate: Date;
 };
 
 export type TDeleteUser = {

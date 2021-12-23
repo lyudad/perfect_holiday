@@ -101,6 +101,14 @@ export async function getUserRequestDays(userId: string) {
   });
 }
 
+export const toEditRestDays = async (values: any) => {
+  const state = store.getState();
+  const token = `Bearer ${state.person.user.access_token}`;
+  return axios.put(`${REACT_APP_BASE}${url.casual}editing`, values, {
+    headers: { Authorization: token },
+  });
+};
+
 export const toDeleteUser = async (values: TDeleteUser) => {
   const state = store.getState();
   const token = `Bearer ${state.person.user.access_token}`;

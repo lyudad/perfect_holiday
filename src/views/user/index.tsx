@@ -23,7 +23,7 @@ import ModalWindow from './modal';
 import { Vacation } from './types';
 
 const UserView = (): JSX.Element => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [type, setType] = useState<string>('vacation');
   const [data, setData] = useState<User[]>();
   const { watch } = useForm<Vacation>();
