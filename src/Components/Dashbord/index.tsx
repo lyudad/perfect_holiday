@@ -15,6 +15,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { showCurrentDate } from 'views/user/const';
 import { useState } from 'react';
 import {dateDiffInDays} from 'Components/Functions/DiffDays'
+import { undefinedDate } from 'constants/constants';
 const { Column } = Table;
 
 const Dashbord = (): JSX.Element => {
@@ -68,8 +69,8 @@ const Dashbord = (): JSX.Element => {
       });
   };
   const onSubmit = () => {
-    start_date==='NaN-NaN-NaN'?start_date = showCurrentDate(startDate):start_date;
-    end_date==='NaN-NaN-NaN'? end_date = showCurrentDate(endDate):endDate;
+    if (start_date===undefinedDate) start_date= showCurrentDate(startDate)
+    if (end_date===undefinedDate) end_date= showCurrentDate(endDate)
     const difference = dateDiffInDays(new Date(start_date), new Date(end_date))+1;
     toEditRestDays({
       ...ids,
