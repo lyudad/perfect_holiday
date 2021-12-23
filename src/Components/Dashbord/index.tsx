@@ -20,6 +20,8 @@ const { Column } = Table;
 const Dashbord = (): JSX.Element => {
   const { error, isLoading, data, refetch } = useAllNotApprovedRestDays();
   const [typeVacEdit, setTypeVacEdit]= useState<string>('')
+  const [startDate, setStartDate]= useState<Date>(new Date())
+  const [endDate, setEndDate]= useState<Date>(new Date())
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const { control, handleSubmit, watch } = useForm<TVacationRestDays>();
   const [ids, setIds] = useState<TEditRestDays>();
@@ -111,9 +113,10 @@ const Dashbord = (): JSX.Element => {
                     endDate={watchAll.endDate}
                     maxDate={watchAll.endDate}
                     minDate={today}
-                    selected={field.value}
+                    selected={startDate}
                     onChange={field.onChange}
                     placeholderText="Start date"
+
                   />
                 );
               }}
@@ -129,7 +132,7 @@ const Dashbord = (): JSX.Element => {
                     startDate={watchAll.startDate}
                     endDate={watchAll.endDate}
                     minDate={watchAll.startDate}
-                    selected={field.value}
+                    selected={endDate}
                     onChange={field.onChange}
                     placeholderText="End date"
                   />
@@ -203,6 +206,8 @@ const Dashbord = (): JSX.Element => {
                   type="link"
                   onClick={() => {
                     setTypeVacEdit(key.type)
+                    setStartDate(new Date(key.start_date))
+                    setEndDate(new Date(key.end_date))
                     setIsModalVisible(true),
                       setIds({ userId: dataIndex, id: key.id });
                   }}
