@@ -34,12 +34,11 @@ const Dashbord = (): JSX.Element => {
 
   const newStartDate = new Date(watchAll.startDate);
   const newEndDate = new Date(watchAll.endDate);
-
-  const start_date = showCurrentDate(newStartDate);
-  const end_date = showCurrentDate(newEndDate);
+  let start_date = showCurrentDate(newStartDate);
+  let end_date = showCurrentDate(newEndDate);
 
   const putStatusApproved = (dataIndex: string, key: IUserDay) => {
-    const difference = dateDiffInDays(new Date(key.start_date), new Date(key.end_date));
+    const difference = dateDiffInDays(new Date(key.start_date), new Date(key.end_date))+1;
     toApprovedOrDisapproveRestDay({
       status: APPROVED,
       id: key.id,
@@ -69,7 +68,9 @@ const Dashbord = (): JSX.Element => {
       });
   };
   const onSubmit = () => {
-    const difference = dateDiffInDays(new Date(start_date), new Date(end_date));
+    start_date==='NaN-NaN-NaN'?start_date = showCurrentDate(startDate):start_date;
+    end_date==='NaN-NaN-NaN'? end_date = showCurrentDate(endDate):endDate;
+    const difference = dateDiffInDays(new Date(start_date), new Date(end_date))+1;
     toEditRestDays({
       ...ids,
       status: CHANGED,
@@ -113,7 +114,7 @@ const Dashbord = (): JSX.Element => {
                     endDate={watchAll.endDate}
                     maxDate={watchAll.endDate}
                     minDate={today}
-                    selected={startDate}
+                    selected={field.value?field.value:startDate}
                     onChange={field.onChange}
                     placeholderText="Start date"
 
@@ -132,7 +133,7 @@ const Dashbord = (): JSX.Element => {
                     startDate={watchAll.startDate}
                     endDate={watchAll.endDate}
                     minDate={watchAll.startDate}
-                    selected={endDate}
+                    selected={field.value?field.value:endDate}
                     onChange={field.onChange}
                     placeholderText="End date"
                   />
