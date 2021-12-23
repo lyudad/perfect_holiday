@@ -40,8 +40,6 @@ const AdminView = (): JSX.Element => {
   const userId = useRouteMatch<IMatchParams>().params.id;
   const { data } = getUserRequestDays(userId);
 
-  const userVacations = data?.find(user => user.vacations)?.vacations;
-
   const updateUserInfo = () => {
     toUpdateUserInfo(form.getFieldsValue(), userId)
       .then(() => message.success(lang.updateStatus.success))
@@ -69,119 +67,131 @@ const AdminView = (): JSX.Element => {
     <Layout>
       <StyledLayout>
         <Sidebar />
-        <StyledContent>
-          <StyledDivContent className="site-layout-background">
-            <Form
-              form={form}
-              name="VacationForm"
-              layout="horizontal"
-              onFinish={updateUserInfo}
-              size="large"
-            >
-              <Row justify="space-between"> 
-                <Col span={6}>
-                  <Form.Item name="first_name" rules={[{ type: 'string' }]}>
-                    <Input placeholder={lang.userInfo.firstName} />
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item name="last_name" rules={[{ type: 'string' }]}>
-                    <Input placeholder={lang.userInfo.lastName} />
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item name="email" rules={[{ type: 'email' }]}>
-                    <Input placeholder={lang.userInfo.email} />
-                  </Form.Item>
-                </Col>
-                {
-                  (InitialState.canSelectRoleInEdit)
-                  &&
-                  <Col span={3}>
-                    <Form.Item name="role" rules={[{ type: 'string' }]}>
-                      <SelectBlock
-                        placeholder={lang.superAdmin.roleTitle}
-                      >
-                        <Option value="admin" key="id">
-                          {lang.userRole.userAdmin}
-                        </Option>
-                        <Option value="employee">
-                          {lang.userRole.userEmployee}
-                        </Option>
-                      </SelectBlock>
-                    </Form.Item>
-                  </Col>
-                }
-                <Col span={4}>
-                  <Form.Item>
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      shape="round"
-                      size="large"
-                    >
-                      {lang.superAdmin.saveButton}
-                    </Button>
-                  </Form.Item>
-                </Col>
-              </Row>
-            </Form>
+        {data?.map(
+          ({
+            id,
+            first_name,
+            available_sick_days,
+            available_vacation,
+            last_name,
+            email,
+            vacations,
+          }: User) => (
+            <StyledContent>
+              <StyledDivContent className="site-layout-background">
+                <Form
+                  form={form}
+                  name="VacationForm"
+                  layout="horizontal"
+                  onFinish={updateUserInfo}
+                  size="large"
+                >
+                  <Row justify="space-between"> 
+                    <Col span={6}>
+                      <Form.Item name="first_name" rules={[{ type: 'string' }]}>
+                        <Input placeholder={lang.userInfo.firstName} />
+                      </Form.Item>
+                    </Col>
+                    <Col span={6}>
+                      <Form.Item name="last_name" rules={[{ type: 'string' }]}>
+                        <Input placeholder={lang.userInfo.lastName} />
+                      </Form.Item>
+                    </Col>
+                    <Col span={6}>
+                      <Form.Item name="email" rules={[{ type: 'email' }]}>
+                        <Input placeholder={lang.userInfo.email} />
+                      </Form.Item>
+                    </Col>
+                    {
+                      (InitialState.canSelectRoleInEdit)
+                      &&
+                      <Col span={3}>
+                        <Form.Item name="role" rules={[{ type: 'string' }]}>
+                          <SelectBlock
+                            placeholder={lang.superAdmin.roleTitle}
+                          >
+                            <Option value="admin" key="id">
+                              {lang.userRole.userAdmin}
+                            </Option>
+                            <Option value="employee">
+                              {lang.userRole.userEmployee}
+                            </Option>
+                          </SelectBlock>
+                        </Form.Item>
+                      </Col>
+                    }
+                    <Col span={4}>
+                      <Form.Item>
+                        <Button
+                          type="primary"
+                          htmlType="submit"
+                          shape="round"
+                          size="large"
+                        >
+                          {lang.superAdmin.saveButton}
+                        </Button>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Form>
 
-            {data?.map(
-              ({
-                id,
-                first_name,
-                available_sick_days,
-                available_vacation,
-                last_name,
-                email,
-              }: User) => (
-                <div>
-                  <Row>
-                    <StyledDivVacationInfo>
-                      <strong>{first_name}</strong>
-                    </StyledDivVacationInfo>
-                    <StyledDivVacationInfo>
-                      <strong>{last_name}</strong>
-                    </StyledDivVacationInfo>
-                    <StyledDivVacationInfo>
-                      <strong>{email}</strong>
-                    </StyledDivVacationInfo>
-                  </Row>
-                  <Row>
-                    <StyledDivVacationInfo>
-                      <strong>{available_sick_days}</strong>
-                      <strong>{lang.superAdmin.rowSickDays}</strong>
-                    </StyledDivVacationInfo>
-                    <StyledDivVacationInfo>
-                      <strong>{available_vacation}</strong>
-                      <strong>{lang.superAdmin.rowVacationDays}</strong>
-                    </StyledDivVacationInfo>
-                  </Row>
-                </div>
-              ),
-            )}
-          </StyledDivContent>
-          <ButtonWrapper>
-            <StyledButton
-              shape="round"
-              htmlType="submit"
-              size="large"
-              onClick={SendPasswordId}
-            >
-              {lang.button['sendPasswordButton']}
-            </StyledButton>
-            <StyledButton shape="round" htmlType="submit" size="large">
-              {lang.button['addButton']}
-            </StyledButton>
-          </ButtonWrapper>
-          <Table
-            columns={columns}
-            dataSource={userVacations}
-            size="large"
-            rowClassName={SelectColor}
-          />
-        </StyledContent>
+                {/* {data?.map(
+                  ({
+                    id,
+                    first_name,
+                    available_sick_days,
+                    available_vacation,
+                    last_name,
+                    email,
+                  }: User) => ( */}
+                    <div>
+                      <Row>
+                        <StyledDivVacationInfo>
+                          <strong>{first_name}</strong>
+                        </StyledDivVacationInfo>
+                        <StyledDivVacationInfo>
+                          <strong>{last_name}</strong>
+                        </StyledDivVacationInfo>
+                        <StyledDivVacationInfo>
+                          <strong>{email}</strong>
+                        </StyledDivVacationInfo>
+                      </Row>
+                      <Row>
+                        <StyledDivVacationInfo>
+                          <strong>{available_sick_days}</strong>
+                          <strong>{lang.superAdmin.rowSickDays}</strong>
+                        </StyledDivVacationInfo>
+                        <StyledDivVacationInfo>
+                          <strong>{available_vacation}</strong>
+                          <strong>{lang.superAdmin.rowVacationDays}</strong>
+                        </StyledDivVacationInfo>
+                      </Row>
+                    </div>
+                  {/* ), */}
+                {/* )} */}
+              </StyledDivContent>
+              <ButtonWrapper>
+                <StyledButton
+                  shape="round"
+                  htmlType="submit"
+                  size="large"
+                  onClick={SendPasswordId}
+                >
+                  {lang.button['sendPasswordButton']}
+                </StyledButton>
+                <StyledButton shape="round" htmlType="submit" size="large">
+                  {lang.button['addButton']}
+                </StyledButton>
+              </ButtonWrapper>
+              <Table
+                columns={columns}
+                dataSource={vacations}
+                size="large"
+                rowClassName={SelectColor}
+              />
+            </StyledContent>
+          )
+        )}
       </StyledLayout>
     </Layout>
   );
