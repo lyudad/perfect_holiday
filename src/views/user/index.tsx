@@ -41,7 +41,7 @@ type Vacation = {
 };
 
 const UserView = (): JSX.Element => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [type, setType] = useState<string>('vacation');
   const { control, handleSubmit, watch } = useForm<Vacation>();
 
