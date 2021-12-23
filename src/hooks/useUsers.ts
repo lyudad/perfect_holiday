@@ -93,15 +93,11 @@ export function useGetUserData() {
   });
 }
 
-export function getUserRequestDays(userId: string) {
+export async function getUserRequestDays(userId: string) {
   const state = store.getState();
   const token = `Bearer ${state.person.user.access_token}`;
-  return useQuery('casual', async (): Promise<Array<User>> => {
-    const { data } = await axios.get(`${REACT_APP_BASE}${url.casual}${userId}`, {
-      headers: { Authorization: token },
-    });
-
-    return data;
+  return await axios.get(`${REACT_APP_BASE}${url.casual}${userId}`, {
+    headers: { Authorization: token },
   });
 }
 
