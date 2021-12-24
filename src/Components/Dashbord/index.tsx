@@ -67,8 +67,8 @@ const Dashbord = (): JSX.Element => {
       });
   };
   const onSubmit = () => {
-    if (watchAll.startDate===undefined) start_date= showCurrentDate(startDate)
-    if (watchAll.endDate===undefined) end_date= showCurrentDate(endDate)
+    if (!watchAll.startDate) start_date= showCurrentDate(startDate)
+    if (!watchAll.endDate) end_date= showCurrentDate(endDate)
     const difference = dateDiffInDays(new Date(start_date), new Date(end_date))+1;
     toEditRestDays({
       ...ids,
