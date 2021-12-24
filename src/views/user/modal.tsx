@@ -53,12 +53,8 @@ const ModalWindow = ({ onClose }: any) => {
 
   const days: TBookkHoliday = { type, start_date, end_date };
 
-  const onChangeType = (type: any) => {
-    setType(type);
-  };
-
   const onSubmit: SubmitHandler<Vacation> = () => {
-    onChangeType(type);
+    setType(type);
     bookigRestDays(days, userId);
     toggleModal();
     onClose();
@@ -148,7 +144,7 @@ const ModalWindow = ({ onClose }: any) => {
         <SelectBlock
           size="middle"
           defaultValue="vacation"
-          onSelect={type => onChangeType(type)}
+          onSelect={(type: any) => setType(type)}
           value={type}
         >
           <Option value="vacation">Vacation</Option>
