@@ -101,7 +101,7 @@ const AdminView = (): JSX.Element => {
                         <Input placeholder={lang.userInfo.email} />
                       </Form.Item>
                     </Col>
-                    {role === Role.SUPER ? (
+                    {role === Role.SUPER &&
                       <Col span={3}>
                         <Form.Item name="role" rules={[{ type: 'string' }]}>
                           <SelectBlock
@@ -116,7 +116,7 @@ const AdminView = (): JSX.Element => {
                           </SelectBlock>
                         </Form.Item>
                       </Col>
-                    ): null}
+                    }
                     <Col span={4}>
                       <Form.Item>
                         <Button

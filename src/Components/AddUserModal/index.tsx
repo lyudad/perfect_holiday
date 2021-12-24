@@ -72,7 +72,7 @@ export const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
         >
           <Input />
         </Form.Item>
-        {role === Role.SUPER ? (
+        {role === Role.SUPER &&
           <Form.Item label={lang.superAdmin.roleTitle} name="role">
             <Select defaultValue="employee">
               <Option value="admin" key="id">
@@ -83,7 +83,7 @@ export const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
               </Option>
             </Select>
           </Form.Item>
-        ): null}
+        }
       </Form>
     </Modal>
   );

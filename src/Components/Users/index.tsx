@@ -91,9 +91,9 @@ const Users = (): JSX.Element => {
         >
           <Column title={lang.userInfo.firstName} dataIndex="first_name" key="id" />
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
-          {role === Role.SUPER ? (
+          {role === Role.SUPER &&
             <Column title={lang.superAdmin.roleTitle} dataIndex="role" key="id" />
-          ): null}
+          }
           <Column
             title={lang.superAdmin.actionsTitle}
             key="action"
@@ -110,7 +110,7 @@ const Users = (): JSX.Element => {
             key="id"
             render={(dataIndex, key: IUserId) => (
               <Space size="middle">
-                {role === Role.ADMIN ? (
+                {role === Role.ADMIN &&
                   <Button
                     onClick={() => {
                       blockUser(dataIndex, key);
@@ -120,8 +120,8 @@ const Users = (): JSX.Element => {
                   >
                     {dataIndex ? lang.updateStatus.block : lang.updateStatus.unblock}
                   </Button>
-                ): null}
-                {role === Role.SUPER ? (
+                }
+                {role === Role.SUPER &&
                   <>
                     <Button
                       onClick={() => {
@@ -141,7 +141,7 @@ const Users = (): JSX.Element => {
                       onCancel={() => setVisibleDelete(false)}
                     />
                   </>
-                ): null}
+                }
               </Space>
             )}
           />
