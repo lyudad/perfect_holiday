@@ -121,5 +121,6 @@ export const lang = {
   userRole: {
     userAdmin: 'Admin',
     userEmployee: 'Employee',
+    userSuper: 'Super',
   },
 };

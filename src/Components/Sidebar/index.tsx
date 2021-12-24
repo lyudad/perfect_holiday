@@ -1,4 +1,4 @@
-import { SidebarBlock, SidebarUl, SidebarLi } from './styled';
+import { SidebarBlock, SidebarUl, SidebarLi } from './styles';
 import { lang } from 'language/en';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';

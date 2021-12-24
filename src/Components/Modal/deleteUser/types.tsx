@@ -1,4 +1,4 @@
-import { User,IUserId } from "hooks/types";
+import { IUserId } from "hooks/types";
 
 
 export interface CollectionDeleteProps {

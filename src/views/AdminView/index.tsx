@@ -33,10 +33,6 @@ const AdminView = (): JSX.Element => {
   const state = store.getState();
 
   const role = state.person.user.role;
-  const InitialState = {
-    canSelectRoleInEdit: (role === Role.SUPER)
-  };
-
   const userId = useRouteMatch<IMatchParams>().params.id;
   const { data } = getUserRequestDays(userId);
 
@@ -46,9 +42,11 @@ const AdminView = (): JSX.Element => {
       .catch(() => message.success(lang.updateStatus.success));
     form.resetFields();
   };
+
   const SelectColor = (record: { status: string }) => {
     return sellectItemColor(record.status) || '';
   };
+
   const SendPasswordId = () => {
     const state = store.getState();
     const token = `Bearer ${state.person.user.access_token}`;
@@ -63,6 +61,7 @@ const AdminView = (): JSX.Element => {
         message.error(lang.passwordMessage.fail);
       });
   };
+  
   return (
     <Layout>
       <StyledLayout>
@@ -102,9 +101,7 @@ const AdminView = (): JSX.Element => {
                         <Input placeholder={lang.userInfo.email} />
                       </Form.Item>
                     </Col>
-                    {
-                      (InitialState.canSelectRoleInEdit)
-                      &&
+                    {role === Role.SUPER ? (
                       <Col span={3}>
                         <Form.Item name="role" rules={[{ type: 'string' }]}>
                           <SelectBlock
@@ -119,7 +116,7 @@ const AdminView = (): JSX.Element => {
                           </SelectBlock>
                         </Form.Item>
                       </Col>
-                    }
+                    ): null}
                     <Col span={4}>
                       <Form.Item>
                         <Button
@@ -134,41 +131,29 @@ const AdminView = (): JSX.Element => {
                     </Col>
                   </Row>
                 </Form>
-
-                {/* {data?.map(
-                  ({
-                    id,
-                    first_name,
-                    available_sick_days,
-                    available_vacation,
-                    last_name,
-                    email,
-                  }: User) => ( */}
-                    <div>
-                      <Row>
-                        <StyledDivVacationInfo>
-                          <strong>{first_name}</strong>
-                        </StyledDivVacationInfo>
-                        <StyledDivVacationInfo>
-                          <strong>{last_name}</strong>
-                        </StyledDivVacationInfo>
-                        <StyledDivVacationInfo>
-                          <strong>{email}</strong>
-                        </StyledDivVacationInfo>
-                      </Row>
-                      <Row>
-                        <StyledDivVacationInfo>
-                          <strong>{available_sick_days}</strong>
-                          <strong>{lang.superAdmin.rowSickDays}</strong>
-                        </StyledDivVacationInfo>
-                        <StyledDivVacationInfo>
-                          <strong>{available_vacation}</strong>
-                          <strong>{lang.superAdmin.rowVacationDays}</strong>
-                        </StyledDivVacationInfo>
-                      </Row>
-                    </div>
-                  {/* ), */}
-                {/* )} */}
+                <div>
+                  <Row>
+                    <StyledDivVacationInfo>
+                      <strong>{first_name}</strong>
+                    </StyledDivVacationInfo>
+                    <StyledDivVacationInfo>
+                      <strong>{last_name}</strong>
+                    </StyledDivVacationInfo>
+                    <StyledDivVacationInfo>
+                      <strong>{email}</strong>
+                    </StyledDivVacationInfo>
+                  </Row>
+                  <Row>
+                    <StyledDivVacationInfo>
+                      <strong>{available_sick_days}</strong>
+                      <strong>{lang.superAdmin.rowSickDays}</strong>
+                    </StyledDivVacationInfo>
+                    <StyledDivVacationInfo>
+                      <strong>{available_vacation}</strong>
+                      <strong>{lang.superAdmin.rowVacationDays}</strong>
+                    </StyledDivVacationInfo>
+                  </Row>
+                </div>
               </StyledDivContent>
               <ButtonWrapper>
                 <StyledButton

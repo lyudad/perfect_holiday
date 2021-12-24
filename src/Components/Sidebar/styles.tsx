@@ -40,4 +40,4 @@ const SidebarLi = styled.li`
   }
 `;
 
-export { SidebarBlock, SidebarUl, SidebarLi };
+export { SidebarBlock, SidebarUl, SidebarLi};
