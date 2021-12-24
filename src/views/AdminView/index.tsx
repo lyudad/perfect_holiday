@@ -42,7 +42,7 @@ const AdminView = (): JSX.Element => {
   const { watch } = useForm<Vacation>();
   const [form] = Form.useForm();
 
-  const watchAll = watch();
+  const watchAllDate = watch();
   const state = store.getState();
 
   const userId = useRouteMatch<IMatchParams>().params.id;
@@ -55,16 +55,12 @@ const AdminView = (): JSX.Element => {
       .catch(error => console.log(error));
   }, []);
 
-  const start_date = showCurrentDate(new Date(watchAll.startDate));
-  const end_date = showCurrentDate(new Date(watchAll.endDate));
+  const start_date = showCurrentDate(new Date(watchAllDate.startDate));
+  const end_date = showCurrentDate(new Date(watchAllDate.endDate));
 
   const days: TBookkHoliday = { type, start_date, end_date };
 
   const role = state.person.user.role;
-
-  const InitialState = {
-    canSelectRoleInEdit: role === Role.SUPER,
-  };
 
   const updateUserInfo = () => {
     toUpdateUserInfo(form.getFieldsValue(), userId)
@@ -151,7 +147,7 @@ const AdminView = (): JSX.Element => {
                         <Input placeholder={lang.userInfo.email} />
                       </Form.Item>
                     </Col>
-                    {InitialState.canSelectRoleInEdit && (
+                    {role === Role.SUPER ? (
                       <Col span={3}>
                         <Form.Item name="role" rules={[{ type: 'string' }]}>
                           <SelectBlock placeholder={lang.superAdmin.roleTitle}>
@@ -163,7 +159,7 @@ const AdminView = (): JSX.Element => {
                         </Form.Item>
                         //{' '}
                       </Col>
-                    )}
+                    ) : null}
                     <Col span={4}>
                       <Form.Item>
                         <Button

@@ -36,11 +36,11 @@ const ModalWindow = ({ onClose }: any) => {
       .catch(error => console.log(error));
   }, []);
 
-  const watchAll = watch();
+  const watchAllDate = watch();
   const today = new Date();
 
-  const newStartDate = new Date(watchAll.startDate);
-  const newEndDate = new Date(watchAll.endDate);
+  const newStartDate = new Date(watchAllDate.startDate);
+  const newEndDate = new Date(watchAllDate.endDate);
 
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
@@ -113,9 +113,9 @@ const ModalWindow = ({ onClose }: any) => {
               <DatePicker
                 selectsStart
                 dateFormat="dd.MM.yyyy"
-                startDate={watchAll.startDate}
-                endDate={watchAll.endDate}
-                maxDate={watchAll.endDate}
+                startDate={watchAllDate.startDate}
+                endDate={watchAllDate.endDate}
+                maxDate={watchAllDate.endDate}
                 minDate={
                   type === TypeRestDay.VACATION ? lastVacationDay : lastSickDay
                 }
@@ -134,9 +134,9 @@ const ModalWindow = ({ onClose }: any) => {
               <DatePicker
                 selectsEnd
                 dateFormat="dd.MM.yyyy"
-                startDate={watchAll.startDate}
-                endDate={watchAll.endDate}
-                minDate={watchAll.startDate}
+                startDate={watchAllDate.startDate}
+                endDate={watchAllDate.endDate}
+                minDate={watchAllDate.startDate}
                 maxDate={getMaxDate}
                 selected={field.value}
                 onChange={field.onChange}

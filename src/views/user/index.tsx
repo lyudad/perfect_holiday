@@ -27,7 +27,7 @@ const UserView = (): JSX.Element => {
   const [type, setType] = useState<string>('vacation');
   const [data, setData] = useState<User[]>();
   const { watch } = useForm<Vacation>();
-  const watchAll = watch();
+  const watchAllDate = watch();
 
   const state = store.getState();
 
@@ -44,8 +44,8 @@ const UserView = (): JSX.Element => {
       .catch(error => console.log(error));
   }, []);
 
-  const newStartDate = new Date(watchAll.startDate);
-  const newEndDate = new Date(watchAll.endDate);
+  const newStartDate = new Date(watchAllDate.startDate);
+  const newEndDate = new Date(watchAllDate.endDate);
 
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
@@ -69,18 +69,16 @@ const UserView = (): JSX.Element => {
   return (
     <Layout>
       <StyledLayout>
-        {Modal && (
-          <Modal
-            onCancel={toggleModal}
-            visible={isModalVisible}
-            wrapClassName="reservation_modal"
-            width={600}
-            footer={null}
-          >
-            <div className="reserv_message">Please choose dates of reservation.</div>
-            <ModalWindow onClose={onSubmit} />
-          </Modal>
-        )}
+        <Modal
+          onCancel={toggleModal}
+          visible={isModalVisible}
+          wrapClassName="reservation_modal"
+          width={600}
+          footer={null}
+        >
+          <div className="reserv_message">Please choose dates of reservation.</div>
+          <ModalWindow onClose={onSubmit} />
+        </Modal>
         <Sidebar />
         <StyledContent>
           <StyledDivContent className="site-layout-background">
