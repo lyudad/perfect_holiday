@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from 'Components/Sidebar';
 import { lang } from 'language/en';
 import { columns } from './const';
@@ -36,17 +36,13 @@ const { REACT_APP_BASE } = process.env;
 const { Option } = Select;
 
 const AdminView = (): JSX.Element => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [type, setType] = useState<string>('vacation');
   const [data, setData] = useState<User[]>();
   const { watch } = useForm<Vacation>();
   const [form] = Form.useForm();
 
   const watchAll = watch();
-
-  const newStartDate = new Date(watchAll.startDate);
-  const newEndDate = new Date(watchAll.endDate);
-
   const state = store.getState();
 
   const userId = useRouteMatch<IMatchParams>().params.id;
@@ -59,8 +55,8 @@ const AdminView = (): JSX.Element => {
       .catch(error => console.log(error));
   }, []);
 
-  const start_date = showCurrentDate(newStartDate);
-  const end_date = showCurrentDate(newEndDate);
+  const start_date = showCurrentDate(new Date(watchAll.startDate));
+  const end_date = showCurrentDate(new Date(watchAll.endDate));
 
   const days: TBookkHoliday = { type, start_date, end_date };
 
@@ -78,7 +74,6 @@ const AdminView = (): JSX.Element => {
   };
 
   const SendPasswordId = () => {
-    const state = store.getState();
     const token = `Bearer ${state.person.user.access_token}`;
     return axios
       .get(`${REACT_APP_BASE}${url.users}${url.pushPassword}${userId}`, {
@@ -124,7 +119,6 @@ const AdminView = (): JSX.Element => {
         <Sidebar />
         {data?.map(
           ({
-            id,
             first_name,
             available_sick_days,
             available_vacation,

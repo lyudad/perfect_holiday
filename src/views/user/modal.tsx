@@ -18,13 +18,14 @@ import { DECLINED } from 'constants/statuses';
 const { Option } = Select;
 
 const ModalWindow = ({ onClose }: any) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [type, setType] = useState<string>('vacation');
   const [data, setData] = useState<User[]>();
   const { control, handleSubmit, watch } = useForm<Vacation>();
   const state = store.getState();
 
-  const availableDays = state.person.user.vacationDays;
+  const availableVacationDays = state.person.user.vacationDays;
+
   const userId = state.person.user.id;
 
   useEffect(() => {
@@ -44,11 +45,14 @@ const ModalWindow = ({ onClose }: any) => {
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
 
-  const getNumberOfDayInYear = daysIntoYear(newStartDate) + availableDays;
+  const getNumberOfDayInYear =
+    daysIntoYear(newStartDate) +
+    (type === TypeRestDay.VACATION ? availableVacationDays : 0);
   const getYear = newStartDate.getFullYear();
   const getMaxDate = new Date(getYear, 0, getNumberOfDayInYear);
 
   const days: TBookkHoliday = { type, start_date, end_date };
+
   const onChangeType = (type: any) => {
     setType(type);
   };
