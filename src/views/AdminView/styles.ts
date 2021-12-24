@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import {Layout, Button, Form, Input, Select} from "antd";
+import { Layout, Button, Form, Input, Select } from 'antd';
 
 const { Content } = Layout;
 
@@ -8,15 +8,14 @@ export const StyledLayout = styled(Layout)`
   display: flex;
   flex-direction: row;
   height: 100vh;
-  
 `;
-export const StyledDivVacationInfo = styled("div")`
+export const StyledDivVacationInfo = styled('div')`
   :not(:last-child) {
     margin-right: 30px;
   }
   font-size: 20px;
 `;
-export const StyledDivContent = styled("div")`
+export const StyledDivContent = styled('div')`
   padding: 24px;
   /* text-align: left; */
 `;
@@ -29,11 +28,11 @@ export const StyledButton = styled(Button)`
   float: right;
   width: 150px;
   color: black;
-  background-color: #DCDCDC;
+  background-color: #dcdcdc;
   border: 1px solid transparent;
   margin-bottom: 20px;
   :not(:last-child) {
-
+    margin-right: 10px;
   }
 `;
 export const StyledContent = styled(Content)`
@@ -42,14 +41,15 @@ export const StyledContent = styled(Content)`
 `;
 
 export const ButtonWrapper = styled(Content)`
-display: flex;
-flex-direction: column;
-float: right;
+  display: flex;
+  flex-direction: row;
+  float: right;
 `;
 
 export const StyledInput = styled(Input)`
-width: 100%`;
+  width: 100%;
+`;
 
 export const SelectBlock = styled(Select)`
-    width: 120px;
+  width: 120px;
 `;

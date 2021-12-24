@@ -53,7 +53,7 @@ export const StyledDivContent = styled('div')`
 export const StyledModalContent = styled('div')`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: end;
   padding-top: 20px;
   text-align: left;
 `;
