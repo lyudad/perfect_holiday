@@ -9,18 +9,17 @@ import {
 import Loading from 'Components/Loading';
 import { lang } from 'language/en';
 import { APPROVED, DECLINED, CHANGED } from 'constants/statuses';
-import { IUserId, TEditRestDays, TVacationRestDays, IUserDay } from 'hooks/types';
+import { IUserId, TEditRestDays, TVacationRestDays } from 'hooks/types';
 import { StyledInputContent, StyledModalContent, StyledDatePicker  } from 'views/user/styles'
 import { Controller, useForm } from 'react-hook-form';
 import { showCurrentDate } from 'views/user/const';
 import { useState } from 'react';
-import {dateDiffInDays} from 'Components/Functions/DiffDays'
+
 const { Column } = Table;
 
 const Dashbord = (): JSX.Element => {
   const { error, isLoading, data, refetch } = useAllNotApprovedRestDays();
-  const [typeVacEdit, setTypeVacEdit]= useState<string>('')
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { control, handleSubmit, watch } = useForm<TVacationRestDays>();
   const [ids, setIds] = useState<TEditRestDays>();
 
@@ -36,29 +35,30 @@ const Dashbord = (): JSX.Element => {
   const start_date = showCurrentDate(newStartDate);
   const end_date = showCurrentDate(newEndDate);
 
-  const putStatusApproved = (dataIndex: string, key: IUserDay) => {
-    const difference = dateDiffInDays(new Date(key.start_date), new Date(key.end_date));
+  const putStatusApproved = (dataIndex: string, key: IUserId) => {
     toApprovedOrDisapproveRestDay({
       status: APPROVED,
       id: key.id,
       userId: dataIndex,
-      diffDays: difference,
-      type:  key.type,
     })
-      .then(() => message.loading(lang.info.loading))
-      .catch(() => message.error(lang.dashboard.failMessageStatusApproved))
-      .finally(() => {
-        return refetch(), message.success(lang.dashboard.messageStatusApproved);
-      });
+      .then(() => {
+        message.success(lang.dashboard.messageStatusApproved)
+        refetch()
+      }).catch(() => {
+        message.error(lang.dashboard.failMessageStatusApproved)
+      })
+      // .then(() => message.loading(lang.info.loading))
+      // .catch(() => message.error(lang.dashboard.failMessageStatusApproved))
+      // .finally(() => {
+      //   return refetch(), message.success(lang.dashboard.messageStatusApproved);
+      // });
   };
 
-  const putStatusDeclined = (dataIndex: string, key: IUserDay) => {
+  const putStatusDeclined = (dataIndex: string, key: IUserId) => {
     toApprovedOrDisapproveRestDay({
       status: DECLINED,
       id: key.id,
       userId: dataIndex,
-      diffDays: 0,
-      type: key.type,
     })
       .then(() => message.loading(lang.info.loading))
       .catch(() => message.error(lang.dashboard.failMessageStatusDeclined))
@@ -66,27 +66,26 @@ const Dashbord = (): JSX.Element => {
         return refetch(), message.success(lang.dashboard.messageStatusDeclined);
       });
   };
+
   const onSubmit = () => {
-    const difference = dateDiffInDays(new Date(start_date), new Date(end_date));
     toEditRestDays({
       ...ids,
       status: CHANGED,
       start_date: start_date,
       end_date: end_date,
-      diffDays: difference,
-      type: typeVacEdit
     })
-      .then(() => message.loading(lang.info.loading))
-      .catch(() => message.error(lang.dashboard.failMessageStatusEditing))
-      .finally(() => {
-        return refetch(), message.success(lang.dashboard.messageStatusEditing);
-      });
+    .then(() => message.loading(lang.info.loading))
+    .catch(() => message.error(lang.dashboard.failMessageStatusEditing))
+    .finally(() => {
+      return refetch(), message.success(lang.dashboard.messageStatusEditing);
+    });
     toggleModal()
   };
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
+
   return (
     <StyledLayout>
       <Modal
@@ -177,24 +176,19 @@ const Dashbord = (): JSX.Element => {
             dataIndex={['user', 'id']}
             key="id"
             defaultFilteredValue={['user', 'userId']}
-            render={(dataIndex: string, key: IUserDay) => (
+            render={(dataIndex: string, key: IUserId) => (
               <Space size="middle">
                 <Button
                   htmlType="submit"
                   type="link"
-                  onClick={() => {
-                    putStatusApproved(dataIndex, key);
-                  }}
-
+                  onClick={() => putStatusApproved(dataIndex, key)}
                 >
                   {lang.dashboard.approveButton}
                 </Button>
                 <Button
                   htmlType="submit"
                   type="link"
-                  onClick={() =>
-                  {
-                    putStatusDeclined(dataIndex, key)}}
+                  onClick={() => putStatusDeclined(dataIndex, key)}
                 >
                   {lang.dashboard.declineButton}
                 </Button>
@@ -202,7 +196,6 @@ const Dashbord = (): JSX.Element => {
                   htmlType="submit"
                   type="link"
                   onClick={() => {
-                    setTypeVacEdit(key.type)
                     setIsModalVisible(true),
                       setIds({ userId: dataIndex, id: key.id });
                   }}

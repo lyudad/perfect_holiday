@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import DatePicker from 'react-datepicker';
-
 import { Layout, Button, List } from "antd";
 
 export const StyledLayout = styled(Layout)`
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  min-height: 100vh;
 `;
 export const StyledButton = styled(Button)`
   width: 150px;

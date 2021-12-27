@@ -7,7 +7,7 @@ const { Content } = Layout;
 export const StyledLayout = styled(Layout)`
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  min-height: 100vh;
   
 `;
 export const StyledDivVacationInfo = styled("div")`
@@ -18,7 +18,6 @@ export const StyledDivVacationInfo = styled("div")`
 `;
 export const StyledDivContent = styled("div")`
   padding: 24px;
-  /* text-align: left; */
 `;
 export const StyledFormItem = styled(Form.Item)`
   display: inline-block;

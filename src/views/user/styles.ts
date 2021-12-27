@@ -27,7 +27,7 @@ export const StyledDatePicker = styled(DatePicker)`
 export const StyledLayout = styled(Layout)`
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 export const SelectBlock = styled(Select)`
@@ -61,6 +61,7 @@ export const StyledModalContent = styled('div')`
 export const StyledInputContent = styled('div')`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   padding-top: 20px;
 `;
 

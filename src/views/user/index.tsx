@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { Key, useState } from 'react';
 import 'antd/dist/antd.css';
 import { lang } from 'language/en';
-import { Row, Form, Modal, Button, Table, Select } from 'antd';
+import { Row, Form, Modal, Button, Table, Select, Space, message, Tag } from 'antd';
+import { CollectionDeleteVacation } from 'Components/Modal/deleteVacation';
 import './index.css';
 import {
   StyledLayout,
@@ -16,7 +17,6 @@ import {
   StyledDatePicker
 } from './styles';
 import {
-  columns,
   howManyPassSickDays,
   howManyPassVacationDays,
   showCurrentDate,
@@ -26,14 +26,16 @@ import Layout from './layout';
 import Sidebar from 'Components/Sidebar';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { bookigRestDays, getUserRequestDays } from 'hooks/useUsers';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { TBookkHoliday, THoliday } from 'hooks/types';
+import { TBookkHoliday, THoliday} from 'hooks/types';
 import store from 'Redux/store';
 import { TypeRestDay } from './types';
-import { DECLINED } from 'constants/statuses';
+import { DECLINED, PENDING } from 'constants/statuses';
+import { IUserId } from 'hooks/types';
+import { Status } from 'views/login/styles';
 
 const { Option } = Select;
+const { Column } = Table;
 
 type Vacation = {
   startDate: Date;
@@ -41,9 +43,11 @@ type Vacation = {
 };
 
 const UserView = (): JSX.Element => {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [type, setType] = useState<string>('vacation');
   const { control, handleSubmit, watch } = useForm<Vacation>();
+  const [visibleDelete, setVisibleDelete] = useState<boolean>(false);
+  const [deleteId, setDeleteId] = useState<IUserId>({id:''})
 
   const watchAll = watch();
   const today = new Date();
@@ -70,10 +74,15 @@ const UserView = (): JSX.Element => {
   };
 
   const onSubmit: SubmitHandler<Vacation> = () => {
+    bookigRestDays(days, userId)
+      .then(() => {
+        message.success(lang.dashboard.messageStatusEditing);
+        refetch();
+      }).catch(() => {
+        message.error(lang.dashboard.failMessageStatusEditing);
+      })
     onChangeType(type);
-    bookigRestDays(days, userId);
     toggleModal();
-    refetch();
   };
 
   const toggleModal = () => {
@@ -123,84 +132,85 @@ const UserView = (): JSX.Element => {
     );
     lastVacationDay.setDate(lastVacationDay.getDate() + howManyPassVacationDays);
   }
+
   return (
     <Layout>
       <StyledLayout>
-        {Modal && (
-          <Modal
-            onCancel={toggleModal}
-            visible={isModalVisible}
-            wrapClassName="reservation_modal"
-            width={600}
-            footer={null}
-          >
-            <div className="reserv_message">{lang.modalCalendar.topText}</div>
-            <Form onSubmitCapture={handleSubmit(onSubmit)}>
-              <StyledInputContent>
-                <Controller
-                  name="startDate"
-                  control={control}
-                  render={({ field }) => {
-                    return (
-                      <StyledDatePicker
-                        selectsStart
-                        dateFormat="dd.MM.yyyy"
-                        startDate={watchAll.startDate}
-                        endDate={watchAll.endDate}
-                        maxDate={watchAll.endDate}
-                        minDate={
-                          type === TypeRestDay.VACATION
-                            ? lastVacationDay
-                            : lastSickDay
-                        }
-                        selected={field.value}
-                        onChange={field.onChange}
-                        placeholderText="Start date"
-                      />
-                    );
-                  }}
-                />
-                <Controller
-                  name="endDate"
-                  control={control}
-                  render={({ field }) => {
-                    return (
-                      <StyledDatePicker
-                        selectsEnd
-                        dateFormat="dd.MM.yyyy"
-                        startDate={watchAll.startDate}
-                        endDate={watchAll.endDate}
-                        minDate={watchAll.startDate}
-                        selected={field.value}
-                        onChange={field.onChange}
-                        placeholderText="End date"
-                      />
-                    );
-                  }}
-                />
-                <SelectBlock
-                  size="middle"
-                  defaultValue="vacation"
-                  onSelect={type => onChangeType(type)}
-                  value={type}
-                >
-                  <Option value="vacation">{lang.modalCalendar.selectVacation}</Option>
-                  <Option value="sick">{lang.modalCalendar.selectSickLeave}</Option>
-                  <Option value="unpaid">Unpaid</Option>
-                </SelectBlock>
-              </StyledInputContent>
+        <Modal
+          onCancel={toggleModal}
+          visible={isModalVisible}
+          wrapClassName="reservation_modal"
+          width={600}
+          footer={null}
+        >
+          <div>{lang.modalCalendar.topText}</div>
+          <Form onSubmitCapture={handleSubmit(onSubmit)}>
+            <StyledInputContent>
+              <Controller
+                name="startDate"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <StyledDatePicker
+                      selectsStart
+                      dateFormat="dd.MM.yyyy"
+                      startDate={watchAll.startDate}
+                      endDate={watchAll.endDate}
+                      maxDate={watchAll.endDate}
+                      minDate={
+                        type === TypeRestDay.VACATION
+                          ? lastVacationDay
+                          : lastSickDay
+                      }
+                      selected={field.value}
+                      onChange={field.onChange}
+                      placeholderText="Start date"
+                      isClearable
+                    />
+                  );
+                }}
+              />
+              <Controller
+                name="endDate"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <StyledDatePicker
+                      selectsEnd
+                      dateFormat="dd.MM.yyyy"
+                      startDate={watchAll.startDate}
+                      endDate={watchAll.endDate}
+                      minDate={watchAll.startDate}
+                      selected={field.value}
+                      onChange={field.onChange}
+                      placeholderText="End date"
+                      isClearable
+                    />
+                  );
+                }}
+              />
+              <SelectBlock
+                size="middle"
+                defaultValue="vacation"
+                onSelect={type => onChangeType(type)}
+                value={type}
+              >
+                <Option value="vacation">{lang.modalCalendar.selectVacation}</Option>
+                <Option value="sick">{lang.modalCalendar.selectSickLeave}</Option>
+                <Option value="unpaid">Unpaid</Option>
+              </SelectBlock>
+            </StyledInputContent>
 
-              <StyledModalContent>
-                <Button onClick={toggleModal}>{lang.modalCalendar.cancelButton}</Button>
-                <Form.Item>
-                  <Button type="primary" htmlType="submit">
-                    {lang.modalCalendar.confirmButton}
-                  </Button>
-                </Form.Item>
-              </StyledModalContent>
-            </Form>
-          </Modal>
-        )}
+            <StyledModalContent>
+              <Button onClick={toggleModal}>{lang.modalCalendar.cancelButton}</Button>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  {lang.modalCalendar.confirmButton}
+                </Button>
+              </Form.Item>
+            </StyledModalContent>
+          </Form>
+        </Modal>
         <Sidebar />
         <StyledContent>
           <StyledDivContent className="site-layout-background">
@@ -227,12 +237,57 @@ const UserView = (): JSX.Element => {
           >
             +
           </StyledButton>
-          <Table
-            columns={columns}
-            dataSource={userVacations}
-            size="large"
-            rowClassName={SelectColor}
-          />
+
+          <Table dataSource={userVacations} pagination={{ pageSize: 10 }} size="large" rowClassName={SelectColor}>
+              <Column
+                title={lang.userPage.startDateColumn}
+                dataIndex= "start_date"
+                key="id"
+              />
+              <Column
+                title={lang.userPage.endDateColumn}
+                dataIndex= "end_date"
+                key="id"
+              />
+              <Column
+                title={lang.userPage.statusColumn}
+                dataIndex= "status"
+                key="id"
+              />
+              <Column
+                title={lang.userPage.typeColumn}
+                dataIndex= "type"
+                key="id"
+              />
+              <Column
+                title={lang.userPage.actionColumn}
+                dataIndex="status"
+                key="id"
+                render={(dataIndex: string, key: IUserId) => (
+                  <>
+                    <Space size="middle">
+                      <Button
+                        disabled={dataIndex !== PENDING}
+                        onClick={() => {
+                          setVisibleDelete(true);
+                          setDeleteId(key)
+                        }}
+                        htmlType="submit"
+                        type="link"
+                      >
+                        {lang.deleteVacation.deleteButton}
+                      </Button>
+                      <CollectionDeleteVacation
+                        values={{dataIndex: userId, key: deleteId}}
+                        visible={visibleDelete}
+                        onCreate={() => setVisibleDelete(false)}
+                        onCancel={() => setVisibleDelete(false)}
+                      />
+                    </Space>
+                  </>
+                )}
+              />
+          </Table>
         </StyledContent>
       </StyledLayout>
     </Layout>

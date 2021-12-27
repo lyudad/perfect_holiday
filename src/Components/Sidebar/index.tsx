@@ -1,37 +1,54 @@
-import { SidebarBlock, SidebarUl, SidebarLi } from './styled';
+import { SidebarBlock, MenuBlock } from './styles';
 import { lang } from 'language/en';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import userOperation from 'Redux/users/userOperation';
+import { UnorderedListOutlined, TeamOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import store from 'Redux/store';
+import { Badge } from 'antd';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const state = store.getState();
   const role = state.person.user.role;
+
   return (
     <SidebarBlock>
-      <SidebarUl>
-        {role != 'employee' ? (
+      <MenuBlock
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+        theme={'dark'}
+      >
+        {role != 'employee' &&
           <>
-            <SidebarLi value="Dashboard">
-              <Link to="/dashbord">{`${lang.sidebar['dashboard']}`}</Link>
-            </SidebarLi>
-            <SidebarLi value="Users">
-              <Link to="/users">{`${lang.sidebar['users']}`}</Link>
-            </SidebarLi>
+            <Badge count={'2'} offset={[-3, 10]}>
+              <MenuBlock.Item key="Dashboard" icon={<UnorderedListOutlined />}>
+                <a href='/dashbord'>
+                  {`${lang.sidebar['dashboard']}`}
+                </a>
+              </MenuBlock.Item>
+            </Badge>
+            <MenuBlock.Item key="Users" icon={<TeamOutlined />}>
+              <a href='/users'>
+                {`${lang.sidebar['users']}`}
+              </a>
+            </MenuBlock.Item>
           </>
-        ) : null}
-        {role === 'employee' ? (
-          <SidebarLi value="Profile">
-            <Link to="/user">{`${lang.sidebar['profile']}`}</Link>
-          </SidebarLi>
-        ) : null}
-        <SidebarLi value="Logout" onClick={() => dispatch(userOperation.signOut())}>
-          <Link to="/login">{`${lang.sidebar['logout']}`}</Link>
-        </SidebarLi>
-      </SidebarUl>
+        }
+        {role === 'employee' &&
+          <MenuBlock.Item key="Profile" icon={<UserOutlined />}>
+            <a href='/user'>
+              {`${lang.sidebar['profile']}`}
+            </a>
+          </MenuBlock.Item>
+        }
+        <MenuBlock.Item onClick={() => dispatch(userOperation.signOut())} key="Logout" icon={<LogoutOutlined />}>
+          <a href='/login'>
+            {`${lang.sidebar['logout']}`}
+          </a>
+        </MenuBlock.Item>
+      </MenuBlock>
     </SidebarBlock>
   );
 };
+
 export default Sidebar;

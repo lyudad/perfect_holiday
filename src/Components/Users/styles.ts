@@ -6,7 +6,7 @@ const { Content } = Layout;
 export const StyledLayout = styled(Layout)`
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  min-height: 100vh;
 `;
 export const StyledButton = styled(Button)`
   float: right;
