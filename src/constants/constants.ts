@@ -5,7 +5,6 @@ export enum Role {
   ADMIN = 'admin',
   SUPER = 'super',
 }
-
 export const url = {
   users: 'users/',
   admin: 'admin/',
