@@ -13,7 +13,7 @@ import { IUserId, TEditRestDays, TVacationRestDays, IUserDay } from 'hooks/types
 import { StyledInputContent, StyledModalContent, StyledDatePicker  } from 'views/user/styles'
 import { Controller, useForm } from 'react-hook-form';
 import { showCurrentDate } from 'views/user/const';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {dateDiffInDays} from 'Components/Functions/DiffDays'
 const { Column } = Table;
 
@@ -67,9 +67,13 @@ const Dashbord = (): JSX.Element => {
       });
   };
   const onSubmit = () => {
+
     if (!watchAll.startDate) start_date= showCurrentDate(startDate)
+
     if (!watchAll.endDate) end_date= showCurrentDate(endDate)
+
     const difference = dateDiffInDays(new Date(start_date), new Date(end_date))+1;
+    console.log( start_date,end_date,difference)
     toEditRestDays({
       ...ids,
       status: CHANGED,
