@@ -7,16 +7,16 @@ import Loading from 'Components/Loading';
 import { NotFound } from '../404/index';
 import { Link } from 'react-router-dom';
 import { lang } from 'language/en';
-import { toBlockUnblockUser, toDeleteUser } from 'hooks/useUsers';
+import { toBlockUnblockUser } from 'hooks/useUsers';
 import { IUserId, User } from 'hooks/types';
 import store from 'Redux/store';
 import { Role, url, checkIsBlock } from 'constants/constants';
-import { SetStateAction, useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import { NotAccess } from 'Components/403';
 import { CollectionCreateForm } from '../AddUserModal/index';
 import { CollectionDeleteForm } from 'Components/Modal/deleteUser/index';
-import React from 'react';
 import './index.css';
+
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
@@ -32,12 +32,6 @@ const Users = (): JSX.Element => {
   const [searchResults, setSearchResults] = React.useState<User[]>([]);
   const state = store.getState();
   const role = state.person.user.role;
-
-  const InitialState = {
-    canBlockUnblockUser: role === Role.ADMIN,
-    canDeleteUser: role === Role.SUPER,
-    canColumnRole: role === Role.SUPER,
-  };
 
   const blockUser = (dataIndex: boolean, key: IUserId) => {
     toBlockUnblockUser(dataIndex, key)
@@ -97,9 +91,9 @@ const Users = (): JSX.Element => {
         >
           <Column title={lang.userInfo.firstName} dataIndex="first_name" key="id" />
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
-          {InitialState.canColumnRole && (
+          {role === Role.SUPER &&
             <Column title={lang.superAdmin.roleTitle} dataIndex="role" key="id" />
-          )}
+          }
           <Column
             title={lang.superAdmin.actionsTitle}
             key="action"
@@ -116,7 +110,7 @@ const Users = (): JSX.Element => {
             key="id"
             render={(dataIndex, key: IUserId) => (
               <Space size="middle">
-                {InitialState.canBlockUnblockUser && (
+                {role === Role.ADMIN &&
                   <Button
                     onClick={() => {
                       blockUser(dataIndex, key);
@@ -126,29 +120,29 @@ const Users = (): JSX.Element => {
                   >
                     {dataIndex ? lang.updateStatus.block : lang.updateStatus.unblock}
                   </Button>
-                )}
-                {InitialState.canDeleteUser && (<>
-                      <Button
-                        onClick={() => {
-                          setVisibleDelete(true);
-                          setDeleteId(key)
-                          setDataIndexState(dataIndex)
-                        }}
-                        htmlType="submit"
-                        type="link"
+                }
+                {role === Role.SUPER &&
+                  <>
+                    <Button
+                      onClick={() => {
+                        setVisibleDelete(true);
+                        setDeleteId(key)
+                        setDataIndexState(dataIndex)
+                      }}
+                      htmlType="submit"
+                      type="link"
                     >
                       {lang.superAdmin.deleteButton}
                     </Button>
-                      <CollectionDeleteForm
-                          values={{dataIndex: dataIndexState,key:deleteId}}
-                          visible={visibleDelete}
-                          onCreate={() => setVisibleDelete(false)}
-                          onCancel={() => setVisibleDelete(false)}
-                      />
-                </>
-                )}
+                    <CollectionDeleteForm
+                      values={{dataIndex: dataIndexState,key:deleteId}}
+                      visible={visibleDelete}
+                      onCreate={() => setVisibleDelete(false)}
+                      onCancel={() => setVisibleDelete(false)}
+                    />
+                  </>
+                }
               </Space>
-
             )}
           />
         </Table>

@@ -85,6 +85,9 @@ export const lang = {
     failDelete: 'Error deleting user!',
     roleTitle: 'Role',
     searchInputText: 'Search user',
+    saveButton: 'Save',
+    rowSickDays: ' sick days',
+    rowVacationDays: ' vacation days',
   },
   searchUser: {
     placeholder: 'Type an employee name',
@@ -98,5 +101,26 @@ export const lang = {
     confirmButton: 'Confirm Reservation',
     selectVacation: 'Vacation',
     selectSickLeave: 'Sick leave',
-  }
+  },
+  deleteVacation: {
+    deleteButton: 'Delete',
+    title: 'Deleting Vacation',
+    okText: 'Delete',
+    cancelText: 'Cancel',
+    description: 'Are you want to delete this vacation?',
+    successDelete: 'Vacation successfully deleted!',
+    failDelete: 'Error deleting vacation!'
+  },
+  userPage: {
+    startDateColumn: 'Start Date',
+    endDateColumn: 'End Date',
+    statusColumn: 'Status',
+    typeColumn: 'Type',
+    actionColumn: 'Action',
+  },
+  userRole: {
+    userAdmin: 'Admin',
+    userEmployee: 'Employee',
+    userSuper: 'Super',
+  },
 };

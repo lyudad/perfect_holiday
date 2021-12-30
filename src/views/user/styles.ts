@@ -27,7 +27,7 @@ export const StyledDatePicker = styled(DatePicker)`
 export const StyledLayout = styled(Layout)`
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 export const SelectBlock = styled(Select)`

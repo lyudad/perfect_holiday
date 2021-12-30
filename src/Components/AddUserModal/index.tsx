@@ -17,9 +17,6 @@ export const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
 
   const state = store.getState();
   const role = state.person.user.role;
-  const InitialState = {
-    canSelectRoleInModal: role === Role.SUPER,
-  };
 
   return (
     <Modal
@@ -75,18 +72,18 @@ export const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
         >
           <Input />
         </Form.Item>
-        {InitialState.canSelectRoleInModal && (
+        {role === Role.SUPER &&
           <Form.Item label={lang.superAdmin.roleTitle} name="role">
             <Select defaultValue="employee">
               <Option value="admin" key="id">
-                Admin
+                {lang.userRole.userAdmin}
               </Option>
               <Option value="employee" key="id">
-                Employee
+                {lang.userRole.userEmployee}
               </Option>
             </Select>
           </Form.Item>
-        )}
+        }
       </Form>
     </Modal>
   );

@@ -1,7 +1,6 @@
 import { IUserId } from "hooks/types";
 
-
-export interface CollectionDeleteProps {
+export interface CollectionDeleteVacationProps {
   values: { dataIndex: string, key: IUserId }
   visible: boolean;
   onCreate: () => void;

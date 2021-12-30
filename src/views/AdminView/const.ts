@@ -1,18 +1,18 @@
 export const columns = [
     {
-        title: 'Month',
-        dataIndex: 'month',
+      title: 'Start Date',
+      dataIndex: 'start_date',
     },
     {
-        title: 'Dates',
-        dataIndex: 'dates',
+      title: 'End Date',
+      dataIndex: 'end_date',
     },
     {
-        title: 'Status',
-        dataIndex: 'status',
+      title: 'Status',
+      dataIndex: 'status',
     },
     {
-        title: 'Type',
-        dataIndex: 'type',
+      title: 'Type',
+      dataIndex: 'type',
     },
-];
+  ];
