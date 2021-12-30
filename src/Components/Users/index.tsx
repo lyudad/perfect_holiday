@@ -1,4 +1,4 @@
-import { Table, Space, Button, message } from 'antd';
+import { Table, Space, Button, message, Switch } from 'antd';
 import 'antd/dist/antd.css';
 import { Input, Row, StyledContent, StyledLayout } from './styles';
 import Sidebar from '../Sidebar';
@@ -10,7 +10,7 @@ import { lang } from 'language/en';
 import { toBlockUnblockUser } from 'hooks/useUsers';
 import { IUserId, User } from 'hooks/types';
 import store from 'Redux/store';
-import { Role, url, checkIsBlock } from 'constants/constants';
+import { Role, url } from 'constants/constants';
 import React, { SetStateAction, useEffect, useState } from 'react';
 import { NotAccess } from 'Components/403';
 import { CollectionCreateForm } from '../AddUserModal/index';
@@ -20,9 +20,6 @@ import './index.css';
 const { Column } = Table;
 
 const Users = (): JSX.Element => {
-  const SelectColor = (record: { is_block: boolean }) => {
-    return checkIsBlock(record.is_block) || '';
-  };
   const [deleteId, setDeleteId]=useState<IUserId>({id:''})
   const [dataIndexState, setDataIndexState]=useState<string>('')
   const { error, isLoading, data, refetch } = useGetListOfUsers();
@@ -35,11 +32,12 @@ const Users = (): JSX.Element => {
 
   const blockUser = (dataIndex: boolean, key: IUserId) => {
     toBlockUnblockUser(dataIndex, key)
-      .then(() => message.loading(lang.info.loading))
-      .catch(() => message.error(lang.updateStatus.fail))
-      .finally(() => {
-        return refetch(), message.success(lang.updateStatus.success);
-      });
+      .then(() => {
+        message.success(lang.updateStatus.success)
+        refetch();
+      }).catch(() => {
+        message.error(lang.updateStatus.fail)
+      })
   };
   
   const handleChange = (event: { target: { value: SetStateAction<string> } }) =>
@@ -87,7 +85,6 @@ const Users = (): JSX.Element => {
         <Table
           dataSource={!searchTerm ? data : searchResults}
           rowKey="id"
-          rowClassName={SelectColor}
         >
           <Column title={lang.userInfo.firstName} dataIndex="first_name" key="id" />
           <Column title={lang.userInfo.lastName} dataIndex="last_name" key="id" />
@@ -111,15 +108,14 @@ const Users = (): JSX.Element => {
             render={(dataIndex, key: IUserId) => (
               <Space size="middle">
                 {role === Role.ADMIN &&
-                  <Button
+                  <Switch
+                    checkedChildren={lang.updateStatus.block}
+                    unCheckedChildren={lang.updateStatus.unblock}
+                    defaultChecked={dataIndex === true}
                     onClick={() => {
                       blockUser(dataIndex, key);
                     }}
-                    htmlType="submit"
-                    type="link"
-                  >
-                    {dataIndex ? lang.updateStatus.block : lang.updateStatus.unblock}
-                  </Button>
+                  />
                 }
                 {role === Role.SUPER &&
                   <>
